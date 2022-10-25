@@ -1,5 +1,5 @@
 # Ingore object folder
-object/
+objs/
 *.o
 
 # Ignore build folder
