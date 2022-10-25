@@ -1,0 +1,6 @@
+# Ingore object folder
+object/
+*.o
+
+# Ignore build folder
+build/
