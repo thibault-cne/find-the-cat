@@ -32,5 +32,6 @@ typedef enum _Options Options;
 Options get_flag_options(const char *opt);
 char *get_options_flag(Options opt);
 int get_size(char *size);
+int get_multiplier(char s);
 
 #endif // FTC_OPTIONS_H

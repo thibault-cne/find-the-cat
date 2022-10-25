@@ -118,11 +118,26 @@ int get_size(char *size)
 
     new_size = malloc(sizeof(char) * OPTS_MAX_SIZE);
 
-    while (size[++i] != '\0')
+    while (size[++i] != '\0' && size[i] < 57 && size[i] > 48)
     {
         new_size[i - offset] = size[i];
     }
     new_size[i] = '\0';
 
-    return atoi(new_size);
+    return atoi(new_size) * get_multiplier(size[i]);
+}
+
+int get_multiplier(char s)
+{
+    switch (s)
+    {
+    case 'k':
+        return SIZE_KIB;
+    case 'M':
+        return SIZE_MIB;
+    case 'G':
+        return SIZE_GIB;
+    default:
+        return SIZE_C;
+    }
 }
