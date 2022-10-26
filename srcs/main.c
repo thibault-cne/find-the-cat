@@ -17,11 +17,19 @@
 #include "../includes/parser.h"
 #include "../includes/exec.h"
 #include "../includes/options.h"
+#include "../includes/validation.h"
 
 int main(int argc, char **argv)
 {
     if (argc > 2)
     {
+        // Run validation on the entry path
+        if (validate_entry_path(argv[1]) == VALIDATION_ERROR)
+        {
+            printf("Error: please make sure to enter a valid path as first argument.\n");
+            return 1;
+        }
+
         TokenList l;
         Parser p;
 
