@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <time.h>
 
 #include "options.h"
 #include "path.h"
@@ -23,7 +24,12 @@ void verify_files_by_name(PathList *l, char *name);
 void find_files_by_size(PathList *l, const char *path, char *size);
 void verify_files_by_size(PathList *l, char *size);
 
+// Date functions
+void find_files_by_date(PathList *l, const char *path, char *date);
+void verify_files_by_date(PathList *l, char *date);
+
 // Utility functions
 long get_file_size(const char *file_path);
+double get_seconds_from_last_modification(const char *file_path);
 
 #endif // FTC_EXEC_H

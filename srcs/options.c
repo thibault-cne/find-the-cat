@@ -11,6 +11,7 @@
 /* ************************************************************************************************************ */
 
 #include "../includes/options.h"
+#include <stdio.h>
 
 Options get_flag_options(const char *opt)
 {
@@ -99,11 +100,15 @@ char *get_options_flag(Options opt)
     }
 }
 
+// Size functions
 int get_size(char *size)
 {
     int i;
     int offset;
     char *new_size;
+    int res;
+
+    res = 0;
 
     if (size[0] == '-' || size[0] == '+')
     {
@@ -124,7 +129,12 @@ int get_size(char *size)
     }
     new_size[i] = '\0';
 
-    return atoi(new_size) * get_multiplier(size[i]);
+    res = atoi(new_size) * get_multiplier(size[i]);
+
+    // Free memory
+    free(new_size);
+
+    return res;
 }
 
 int get_multiplier(char s)
@@ -139,5 +149,57 @@ int get_multiplier(char s)
         return SIZE_GIB;
     default:
         return SIZE_C;
+    }
+}
+
+// Time functions
+double get_time(char *time)
+{
+    int i;
+    int offset;
+    char *new_time;
+    int res;
+
+    res = 0;
+
+    if (time[0] == '-' || time[0] == '+')
+    {
+        i = 0;
+        offset = 1;
+    }
+    else
+    {
+        i = -1;
+        offset = 0;
+    }
+
+    new_time = malloc(sizeof(char) * OPTS_MAX_SIZE);
+
+    while (time[++i] < 57 && time[i] > 48)
+    {
+        new_time[i - offset] = time[i];
+    }
+    new_time[i] = '\0';
+
+    res = atoi(new_time) * get_time_multiplier(time[i]);
+
+    // Free memory
+    free(new_time);
+
+    return (double)res;
+}
+
+int get_time_multiplier(char s)
+{
+    switch (s)
+    {
+    case 'm':
+        return TIME_MIN;
+    case 'h':
+        return TIME_H;
+    case 'j':
+        return TIME_D;
+    default:
+        return TIME_S;
     }
 }

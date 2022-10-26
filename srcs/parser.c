@@ -85,7 +85,20 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
     case SIZE:
         if (pos + 1 < argc)
         {
-            p->sizeMode = 1;
+            p->nameMode = 1;
+            create_token(&t, pos, opt, argv[pos + 1]);
+            incr = 1;
+        }
+        else
+        {
+            p->status = PARSER_ERROR;
+            return 0;
+        }
+        break;
+    case DATE:
+        if (pos + 1 < argc)
+        {
+            p->nameMode = 1;
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
@@ -129,6 +142,9 @@ void exec_parser(Parser *p, TokenList *l, const char *path)
             case SIZE:
                 find_files_by_size(&pl, path, t->value);
                 break;
+            case DATE:
+                find_files_by_date(&pl, path, t->value);
+                break;
             default:
                 return;
             }
@@ -145,6 +161,9 @@ void exec_parser(Parser *p, TokenList *l, const char *path)
                 break;
             case SIZE:
                 verify_files_by_size(&pl, t->value);
+                break;
+            case DATE:
+                verify_files_by_date(&pl, t->value);
                 break;
             default:
                 break;

@@ -16,6 +16,7 @@
 
 #include "../includes/parser.h"
 #include "../includes/exec.h"
+#include "../includes/options.h"
 
 int main(int argc, char **argv)
 {
