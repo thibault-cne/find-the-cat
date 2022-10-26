@@ -15,7 +15,7 @@ make
 
 ## Documentation
 
-Here is a list of the currently available options and parameter for the CLI
+Here is a list of the currently available options and parameter for the CLI. Please note that for now, all commands are run as AND commands (the CLI handle multiple options as AND options).
 
 | Options name | Description | Parameters |
 |----------|:-------------:|------:|
