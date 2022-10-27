@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 
         if (p.status != PARSER_SUCCESS)
         {
-            parser_error(p.status, p.colorMode, p.ptr);
+            parser_error(p.status, p.colorMode, p.errorPtr);
             return 1;
         }
 
@@ -68,6 +68,11 @@ int main(int argc, char **argv)
         destroy_token_list(&l);
 
         return 0;
+    }
+    else
+    {
+        printf("%d\n", reggex_match("moi", "[mt]oi"));
+        printf("%d\n", reggex_match("toi", "[mt]oi"));
     }
 
     return 0;

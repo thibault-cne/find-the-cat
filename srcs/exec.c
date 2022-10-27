@@ -67,7 +67,9 @@ void find_files_by_name(PathList *l, const char *path, char *name)
         }
         else
         {
-            if (strcmp(entry->d_name, name) == 0)
+            // reggex_match is for reggex matching
+            // use strcmp for exact matching
+            if (!reggex_match(entry->d_name, name))
             {
                 new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
                 sprintf(new_path, "%s/%s", path, entry->d_name);
@@ -96,7 +98,9 @@ void verify_files_by_name(PathList *l, char *name)
         {
             file_name = strrchr(path, '/') + 1;
 
-            if (strcmp(file_name, name) != 0)
+            // reggex_match is for reggex matching
+            // use strcmp for exact matching
+            if (reggex_match(file_name, name))
             {
                 remove_path_list_index(l, i);
             }
@@ -296,32 +300,4 @@ void verify_files_by_date(PathList *l, char *date)
             }
         }
     }
-}
-
-// Get file size in bytes of a dirent
-long get_file_size(const char *file_path)
-{
-    struct stat st;
-
-    if (stat(file_path, &st) == 0)
-    {
-        return st.st_size;
-    }
-
-    return -1;
-}
-
-double get_seconds_from_last_modification(const char *file_path)
-{
-    struct stat st;
-
-    if (stat(file_path, &st) == 0)
-    {
-        time_t t = st.st_mtime;
-        time_t now = time(NULL);
-
-        return difftime(now, t);
-    }
-
-    return -1;
 }

@@ -30,6 +30,7 @@ void start_parser(Parser *p, TokenList *l, int argc, char **argv)
         if (!argv[i])
         {
             p->status = PARSER_ERROR;
+            p->errorPtr = i;
             return;
         }
 
@@ -79,7 +80,7 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->ptr = pos;
+            p->errorPtr = pos;
             return 0;
         }
         break;
@@ -93,7 +94,7 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->ptr = pos;
+            p->errorPtr = pos;
             return 0;
         }
         break;
@@ -107,13 +108,13 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->ptr = pos;
+            p->errorPtr = pos;
             return 0;
         }
         break;
     default:
         p->status = PARSER_INVALID_OPTION;
-        p->ptr = pos;
+        p->errorPtr = pos;
         return 0;
     }
 

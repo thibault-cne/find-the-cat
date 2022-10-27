@@ -18,7 +18,7 @@ typedef enum _ParserStatus ParserStatus;
 struct _Parser
 {
     ParserStatus status;
-    int ptr;
+    int errorPtr;
     int testMode;
     int colorMode;
     int orMode;
