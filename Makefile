@@ -1,4 +1,4 @@
-FILES 	=	main.c parser.c token.c options.c exec.c path.c display.c validation.c errors.c utils.c mime.c
+FILES 	=	main.c parser.c token.c options.c exec.c path.c display.c validation.c errors.c utils.c mime.c files.c
 
 S_PATH	=	srcs/
 O_PATH	=	objs/

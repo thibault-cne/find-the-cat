@@ -30,4 +30,8 @@ void verify_files_by_date(PathList *l, char *date);
 void find_files_by_mime(PathList *l, const char *path, char *mime);
 void verify_files_by_mime(PathList *l, char *mime);
 
+// Content pattern functions
+void find_files_by_content_pattern(PathList *l, const char *path, const char *pattern);
+void verify_files_by_content_pattern(PathList *l, const char *pattern);
+
 #endif // FTC_EXEC_H

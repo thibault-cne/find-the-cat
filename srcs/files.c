@@ -1,56 +1,69 @@
 /* ************************************************************************************************************ */
 /*                                                                                                              */
 /*                                                                                                              */
-// utils.c
+// files.c
 /*                                                                                                              */
 // by Thibault Cheneviere : thibault.cheneviere@telecomnancy.eu
 /*                                                                                                              */
-// Created : 2022/10/27 19/03/27
+// Created : 2022/10/27 23/08/34
 /*                                                                                                              */
 /*                                                                                                              */
 /* ************************************************************************************************************ */
 
-#include "../includes/utils.h"
+#include "../includes/files.h"
 
-// Get file size in bytes of a dirent
-long get_file_size(const char *file_path)
+char *read_ascii_file(const char *path)
 {
-    struct stat st;
+    FILE *f;
+    int size;
 
-    if (stat(file_path, &st) == 0)
+    f = fopen(path, "r");
+
+    if (!f)
     {
-        return st.st_size;
+        printf("Couldn't open the following file : %s\n", path);
+        return NULL;
     }
 
-    return -1;
+    // Get the file size
+    fseek(f, 0, SEEK_END);
+    size = ftell(f);
+    fseek(f, 0, SEEK_SET);
+
+    // Read file and put it in a buffer
+    char *buf = (char *)malloc(sizeof(char) * size + 1);
+
+    if (!buf)
+    {
+        printf("Couldn't allocate memory for buffer.\n");
+        return NULL;
+    }
+
+    fread(buf, 1, size, f);
+    buf[size] = '\0';
+    fclose(f);
+
+    return buf;
 }
 
-double get_seconds_from_last_modification(const char *file_path)
+int file_contains_pattern(const char *path, const char *pattern)
 {
-    struct stat st;
+    char *buf;
 
-    if (stat(file_path, &st) == 0)
+    buf = read_ascii_file(path);
+
+    if (!buf)
     {
-        time_t t = st.st_mtime;
-        time_t now = time(NULL);
-
-        return difftime(now, t);
+        printf("Couldn't read the file.\n");
+        return 0;
     }
 
-    return -1;
-}
-
-int regex_match(const char *str, const char *pattern)
-{
-    regex_t regex;
-    int reti;
-
-    reti = regcomp(&regex, pattern, 0);
-    if (reti)
+    if (!regex_match(buf, pattern))
     {
-        fprintf(stderr, "Could not compile regex %s\n", pattern);
-        exit(1);
+        free(buf);
+        return 0;
     }
 
-    return regexec(&regex, str, 0, NULL, 0);
+    free(buf);
+    return 1;
 }

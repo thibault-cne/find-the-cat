@@ -126,6 +126,20 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
             return 0;
         }
         break;
+    case CTC:
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
+        {
+            p->nameMode = 1;
+            create_token(&t, pos, opt, argv[pos + 1]);
+            incr = 1;
+        }
+        else
+        {
+            p->status = PARSER_PARAM_MISSING;
+            p->errorPtr = pos;
+            return 0;
+        }
+        break;
     default:
         p->status = PARSER_INVALID_OPTION;
         p->errorPtr = pos;
@@ -167,6 +181,9 @@ void exec_parser(Parser *p, TokenList *l, const char *path)
             case MIME:
                 find_files_by_mime(&pl, path, t->value);
                 break;
+            case CTC:
+                find_files_by_content_pattern(&pl, path, t->value);
+                break;
             default:
                 return;
             }
@@ -189,6 +206,9 @@ void exec_parser(Parser *p, TokenList *l, const char *path)
                 break;
             case MIME:
                 verify_files_by_mime(&pl, t->value);
+                break;
+            case CTC:
+                verify_files_by_content_pattern(&pl, t->value);
                 break;
             default:
                 break;

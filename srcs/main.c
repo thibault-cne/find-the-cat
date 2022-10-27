@@ -71,8 +71,14 @@ int main(int argc, char **argv)
     }
     else
     {
-        printf("%s\n", get_mime_type("ftx.txt"));
-        printf("%s\n", get_mime_type("test.png"));
+        char *buf;
+
+        buf = read_ascii_file("./baz/bar/baz/bar/ftc.txt");
+
+        printf("%s\n", buf);
+        printf("%d\n", regex_match(buf, "From here"));
+
+        free(buf);
     }
 
     return 0;
