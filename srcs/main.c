@@ -18,13 +18,14 @@
 #include "../includes/exec.h"
 #include "../includes/options.h"
 #include "../includes/validation.h"
+#include "../includes/errors.h"
 
 int main(int argc, char **argv)
 {
     if (argc > 2)
     {
         // Run validation on the entry path
-        if (validate_entry_path(argv[1]) == VALIDATION_ERROR)
+        if (validate_entry_path(argv[1]) != VALIDATION_SUCCESS)
         {
             printf("Error: please make sure to enter a valid path as first argument.\n");
             return 1;
@@ -39,7 +40,7 @@ int main(int argc, char **argv)
 
         if (p.status != PARSER_SUCCESS)
         {
-            printf("Error: Invalid arguments\n");
+            parser_error(p.status, p.colorMode, p.ptr);
             return 1;
         }
 

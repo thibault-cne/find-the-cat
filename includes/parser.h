@@ -4,17 +4,21 @@
 #include "token.h"
 #include "exec.h"
 #include "display.h"
+#include "validation.h"
 
 enum _ParserStatus
 {
     PARSER_SUCCESS,
-    PARSER_ERROR
+    PARSER_ERROR,
+    PARSER_INVALID_OPTION,
+    PARSER_PARAM_MISSING,
 };
 typedef enum _ParserStatus ParserStatus;
 
 struct _Parser
 {
     ParserStatus status;
+    int ptr;
     int testMode;
     int colorMode;
     int orMode;

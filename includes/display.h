@@ -1,6 +1,7 @@
 #ifndef FTC_DISPLAY_H
 #define FTC_DISPLAY_H
 
+// Colors
 #define COLOR_RESET "\033[0m"
 #define COLOR_RED "\033[31m"
 #define COLOR_GREEN "\033[32m"
@@ -10,6 +11,14 @@
 #define COLOR_CYAN "\033[36m"
 #define COLOR_WHITE "\033[37m"
 
+// Text styles
+#define STYLE_BOLD "\033[1m"
+#define STYLE_DIM "\033[2m"
+#define STYLE_UNDERLINED "\033[4m"
+#define STYLE_BLINK "\033[5m"
+#define STYLE_REVERSE "\033[7m"
+#define STYLE_HIDDEN "\033[8m"
+
 #include <stdio.h>
 
 #include "path.h"
@@ -17,6 +26,7 @@
 void path_display(PathList *l, int isColor);
 void path_display_color(PathList *l);
 
-char *color_text(char *text, char *color);
+char *format_text(char *text, char *format);
+void display_help(int isColored);
 
 #endif // FTC_DISPLAY_H

@@ -11,7 +11,6 @@
 /* ************************************************************************************************************ */
 
 #include "../includes/options.h"
-#include <stdio.h>
 
 Options get_flag_options(const char *opt)
 {

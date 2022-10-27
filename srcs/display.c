@@ -44,17 +44,29 @@ void path_display_color(PathList *pl)
     {
         if (pl->data[i] != NULL)
         {
-            printf("%s\n", color_text(pl->data[i], COLOR_GREEN));
+            printf("%s\n", format_text(pl->data[i], COLOR_GREEN));
         }
     }
 }
 
-char *color_text(char *text, char *color)
+char *format_text(char *text, char *format)
 {
     char *res;
 
-    res = malloc(sizeof(char) * (strlen(text) + strlen(color) + strlen(COLOR_RESET) + 1));
-    sprintf(res, "%s%s%s", color, text, COLOR_RESET);
+    res = malloc(sizeof(char) * (strlen(text) + strlen(format) + strlen(COLOR_RESET) + 1));
+    sprintf(res, "%s%s%s", format, text, COLOR_RESET);
 
     return res;
+}
+
+void display_help(int isColored)
+{
+    if (isColored)
+    {
+        printf("%s: ./FindTheCat [PATH] [-OPTION [PARAMETER]]\n", format_text(format_text("Usage", STYLE_BOLD), COLOR_GREEN));
+    }
+    else
+    {
+        printf("%s: ./FindTheCat [PATH] [-OPTION [PARAMETER]]\n", "Usage");
+    }
 }
