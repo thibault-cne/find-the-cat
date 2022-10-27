@@ -54,8 +54,3 @@ int reggex_match(const char *str, const char *pattern)
 
     return regexec(&regex, str, 0, NULL, 0);
 }
-
-// Get mime type from file extension
-char *get_mime_type(const char *file_path)
-{
-}

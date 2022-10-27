@@ -71,8 +71,8 @@ int main(int argc, char **argv)
     }
     else
     {
-        printf("%d\n", reggex_match("moi", "[mt]oi"));
-        printf("%d\n", reggex_match("toi", "[mt]oi"));
+        printf("%s\n", get_mime_type("ftx.txt"));
+        printf("%s\n", get_mime_type("test.png"));
     }
 
     return 0;

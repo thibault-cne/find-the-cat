@@ -281,7 +281,6 @@ void verify_files_by_date(PathList *l, char *date)
         if (path != NULL)
         {
             file_time = get_seconds_from_last_modification(path);
-            printf("Last modification: %f Real time: %f\n", file_time, real_time);
 
             switch (date[0])
             {
@@ -297,6 +296,73 @@ void verify_files_by_date(PathList *l, char *date)
                     remove_path_list_index(l, i);
                 }
                 break;
+            }
+        }
+    }
+}
+
+// Find files by type and put it inside a list
+void find_files_by_mime(PathList *l, const char *path, char *mime)
+{
+    DIR *dir;
+    struct dirent *entry;
+    char *new_path;
+    char *file_mime;
+
+    if (!(dir = opendir(path)))
+        return;
+
+    while ((entry = readdir(dir)) != NULL)
+    {
+        if (entry->d_type == DT_DIR)
+        {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+            sprintf(new_path, "%s/%s", path, entry->d_name);
+
+            find_files_by_mime(l, new_path, mime);
+
+            // Free allocated memory
+            free(new_path);
+        }
+        else
+        {
+            // Get file mime type
+            file_mime = get_mime_type(entry->d_name);
+            if (!strncmp(file_mime, mime, strlen(mime)))
+            {
+                new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+                sprintf(new_path, "%s/%s", path, entry->d_name);
+
+                add_path_list(l, new_path);
+
+                // Free allocated memory
+                free(new_path);
+            }
+        }
+    }
+}
+
+// Verify files by mime
+void verify_files_by_mime(PathList *l, char *mime)
+{
+    int i;
+    char *path;
+    char *file_mime;
+
+    for (i = 0; i < l->ptr; i++)
+    {
+        path = get_path_list_index(l, i);
+
+        if (path != NULL)
+        {
+            file_mime = get_mime_type(path);
+
+            if (strncmp(file_mime, mime, strlen(mime)))
+            {
+                remove_path_list_index(l, i);
             }
         }
     }

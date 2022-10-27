@@ -26,4 +26,8 @@ void verify_files_by_size(PathList *l, char *size);
 void find_files_by_date(PathList *l, const char *path, char *date);
 void verify_files_by_date(PathList *l, char *date);
 
+// Mime functions
+void find_files_by_mime(PathList *l, const char *path, char *mime);
+void verify_files_by_mime(PathList *l, char *mime);
+
 #endif // FTC_EXEC_H
