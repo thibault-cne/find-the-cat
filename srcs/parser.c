@@ -86,6 +86,7 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             create_token(&t, pos, opt, "dir");
+            p->dirMode = 1;
         }
         break;
     case NAME:

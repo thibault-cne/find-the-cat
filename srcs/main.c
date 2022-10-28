@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 
         // Initialize the parser
         p.nameMode = -1;
+        p.threadMode = 1;
 
         start_parser(&p, &l, argc, argv);
 
@@ -71,6 +72,7 @@ int main(int argc, char **argv)
         }
         else
         {
+            // Run the program
             exec_parser(&p, &l, argv[1]);
         }
 

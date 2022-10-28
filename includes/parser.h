@@ -22,7 +22,7 @@ struct _parser
     int colorMode;
     int orMode;
     int nameMode;
-    int sizeMode;
+    int dirMode;
     int threadMode;
 };
 typedef struct _parser parser;

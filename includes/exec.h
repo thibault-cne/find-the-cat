@@ -5,6 +5,7 @@
 #include "display.h"
 #include "validation.h"
 #include "parser.h"
+#include "thread.h"
 
 // Files include
 #include "f_mime.h"
@@ -16,7 +17,7 @@
 
 // Exec parser
 void exec_parser(parser *p, token_list *l, const char *path);
-void exec_parser_rec(parser *p, token_list *l, path_list *pl, const char *path);
-void validate_file(token_list *l, path_list *pl, struct dirent *entry, const char *path);
+void exec_parser_rec(parser *p, token_list *l, path_list *pl, thread *t, const char *path);
+int validate_file(token_list *l, path_list *pl, struct dirent *entry, const char *path);
 
 #endif // FTC_EXEC_H
