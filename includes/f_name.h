@@ -12,7 +12,6 @@
 #include "utils.h"
 
 // Filename functions
-void find_files_by_name(path_list *l, const char *path, char *name);
-void verify_files_by_name(path_list *l, char *name);
+int verify_files_by_name(const char *f_name, char *name);
 
 #endif // FTC_F_NAME_H

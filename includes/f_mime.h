@@ -12,7 +12,6 @@
 #include "utils.h"
 
 // Mime functions
-void find_files_by_mime(path_list *l, const char *path, char *mime);
-void verify_files_by_mime(path_list *l, char *mime);
+int verify_files_by_mime(const char *path, char *mime);
 
 #endif // FTC_F_MIME_H

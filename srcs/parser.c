@@ -71,6 +71,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         create_token(&t, pos, opt, "or");
         break;
     case DIRECTORY:
+        if (p->nameMode == 1)
+        {
+            p->status = PARSER_ERROR;
+            p->errorPtr = pos;
+            return 0;
+        }
         p->nameMode = 0;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
@@ -83,6 +89,13 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         }
         break;
     case NAME:
+        if (p->nameMode == 0)
+        {
+            p->status = PARSER_ERROR;
+            p->errorPtr = pos;
+            return 0;
+        }
+        p->nameMode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -96,6 +109,13 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         }
         break;
     case SIZE:
+        if (p->nameMode == 0)
+        {
+            p->status = PARSER_ERROR;
+            p->errorPtr = pos;
+            return 0;
+        }
+        p->nameMode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -122,6 +142,13 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         }
         break;
     case MIME:
+        if (p->nameMode == 0)
+        {
+            p->status = PARSER_ERROR;
+            p->errorPtr = pos;
+            return 0;
+        }
+        p->nameMode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -135,6 +162,13 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         }
         break;
     case CTC:
+        if (p->nameMode == 0)
+        {
+            p->status = PARSER_ERROR;
+            p->errorPtr = pos;
+            return 0;
+        }
+        p->nameMode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -150,7 +184,7 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
     case THREADS:
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
-            p->threadMode = 1;
+            p->threadMode = atoi(argv[pos + 1]);
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }

@@ -14,50 +14,61 @@
 
 void exec_parser(parser *p, token_list *l, const char *path)
 {
-    if (!p->orMode)
+    path_list pl;
+    create_path_list(&pl, 1);
+
+    exec_parser_rec(p, l, &pl, path);
+
+    path_display(&pl, p->colorMode);
+}
+
+void exec_parser_rec(parser *p, token_list *l, path_list *pl, const char *path)
+{
+    DIR *dir;
+    struct dirent *entry;
+    char *new_path;
+
+    if (!(dir = opendir(path)))
+        return;
+
+    while ((entry = readdir(dir)) != NULL)
     {
-        if (p->nameMode)
+        if (entry->d_type == DT_DIR)
         {
-            exec_parser_or_mode_filename(p, l, path);
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+            sprintf(new_path, "%s/%s", path, entry->d_name);
+
+            validate_file(l, pl, entry, new_path);
+
+            exec_parser_rec(p, l, pl, new_path);
+
+            // Free allocated memory
+            free(new_path);
         }
         else
         {
-            exec_parser_or_mode_directory(p, l, path);
+            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+            sprintf(new_path, "%s/%s", path, entry->d_name);
+
+            validate_file(l, pl, entry, new_path);
+
+            // Free allocated memory
+            free(new_path);
         }
     }
+
+    closedir(dir);
 }
 
-void exec_parser_or_mode_filename(parser *p, token_list *l, const char *path)
+void validate_file(token_list *l, path_list *pl, struct dirent *entry, const char *path)
 {
-    path_list pl;
     int i;
     token *t;
 
     i = -1;
-    create_path_list(&pl, 1);
-
-    t = get_token_list_index(l, ++i);
-
-    switch (t->TokenType)
-    {
-    case NAME:
-        find_files_by_name(&pl, path, t->value);
-        break;
-    case SIZE:
-        find_files_by_size(&pl, path, t->value);
-        break;
-    case DATE:
-        find_files_by_date(&pl, path, t->value);
-        break;
-    case MIME:
-        find_files_by_mime(&pl, path, t->value);
-        break;
-    case CTC:
-        find_files_by_content_pattern(&pl, path, t->value);
-        break;
-    default:
-        return;
-    }
 
     while (++i < l->ptr)
     {
@@ -66,72 +77,39 @@ void exec_parser_or_mode_filename(parser *p, token_list *l, const char *path)
         switch (t->TokenType)
         {
         case NAME:
-            verify_files_by_name(&pl, t->value);
+            if (entry->d_type == DT_DIR || verify_files_by_name(entry->d_name, t->value))
+            {
+                return;
+            }
             break;
         case SIZE:
-            verify_files_by_size(&pl, t->value);
-            break;
-        case DATE:
-            verify_files_by_date(&pl, t->value);
+            if (verify_files_by_size(path, t->value))
+            {
+                return;
+            }
             break;
         case MIME:
-            verify_files_by_mime(&pl, t->value);
+            if (verify_files_by_mime(entry->d_name, t->value))
+            {
+                return;
+            }
             break;
         case CTC:
-            verify_files_by_content_pattern(&pl, t->value);
-            break;
-        default:
-            break;
-        }
-    }
-
-    path_display(&pl, p->colorMode);
-
-    destroy_path_list(&pl);
-}
-
-void exec_parser_or_mode_directory(parser *p, token_list *l, const char *path)
-{
-    path_list pl;
-    int i;
-    token *t;
-
-    i = -1;
-    create_path_list(&pl, 1);
-
-    t = get_token_list_index(l, ++i);
-
-    switch (t->TokenType)
-    {
-    case DIRECTORY:
-        if (strcmp(t->value, "dir"))
-        {
-            find_directories_by_name(&pl, path, t->value);
-        }
-        else
-        {
-            get_subdirectories(&pl, path);
-        }
-        break;
-    case DATE:
-        find_directories_by_date(&pl, path, t->value);
-        break;
-    default:
-        return;
-    }
-
-    while (++i < l->ptr)
-    {
-        t = get_token_list_index(l, i);
-        switch (t->TokenType)
-        {
-        case DATE:
-            verify_files_by_date(&pl, t->value);
+            if (verify_files_by_content_pattern(path, t->value))
+            {
+                return;
+            }
             break;
         case DIRECTORY:
-            if (strcmp(t->value, "dir"))
+            if (entry->d_type != DT_DIR || verify_directories_by_name(path, t->value))
             {
-                verify_directories_by_name(&pl, t->value);
+                return;
+            }
+            break;
+        case DATE:
+            if (verify_files_by_date(path, t->value))
+            {
+                return;
             }
             break;
         default:
@@ -139,7 +117,5 @@ void exec_parser_or_mode_directory(parser *p, token_list *l, const char *path)
         }
     }
 
-    path_display(&pl, p->colorMode);
-
-    destroy_path_list(&pl);
+    add_path_list(pl, (char *)path);
 }

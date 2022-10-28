@@ -12,8 +12,6 @@
 #include "utils.h"
 
 // Date functions
-void find_files_by_date(path_list *l, const char *path, char *date);
-void verify_files_by_date(path_list *l, char *date);
-void find_directories_by_date(path_list *l, const char *path, char *date);
+int verify_files_by_date(const char *path, char *date);
 
 #endif // FTC_F_DATE_H

@@ -16,7 +16,7 @@
 
 // Exec parser
 void exec_parser(parser *p, token_list *l, const char *path);
-void exec_parser_or_mode_filename(parser *p, token_list *l, const char *path);
-void exec_parser_or_mode_directory(parser *p, token_list *l, const char *path);
+void exec_parser_rec(parser *p, token_list *l, path_list *pl, const char *path);
+void validate_file(token_list *l, path_list *pl, struct dirent *entry, const char *path);
 
 #endif // FTC_EXEC_H

@@ -43,55 +43,14 @@ void get_subdirectories(path_list *l, const char *path)
     }
 }
 
-// Find directories by name and put it inside a list
-void find_directories_by_name(path_list *l, const char *path, const char *name)
-{
-    DIR *dir;
-    struct dirent *entry;
-    char *new_path;
-
-    if (!(dir = opendir(path)))
-        return;
-
-    while ((entry = readdir(dir)) != NULL)
-    {
-        if (entry->d_type == DT_DIR)
-        {
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-                continue;
-
-            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-            sprintf(new_path, "%s/%s", path, entry->d_name);
-
-            if (!regex_match(entry->d_name, name))
-            {
-                add_path_list(l, new_path);
-            }
-
-            find_directories_by_name(l, new_path, name);
-
-            // Free allocated memory
-            free(new_path);
-        }
-    }
-}
-
 // Verify directories by name
-void verify_directories_by_name(path_list *l, const char *name)
+int verify_directories_by_name(const char *path, const char *name)
 {
-    int i;
-    char *path;
 
-    for (i = 0; i < l->ptr; i++)
+    if (path != NULL)
     {
-        path = get_path_list_index(l, i);
-
-        if (path != NULL)
-        {
-            if (regex_match(get_last_dir(path), name))
-            {
-                remove_path_list_index(l, i);
-            }
-        }
+        return regex_match(get_last_dir(path), name);
     }
+
+    return 1;
 }

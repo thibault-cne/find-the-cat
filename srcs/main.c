@@ -38,7 +38,7 @@ int main(int argc, char **argv)
         create_token_list(&l, 1);
 
         // Initialize the parser
-        p.nameMode = 1;
+        p.nameMode = -1;
 
         start_parser(&p, &l, argc, argv);
 

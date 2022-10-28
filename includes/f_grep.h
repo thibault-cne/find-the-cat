@@ -12,7 +12,6 @@
 #include "utils.h"
 
 // Content pattern functions
-void find_files_by_content_pattern(path_list *l, const char *path, const char *pattern);
-void verify_files_by_content_pattern(path_list *l, const char *pattern);
+int verify_files_by_content_pattern(const char *path, const char *pattern);
 
 #endif // FTC_F_GREP_H
