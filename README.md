@@ -19,11 +19,14 @@ Here is a list of the currently available options and parameter for the CLI. Ple
 
 | Options name | Description | Parameters |
 |----------|:-------------:|------:|
-| -name | Search files by name inside the subdirectories. | A string with the file extension or a reggex. |
+| -name | Search files by name inside the subdirectories. | A string with the file extension or a regex. |
 | -size | Search files by size inside the subdirectories. | For the size measurement units please refer to the next tables. You can add a `+` or a `-` in front of the size to specify if it should search for files with greater or lower size. |
 | -date | Search files by last modification date inside the subdirectories. | For the date measurement units please refer to the next tables. You can add a `+` to search for oldest files. By default, it searches newest files. |
 | -mime | Search files by mime type. | You can use any mime types to search for. Mime types are calculated regarding file extension not encryption. |
-| -ctc | Search files by regex inside it. | A string of a reggex
+| -ctc | Search files by regex inside it. | A string or a regex |
+| -dir | Search files by dir name. If no parameters are passed, just display the subdirectories. | A string or a regex. |
+| -color | Active color mode | None |
+| -test | Test parssing of the arguments | None |
 
 Files size
 | Symbol | Size |

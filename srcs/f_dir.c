@@ -63,7 +63,7 @@ void find_directories_by_name(PathList *l, const char *path, const char *name)
             new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
             sprintf(new_path, "%s/%s", path, entry->d_name);
 
-            if (!strcmp(entry->d_name, name))
+            if (!regex_match(entry->d_name, name))
             {
                 add_path_list(l, new_path);
             }
@@ -88,7 +88,7 @@ void verify_directories_by_name(PathList *l, const char *name)
 
         if (path != NULL)
         {
-            if (strcmp(get_last_dir(path), name))
+            if (regex_match(get_last_dir(path), name))
             {
                 remove_path_list_index(l, i);
             }
