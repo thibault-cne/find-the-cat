@@ -14,5 +14,6 @@
 // Date functions
 void find_files_by_date(PathList *l, const char *path, char *date);
 void verify_files_by_date(PathList *l, char *date);
+void find_directories_by_date(PathList *l, const char *path, char *date);
 
 #endif // FTC_F_DATE_H

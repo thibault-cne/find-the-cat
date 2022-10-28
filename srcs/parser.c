@@ -98,7 +98,6 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
     case SIZE:
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
-            p->nameMode = 1;
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
@@ -112,7 +111,6 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
     case DATE:
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
-            p->nameMode = 1;
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
@@ -126,7 +124,6 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
     case MIME:
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
-            p->nameMode = 1;
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
@@ -140,7 +137,6 @@ int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, 
     case CTC:
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
-            p->nameMode = 1;
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }

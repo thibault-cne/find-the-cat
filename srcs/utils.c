@@ -57,10 +57,13 @@ int regex_match(const char *str, const char *pattern)
 
 char *get_last_dir(const char *path)
 {
+    char *temp;
     char *ptr;
     char *last;
 
-    ptr = strtok((char *)path, "/");
+    temp = strdup(path);
+
+    ptr = strtok(temp, "/");
 
     while (ptr != NULL)
     {

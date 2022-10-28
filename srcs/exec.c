@@ -22,7 +22,6 @@ void exec_parser(Parser *p, TokenList *l, const char *path)
         }
         else
         {
-            printf("exec_parser_or_mode_dirname\n");
             exec_parser_or_mode_directory(p, l, path);
         }
     }
@@ -41,25 +40,23 @@ void exec_parser_or_mode_filename(Parser *p, TokenList *l, const char *path)
 
     switch (t->TokenType)
     {
-        {
-        case NAME:
-            find_files_by_name(&pl, path, t->value);
-            break;
-        case SIZE:
-            find_files_by_size(&pl, path, t->value);
-            break;
-        case DATE:
-            find_files_by_date(&pl, path, t->value);
-            break;
-        case MIME:
-            find_files_by_mime(&pl, path, t->value);
-            break;
-        case CTC:
-            find_files_by_content_pattern(&pl, path, t->value);
-            break;
-        default:
-            return;
-        }
+    case NAME:
+        find_files_by_name(&pl, path, t->value);
+        break;
+    case SIZE:
+        find_files_by_size(&pl, path, t->value);
+        break;
+    case DATE:
+        find_files_by_date(&pl, path, t->value);
+        break;
+    case MIME:
+        find_files_by_mime(&pl, path, t->value);
+        break;
+    case CTC:
+        find_files_by_content_pattern(&pl, path, t->value);
+        break;
+    default:
+        return;
     }
 
     while (++i < l->ptr)
@@ -106,15 +103,35 @@ void exec_parser_or_mode_directory(Parser *p, TokenList *l, const char *path)
 
     switch (t->TokenType)
     {
+    case DIRECTORY:
+        if (strcmp(t->value, "dir"))
         {
+            find_directories_by_name(&pl, path, t->value);
+        }
+        else
+        {
+            get_subdirectories(&pl, path);
+        }
+        break;
+    case DATE:
+        find_directories_by_date(&pl, path, t->value);
+        break;
+    default:
+        return;
+    }
+
+    while (++i < l->ptr)
+    {
+        t = get_token_list_index(l, i);
+        switch (t->TokenType)
+        {
+        case DATE:
+            verify_files_by_date(&pl, t->value);
+            break;
         case DIRECTORY:
             if (strcmp(t->value, "dir"))
             {
-                find_directories_by_name(&pl, path, t->value);
-            }
-            else
-            {
-                get_subdirectories(&pl, path);
+                verify_directories_by_name(&pl, t->value);
             }
             break;
         default:
