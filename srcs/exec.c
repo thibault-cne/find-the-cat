@@ -30,7 +30,17 @@ void exec_parser(parser *p, token_list *l, const char *path)
 
     if (p->dirMode == 1)
     {
-        get_subdirectories(&pl, path);
+        t_args args;
+
+        // Set args inside the args array
+        create_t_arg(&args, &pl, &t, path);
+
+        // Get subdirectories with threads
+        pthread_create(&threads[t.ptr], NULL, (void *)get_subdirectories, (void *)&args);
+        pthread_join(threads[t.ptr], NULL);
+
+        // Free args
+        destroy_t_arg(&args);
     }
     else
     {

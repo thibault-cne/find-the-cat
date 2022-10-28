@@ -63,9 +63,9 @@ int main(int argc, char **argv)
                 printf("Value of flag %s is %s\n", get_options_flag(t->TokenType), t->value);
             }
 
-            printf("\nDisplay all subdirectories\n");
-            get_subdirectories(&pl, argv[1]);
-            path_display(&pl, 0);
+            // printf("\nDisplay all subdirectories\n");
+            // get_subdirectories(&pl, argv[1]);
+            // path_display(&pl, 0);
 
             // Free the path list
             destroy_path_list(&pl);

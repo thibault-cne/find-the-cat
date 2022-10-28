@@ -1,6 +1,8 @@
 #ifndef FTC_EXEC_H
 #define FTC_EXEC_H
 
+#include <pthread.h>
+
 #include "token.h"
 #include "display.h"
 #include "validation.h"
