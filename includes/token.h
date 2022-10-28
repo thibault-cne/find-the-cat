@@ -17,13 +17,13 @@ typedef struct _token token;
 void create_token(token *t, int pos, Options tokenType, char *value);
 void destroy_token(token *t);
 
-struct _TokenList
+struct _token_list
 {
     token *data;
     int ptr;
     int size;
 };
-typedef struct _TokenList token_list;
+typedef struct _token_list token_list;
 
 void create_token_list(token_list *l, int size);
 void add_token_list(token_list *l, token t);
