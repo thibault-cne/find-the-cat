@@ -1,4 +1,4 @@
-FILES 	=	main.c parser.c token.c options.c f_dir.c f_date.c f_grep.c f_mime.c f_name.c f_size.c path.c display.c validation.c errors.c utils.c mime.c files.c
+FILES 	=	main.c parser.c token.c options.c f_dir.c f_date.c f_grep.c f_mime.c f_name.c f_size.c path.c display.c validation.c errors.c utils.c mime.c files.c exec.c
 
 S_PATH	=	srcs/
 O_PATH	=	objs/
