@@ -12,7 +12,7 @@
 
 #include "../includes/display.h"
 
-void path_display(PathList *pl, int isColor)
+void path_display(path_list *pl, int isColor)
 {
     if (isColor)
     {
@@ -34,7 +34,7 @@ void path_display(PathList *pl, int isColor)
     }
 }
 
-void path_display_color(PathList *pl)
+void path_display_color(path_list *pl)
 {
     int i;
 

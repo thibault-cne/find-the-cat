@@ -13,7 +13,7 @@
 #include "../includes/f_mime.h"
 
 // Find files by type and put it inside a list
-void find_files_by_mime(PathList *l, const char *path, char *mime)
+void find_files_by_mime(path_list *l, const char *path, char *mime)
 {
     DIR *dir;
     struct dirent *entry;
@@ -57,7 +57,7 @@ void find_files_by_mime(PathList *l, const char *path, char *mime)
 }
 
 // Verify files by mime
-void verify_files_by_mime(PathList *l, char *mime)
+void verify_files_by_mime(path_list *l, char *mime)
 {
     int i;
     char *path;

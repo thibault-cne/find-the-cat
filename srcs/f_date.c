@@ -13,7 +13,7 @@
 #include "../includes/f_date.h"
 
 // Find files by date and put it inside a list
-void find_files_by_date(PathList *l, const char *path, char *date)
+void find_files_by_date(path_list *l, const char *path, char *date)
 {
     DIR *dir;
     struct dirent *entry;
@@ -68,7 +68,7 @@ void find_files_by_date(PathList *l, const char *path, char *date)
 }
 
 // Verify if files in the path list correspond to the given date
-void verify_files_by_date(PathList *l, char *date)
+void verify_files_by_date(path_list *l, char *date)
 {
     int i;
     char *path;
@@ -105,7 +105,7 @@ void verify_files_by_date(PathList *l, char *date)
 }
 
 // Find directories by date and put it inside a list
-void find_directories_by_date(PathList *l, const char *path, char *date)
+void find_directories_by_date(path_list *l, const char *path, char *date)
 {
     DIR *dir;
     struct dirent *entry;

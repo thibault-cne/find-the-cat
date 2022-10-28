@@ -13,7 +13,7 @@
 #include "../includes/f_size.h"
 
 // Find files by size and put it inside a list
-void find_files_by_size(PathList *l, const char *path, char *size)
+void find_files_by_size(path_list *l, const char *path, char *size)
 {
     DIR *dir;
     struct dirent *entry;
@@ -74,7 +74,7 @@ void find_files_by_size(PathList *l, const char *path, char *size)
 }
 
 // Verify if files in the path list correspond to the given size
-void verify_files_by_size(PathList *l, char *size)
+void verify_files_by_size(path_list *l, char *size)
 {
     int i;
     char *path;

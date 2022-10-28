@@ -29,7 +29,7 @@ void exec_parser(parser *p, token_list *l, const char *path)
 
 void exec_parser_or_mode_filename(parser *p, token_list *l, const char *path)
 {
-    PathList pl;
+    path_list pl;
     int i;
     token *t;
 
@@ -92,7 +92,7 @@ void exec_parser_or_mode_filename(parser *p, token_list *l, const char *path)
 
 void exec_parser_or_mode_directory(parser *p, token_list *l, const char *path)
 {
-    PathList pl;
+    path_list pl;
     int i;
     token *t;
 

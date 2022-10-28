@@ -12,7 +12,7 @@
 #include "utils.h"
 
 // Size functions
-void find_files_by_size(PathList *l, const char *path, char *size);
-void verify_files_by_size(PathList *l, char *size);
+void find_files_by_size(path_list *l, const char *path, char *size);
+void verify_files_by_size(path_list *l, char *size);
 
 #endif // FTC_F_SIZE_H

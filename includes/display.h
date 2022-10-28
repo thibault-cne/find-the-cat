@@ -23,8 +23,8 @@
 
 #include "path.h"
 
-void path_display(PathList *l, int isColor);
-void path_display_color(PathList *l);
+void path_display(path_list *l, int isColor);
+void path_display_color(path_list *l);
 
 char *format_text(char *text, char *format);
 void display_help(int isColored);

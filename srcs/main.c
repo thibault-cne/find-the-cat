@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 
         if (p.testMode)
         {
-            PathList pl;
+            path_list pl;
             int i;
 
             create_path_list(&pl, 1);

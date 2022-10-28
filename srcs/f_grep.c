@@ -13,7 +13,7 @@
 #include "../includes/f_grep.h"
 
 // Find files that contain a given pattern and put it inside a list
-void find_files_by_content_pattern(PathList *l, const char *path, const char *pattern)
+void find_files_by_content_pattern(path_list *l, const char *path, const char *pattern)
 {
     DIR *dir;
     struct dirent *entry;
@@ -54,7 +54,7 @@ void find_files_by_content_pattern(PathList *l, const char *path, const char *pa
 }
 
 // Verify files by content pattern
-void verify_files_by_content_pattern(PathList *l, const char *pattern)
+void verify_files_by_content_pattern(path_list *l, const char *pattern)
 {
     int i;
     char *path;

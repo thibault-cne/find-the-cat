@@ -12,7 +12,7 @@
 
 #include "../includes/f_dir.h"
 
-void get_subdirectories(PathList *l, const char *path)
+void get_subdirectories(path_list *l, const char *path)
 {
     DIR *dir;
     struct dirent *entry;
@@ -44,7 +44,7 @@ void get_subdirectories(PathList *l, const char *path)
 }
 
 // Find directories by name and put it inside a list
-void find_directories_by_name(PathList *l, const char *path, const char *name)
+void find_directories_by_name(path_list *l, const char *path, const char *name)
 {
     DIR *dir;
     struct dirent *entry;
@@ -77,7 +77,7 @@ void find_directories_by_name(PathList *l, const char *path, const char *name)
 }
 
 // Verify directories by name
-void verify_directories_by_name(PathList *l, const char *name)
+void verify_directories_by_name(path_list *l, const char *name)
 {
     int i;
     char *path;

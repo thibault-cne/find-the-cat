@@ -13,7 +13,7 @@
 #include "../includes/f_name.h"
 
 // Find files by name and put it inside a list
-void find_files_by_name(PathList *l, const char *path, char *name)
+void find_files_by_name(path_list *l, const char *path, char *name)
 {
     DIR *dir;
     struct dirent *entry;
@@ -56,7 +56,7 @@ void find_files_by_name(PathList *l, const char *path, char *name)
 }
 
 // Verify if files in the path list correspond to the given name
-void verify_files_by_name(PathList *l, char *name)
+void verify_files_by_name(path_list *l, char *name)
 {
     int i;
     char *path;
