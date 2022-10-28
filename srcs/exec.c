@@ -12,7 +12,7 @@
 
 #include "../includes/exec.h"
 
-void exec_parser(Parser *p, TokenList *l, const char *path)
+void exec_parser(parser *p, token_list *l, const char *path)
 {
     if (!p->orMode)
     {
@@ -27,11 +27,11 @@ void exec_parser(Parser *p, TokenList *l, const char *path)
     }
 }
 
-void exec_parser_or_mode_filename(Parser *p, TokenList *l, const char *path)
+void exec_parser_or_mode_filename(parser *p, token_list *l, const char *path)
 {
     PathList pl;
     int i;
-    Token *t;
+    token *t;
 
     i = -1;
     create_path_list(&pl, 1);
@@ -90,11 +90,11 @@ void exec_parser_or_mode_filename(Parser *p, TokenList *l, const char *path)
     destroy_path_list(&pl);
 }
 
-void exec_parser_or_mode_directory(Parser *p, TokenList *l, const char *path)
+void exec_parser_or_mode_directory(parser *p, token_list *l, const char *path)
 {
     PathList pl;
     int i;
-    Token *t;
+    token *t;
 
     i = -1;
     create_path_list(&pl, 1);

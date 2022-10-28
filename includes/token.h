@@ -6,29 +6,29 @@
 
 #include "options.h"
 
-struct _Token
+struct _token
 {
     int pos;
     Options TokenType;
     char *value;
 };
-typedef struct _Token Token;
+typedef struct _token token;
 
-void create_token(Token *t, int pos, Options tokenType, char *value);
-void destroy_token(Token *t);
+void create_token(token *t, int pos, Options tokenType, char *value);
+void destroy_token(token *t);
 
 struct _TokenList
 {
-    Token *data;
+    token *data;
     int ptr;
     int size;
 };
-typedef struct _TokenList TokenList;
+typedef struct _TokenList token_list;
 
-void create_token_list(TokenList *l, int size);
-void add_token_list(TokenList *l, Token t);
-Token *get_token_list_index(TokenList *l, int i);
-Token *get_token_list_opt(TokenList *l, Options opt);
-void destroy_token_list(TokenList *l);
+void create_token_list(token_list *l, int size);
+void add_token_list(token_list *l, token t);
+token *get_token_list_index(token_list *l, int i);
+token *get_token_list_opt(token_list *l, Options opt);
+void destroy_token_list(token_list *l);
 
 #endif // FTC_TOKEN_H

@@ -31,8 +31,8 @@ int main(int argc, char **argv)
             return 1;
         }
 
-        TokenList l;
-        Parser p;
+        token_list l;
+        parser p;
 
         // Initialize the token list
         create_token_list(&l, 1);
@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
             while (++i < l.ptr)
             {
-                Token *t = get_token_list_index(&l, i);
+                token *t = get_token_list_index(&l, i);
                 printf("Value of flag %s is %s\n", get_options_flag(t->TokenType), t->value);
             }
 

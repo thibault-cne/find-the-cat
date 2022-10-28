@@ -5,18 +5,18 @@
 #include "display.h"
 #include "validation.h"
 
-enum _ParserStatus
+enum _parser_status
 {
     PARSER_SUCCESS,
     PARSER_ERROR,
     PARSER_INVALID_OPTION,
     PARSER_PARAM_MISSING,
 };
-typedef enum _ParserStatus ParserStatus;
+typedef enum _parser_status parser_status;
 
-struct _Parser
+struct _parser
 {
-    ParserStatus status;
+    parser_status status;
     int errorPtr;
     int testMode;
     int colorMode;
@@ -25,9 +25,9 @@ struct _Parser
     int sizeMode;
     int threadMode;
 };
-typedef struct _Parser Parser;
+typedef struct _parser parser;
 
-void start_parser(Parser *p, TokenList *l, int argc, char **argv);
-int set_opt_parser(Parser *p, TokenList *l, Options opt, int argc, char **argv, int pos);
+void start_parser(parser *p, token_list *l, int argc, char **argv);
+int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv, int pos);
 
 #endif // FTC_PARSER_H

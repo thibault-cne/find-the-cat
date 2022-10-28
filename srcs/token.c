@@ -12,7 +12,7 @@
 
 #include "../includes/token.h"
 
-void create_token(Token *t, int pos, Options tokenType, char *value)
+void create_token(token *t, int pos, Options tokenType, char *value)
 {
     t->pos = pos;
     t->TokenType = tokenType;
@@ -20,33 +20,33 @@ void create_token(Token *t, int pos, Options tokenType, char *value)
     strncpy(t->value, value, OPTS_MAX_SIZE);
 }
 
-void destroy_token(Token *t)
+void destroy_token(token *t)
 {
     free(t->value);
 }
 
-void create_token_list(TokenList *l, int size)
+void create_token_list(token_list *l, int size)
 {
-    l->data = (Token *)malloc(sizeof(Token) * size);
+    l->data = (token *)malloc(sizeof(token) * size);
     l->ptr = 0;
     l->size = size;
 }
 
-void add_token_list(TokenList *l, Token tok)
+void add_token_list(token_list *l, token tok)
 {
     if (l->ptr >= l->size)
     {
         l->size *= 2;
-        l->data = (Token *)realloc(l->data, sizeof(Token) * l->size);
+        l->data = (token *)realloc(l->data, sizeof(token) * l->size);
     }
 
-    Token *t;
+    token *t;
 
     t = &l->data[l->ptr++];
     create_token(t, tok.pos, tok.TokenType, tok.value);
 }
 
-Token *get_token_list_index(TokenList *l, int i)
+token *get_token_list_index(token_list *l, int i)
 {
     if (i >= l->size)
     {
@@ -56,7 +56,7 @@ Token *get_token_list_index(TokenList *l, int i)
     return &l->data[i];
 }
 
-Token *get_token_list_opt(TokenList *l, Options opt)
+token *get_token_list_opt(token_list *l, Options opt)
 {
     int i;
 
@@ -73,7 +73,7 @@ Token *get_token_list_opt(TokenList *l, Options opt)
     return NULL;
 }
 
-void destroy_token_list(TokenList *l)
+void destroy_token_list(token_list *l)
 {
     int i;
 

@@ -12,7 +12,7 @@
 
 #include "../includes/errors.h"
 
-void parser_error(ParserStatus err, int isColored, int pos)
+void parser_error(parser_status err, int isColored, int pos)
 {
     if (isColored)
     {
@@ -27,7 +27,7 @@ void parser_error(ParserStatus err, int isColored, int pos)
     }
 }
 
-char *get_error_message(ParserStatus err)
+char *get_error_message(parser_status err)
 {
     switch (err)
     {

@@ -15,8 +15,8 @@
 #include "f_dir.h"
 
 // Exec parser
-void exec_parser(Parser *p, TokenList *l, const char *path);
-void exec_parser_or_mode_filename(Parser *p, TokenList *l, const char *path);
-void exec_parser_or_mode_directory(Parser *p, TokenList *l, const char *path);
+void exec_parser(parser *p, token_list *l, const char *path);
+void exec_parser_or_mode_filename(parser *p, token_list *l, const char *path);
+void exec_parser_or_mode_directory(parser *p, token_list *l, const char *path);
 
 #endif // FTC_EXEC_H
