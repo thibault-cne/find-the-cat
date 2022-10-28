@@ -11,8 +11,7 @@
 #include "path.h"
 #include "utils.h"
 
-// Debuf functions
-void print_subdirectories(const char *path);
+void get_subdirectories(PathList *l, const char *path);
 
 // Filename functions
 void find_files_by_name(PathList *l, const char *path, char *name);
@@ -33,5 +32,8 @@ void verify_files_by_mime(PathList *l, char *mime);
 // Content pattern functions
 void find_files_by_content_pattern(PathList *l, const char *path, const char *pattern);
 void verify_files_by_content_pattern(PathList *l, const char *pattern);
+
+// Directory functions
+void find_directories_by_name(PathList *l, const char *path, const char *name);
 
 #endif // FTC_EXEC_H

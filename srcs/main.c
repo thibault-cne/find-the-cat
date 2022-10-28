@@ -34,7 +34,11 @@ int main(int argc, char **argv)
         TokenList l;
         Parser p;
 
+        // Initialize the token list
         create_token_list(&l, 1);
+
+        // Initialize the parser
+        p.nameMode = 1;
 
         start_parser(&p, &l, argc, argv);
 
@@ -46,8 +50,10 @@ int main(int argc, char **argv)
 
         if (p.testMode)
         {
+            PathList pl;
             int i;
 
+            create_path_list(&pl, 1);
             i = -1;
 
             while (++i < l.ptr)
@@ -57,7 +63,11 @@ int main(int argc, char **argv)
             }
 
             printf("\nDisplay all subdirectories\n");
-            print_subdirectories(argv[1]);
+            get_subdirectories(&pl, argv[1]);
+            path_display(&pl, 0);
+
+            // Free the path list
+            destroy_path_list(&pl);
         }
         else
         {

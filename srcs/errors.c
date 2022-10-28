@@ -16,12 +16,13 @@ void parser_error(ParserStatus err, int isColored, int pos)
 {
     if (isColored)
     {
-        printf("%s: %s at index : %d\n", format_text(format_text("Error", STYLE_BOLD), COLOR_RED), get_error_message(err), pos);
+        // Display the error in red
+        fprintf(stderr, "(errno:%s) %s: %s at index : %d\n", strerror(errno), format_text(format_text("Error", STYLE_BOLD), COLOR_RED), get_error_message(err), pos);
         display_help(isColored);
     }
     else
     {
-        printf("%s: %s at index : %d\n", "Error", get_error_message(err), pos);
+        fprintf(stderr, "(errno:%s) %s: %s at index : %d\n", strerror(errno), "Error", get_error_message(err), pos);
         display_help(isColored);
     }
 }

@@ -54,3 +54,19 @@ int regex_match(const char *str, const char *pattern)
 
     return regexec(&regex, str, 0, NULL, 0);
 }
+
+char *get_last_dir(const char *path)
+{
+    char *ptr;
+    char *last;
+
+    ptr = strtok((char *)path, "/");
+
+    while (ptr != NULL)
+    {
+        last = ptr;
+        ptr = strtok(NULL, "/");
+    }
+
+    return last;
+}

@@ -1,6 +1,8 @@
 #ifndef FTC_ERRORS_H
 #define FTC_ERRORS_H
 
+#include <errno.h>
+
 #include "display.h"
 #include "parser.h"
 

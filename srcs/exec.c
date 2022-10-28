@@ -13,7 +13,7 @@
 #include "../includes/exec.h"
 
 // Print the directory path and all the subdirectories paths recursively
-void print_subdirectories(const char *path)
+void get_subdirectories(PathList *l, const char *path)
 {
     DIR *dir;
     struct dirent *entry;
@@ -35,7 +35,11 @@ void print_subdirectories(const char *path)
             new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
             sprintf(new_path, "%s/%s", path, entry->d_name);
 
-            print_subdirectories(new_path);
+            add_path_list(l, new_path);
+
+            get_subdirectories(l, new_path);
+
+            free(new_path);
         }
     }
 }
@@ -331,7 +335,7 @@ void find_files_by_mime(PathList *l, const char *path, char *mime)
         {
             // Get file mime type
             file_mime = get_mime_type(entry->d_name);
-            if (!strncmp(file_mime, mime, strlen(mime)))
+            if (file_mime != NULL && !strncmp(file_mime, mime, strlen(mime)))
             {
                 new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
                 sprintf(new_path, "%s/%s", path, entry->d_name);
@@ -360,7 +364,7 @@ void verify_files_by_mime(PathList *l, char *mime)
         {
             file_mime = get_mime_type(path);
 
-            if (strncmp(file_mime, mime, strlen(mime)))
+            if (file_mime == NULL || strncmp(file_mime, mime, strlen(mime)))
             {
                 remove_path_list_index(l, i);
             }
@@ -422,6 +426,59 @@ void verify_files_by_content_pattern(PathList *l, const char *pattern)
         if (path != NULL)
         {
             if (file_contains_pattern(path, pattern))
+            {
+                remove_path_list_index(l, i);
+            }
+        }
+    }
+}
+
+// Find directories by name and put it inside a list
+void find_directories_by_name(PathList *l, const char *path, const char *name)
+{
+    DIR *dir;
+    struct dirent *entry;
+    char *new_path;
+
+    if (!(dir = opendir(path)))
+        return;
+
+    while ((entry = readdir(dir)) != NULL)
+    {
+        if (entry->d_type == DT_DIR)
+        {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+            sprintf(new_path, "%s/%s", path, entry->d_name);
+
+            if (!strcmp(entry->d_name, name))
+            {
+                add_path_list(l, new_path);
+            }
+
+            find_directories_by_name(l, new_path, name);
+
+            // Free allocated memory
+            free(new_path);
+        }
+    }
+}
+
+// Verify directories by name
+void verify_directories_by_name(PathList *l, const char *name)
+{
+    int i;
+    char *path;
+
+    for (i = 0; i < l->ptr; i++)
+    {
+        path = get_path_list_index(l, i);
+
+        if (path != NULL)
+        {
+            if (strcmp(get_last_dir(path), name))
             {
                 remove_path_list_index(l, i);
             }
