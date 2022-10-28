@@ -23,6 +23,7 @@ struct _Parser
     int orMode;
     int nameMode;
     int sizeMode;
+    int threadMode;
 };
 typedef struct _Parser Parser;
 
