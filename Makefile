@@ -56,7 +56,7 @@ clean:
 
 fclean:		clean
 			@${RM} ${NAME}
-			@echo "${BOLD}${SRED}Removing${S}${S} ${IGREY}${B_PATH}${S} 🗑️"
+			@echo "${BOLD}${SRED}Removing${S}${S} ${IGREY}${NAME}${S} 🗑️"
 
 space:
 			@echo " "

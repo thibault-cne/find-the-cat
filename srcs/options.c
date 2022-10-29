@@ -10,6 +10,8 @@
 /*                                                                                                              */
 /* ************************************************************************************************************ */
 
+#include <stdio.h>
+
 #include "../includes/options.h"
 
 Options get_flag_options(const char *opt)
@@ -122,7 +124,7 @@ int get_size(char *size)
 
     new_size = malloc(sizeof(char) * OPTS_MAX_SIZE);
 
-    while (size[++i] != '\0' && size[i] < 57 && size[i] > 48)
+    while (size[++i] != '\0' && (int)size[i] < 58 && (int)size[i] > 47)
     {
         new_size[i - offset] = size[i];
     }

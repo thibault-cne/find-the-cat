@@ -91,14 +91,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        char *buf;
-
-        buf = read_ascii_file("./baz/bar/baz/bar/ftc.txt");
-
-        printf("%s\n", buf);
-        printf("%d\n", regex_match(buf, "From here"));
-
-        free(buf);
+        printf("%d\n", get_size("-15c"));
     }
 
     return 0;
