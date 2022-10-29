@@ -38,18 +38,18 @@ int main(int argc, char **argv)
         create_token_list(&l, 1);
 
         // Initialize the parser
-        p.nameMode = -1;
-        p.threadMode = 1;
+        p.name_mode = -1;
+        p.thread_mode = 1;
 
         start_parser(&p, &l, argc, argv);
 
         if (p.status != PARSER_SUCCESS)
         {
-            parser_error(p.status, p.colorMode, p.errorPtr);
+            parser_error(p.status, p.color_mode, p.error_ptr);
             return 1;
         }
 
-        if (p.testMode)
+        if (p.test_mode)
         {
             path_list pl;
             int i;

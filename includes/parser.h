@@ -18,13 +18,13 @@ typedef enum _parser_status parser_status;
 struct _parser
 {
     parser_status status;
-    int errorPtr;
-    int testMode;
-    int colorMode;
-    int orMode;
-    int nameMode;
-    int dirMode;
-    int threadMode;
+    int error_ptr;
+    int test_mode;
+    int color_mode;
+    int or_mode;
+    int name_mode;
+    int dir_mode;
+    int thread_mode;
 };
 typedef struct _parser parser;
 

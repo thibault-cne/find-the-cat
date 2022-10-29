@@ -24,20 +24,20 @@ void exec_parser(parser *p, token_list *l, const char *path)
     create_path_list(&pl, 1);
 
     // Init mutex and threads
-    threads = (pthread_t *)malloc(sizeof(pthread_t) * p->threadMode);
+    threads = (pthread_t *)malloc(sizeof(pthread_t) * p->thread_mode);
     pthread_mutex_init(&mutex, NULL);
 
     // Create threads
     i = -1;
-    create_thread_collection(&t, p->threadMode);
-    while (++i < p->threadMode)
+    create_thread_collection(&t, p->thread_mode);
+    while (++i < p->thread_mode)
     {
         thread th;
         create_thread(&th, &threads[i], &mutex);
         add_thread(&t, &th);
     }
 
-    if (p->dirMode == 1)
+    if (p->dir_mode == 1)
     {
         t_args_get_subdir args;
 
@@ -62,7 +62,7 @@ void exec_parser(parser *p, token_list *l, const char *path)
         // Create args exec
         create_t_arg_exec(&args, p, l, &pl, &t, path);
 
-        if (p->threadMode > 1)
+        if (p->thread_mode > 1)
         {
             th = get_thread(&t);
 
@@ -80,7 +80,7 @@ void exec_parser(parser *p, token_list *l, const char *path)
         destroy_t_arg_exec(&args);
     }
 
-    path_display(&pl, p->colorMode);
+    path_display(&pl, p->color_mode);
 
     // Destroy mutex and threads
     pthread_mutex_destroy(&mutex);
@@ -135,7 +135,7 @@ void *exec_parser_rec(void *arg_exec)
             // Get inactive thread
             th = get_thread(t);
 
-            create_t_arg_validation(&args, pl, l, th, entry, new_path);
+            create_t_arg_validation(&args, pl, l, th, entry, new_path, p->or_mode);
 
             // Validate with threads
             pthread_create(th->threads, NULL, (void *)validate_file, (void *)&args);
@@ -162,7 +162,7 @@ void *exec_parser_rec(void *arg_exec)
             // Get inactive thread
             th = get_thread(t);
 
-            create_t_arg_validation(&args, pl, l, th, entry, new_path);
+            create_t_arg_validation(&args, pl, l, th, entry, new_path, p->or_mode);
 
             // Validate with threads
             pthread_create(th->threads, NULL, (void *)validate_file, (void *)&args);
@@ -189,8 +189,11 @@ void *validate_file(void *args)
     path_list *pl;
     struct dirent *entry;
     char *path;
-    int i;
     token *t;
+    int or_mode;
+
+    int i;
+    int valid;
 
     // Get args
     a = (t_arg_validation *)args;
@@ -198,8 +201,10 @@ void *validate_file(void *args)
     pl = a->pl;
     entry = a->entry;
     path = a->path;
+    or_mode = a->or_mode;
 
     i = -1;
+    valid = 0;
 
     while (++i < l->ptr)
     {
@@ -208,45 +213,73 @@ void *validate_file(void *args)
         switch (t->TokenType)
         {
         case NAME:
-            if (entry->d_type == DT_DIR || verify_files_by_name(entry->d_name, t->value))
+            if ((entry->d_type == DT_DIR || verify_files_by_name(entry->d_name, t->value)) && !or_mode)
             {
                 return NULL;
+            }
+            if ((!(entry->d_type == DT_DIR) && !verify_files_by_name(entry->d_name, t->value)) && or_mode)
+            {
+                valid = 1;
             }
             break;
         case SIZE:
-            if (verify_files_by_size(path, t->value))
+            if (verify_files_by_size(path, t->value) && !or_mode)
             {
                 return NULL;
+            }
+            if (!verify_files_by_size(path, t->value) && or_mode)
+            {
+                valid = 1;
             }
             break;
         case MIME:
-            if (verify_files_by_mime(entry->d_name, t->value))
+            if (verify_files_by_mime(entry->d_name, t->value) && !or_mode)
             {
                 return NULL;
+            }
+            if (!verify_files_by_mime(entry->d_name, t->value) && or_mode)
+            {
+                valid = 1;
             }
             break;
         case CTC:
-            if (verify_files_by_content_pattern(path, t->value))
+            if (verify_files_by_content_pattern(path, t->value) && !or_mode)
             {
                 return NULL;
+            }
+            if (!verify_files_by_content_pattern(path, t->value) && or_mode)
+            {
+                valid = 1;
             }
             break;
         case DIRECTORY:
-            if (entry->d_type != DT_DIR || verify_directories_by_name(path, t->value))
+            if ((entry->d_type != DT_DIR || verify_directories_by_name(path, t->value)) && !or_mode)
             {
                 return NULL;
+            }
+            if (entry->d_type == DT_DIR && !verify_directories_by_name(path, t->value) && or_mode)
+            {
+                valid = 1;
             }
             break;
         case DATE:
-            if (verify_files_by_date(path, t->value))
+            if (verify_files_by_date(path, t->value) && !or_mode)
             {
                 return NULL;
             }
+            if (!verify_files_by_date(path, t->value) && or_mode)
+            {
+                valid = 1;
+            }
             break;
         case PERM:
-            if (verify_file_perm(path, atoi(t->value)))
+            if (verify_file_perm(path, atoi(t->value)) && !or_mode)
             {
                 return NULL;
+            }
+            if (!verify_file_perm(path, atoi(t->value)) && or_mode)
+            {
+                valid = 1;
             }
             break;
         default:
@@ -256,7 +289,13 @@ void *validate_file(void *args)
 
     // Lock mutex
     pthread_mutex_lock(a->t->mutex);
-    add_path_list(pl, (char *)path);
+
+    // Add to path list
+    if (valid || !or_mode)
+    {
+        add_path_list(pl, path);
+    }
+
     // Unlock mutex
     pthread_mutex_unlock(a->t->mutex);
     return NULL;

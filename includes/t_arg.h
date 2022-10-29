@@ -26,10 +26,11 @@ struct _t_arg_validation
     thread *t;
     struct dirent *entry;
     char *path;
+    int or_mode;
 };
 typedef struct _t_arg_validation t_arg_validation;
 
-void create_t_arg_validation(t_arg_validation *a, path_list *pl, token_list *tl, thread *t, struct dirent *entry, const char *path);
+void create_t_arg_validation(t_arg_validation *a, path_list *pl, token_list *tl, thread *t, struct dirent *entry, const char *path, int or_mode);
 void destroy_t_arg_validation(t_arg_validation *a);
 
 struct _t_arg_exec

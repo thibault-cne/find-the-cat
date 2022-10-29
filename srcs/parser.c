@@ -20,9 +20,9 @@ void start_parser(parser *p, token_list *l, int argc, char **argv)
     i = 1;
     incr = 0;
 
-    p->colorMode = 0;
-    p->orMode = 0;
-    p->testMode = 0;
+    p->color_mode = 0;
+    p->or_mode = 0;
+    p->test_mode = 0;
     p->status = PARSER_SUCCESS;
 
     while (++i < argc)
@@ -30,7 +30,7 @@ void start_parser(parser *p, token_list *l, int argc, char **argv)
         if (!argv[i])
         {
             p->status = PARSER_ERROR;
-            p->errorPtr = i;
+            p->error_ptr = i;
             return;
         }
 
@@ -59,25 +59,25 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
     switch (opt)
     {
     case TEST:
-        p->testMode = 1;
+        p->test_mode = 1;
         create_token(&t, pos, opt, "test");
         break;
     case COLOR:
-        p->colorMode = 1;
+        p->color_mode = 1;
         create_token(&t, pos, opt, "color");
         break;
     case OR:
-        p->orMode = 1;
+        p->or_mode = 1;
         create_token(&t, pos, opt, "or");
         break;
     case DIRECTORY:
-        if (p->nameMode == 1)
+        if (p->name_mode == 1)
         {
             p->status = PARSER_ERROR;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
-        p->nameMode = 0;
+        p->name_mode = 0;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -86,17 +86,17 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             create_token(&t, pos, opt, "dir");
-            p->dirMode = 1;
+            p->dir_mode = 1;
         }
         break;
     case NAME:
-        if (p->nameMode == 0)
+        if (p->name_mode == 0)
         {
             p->status = PARSER_ERROR;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
-        p->nameMode = 1;
+        p->name_mode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -105,18 +105,18 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
         break;
     case SIZE:
-        if (p->nameMode == 0)
+        if (p->name_mode == 0)
         {
             p->status = PARSER_ERROR;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
-        p->nameMode = 1;
+        p->name_mode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -125,7 +125,7 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
         break;
@@ -138,18 +138,18 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
         break;
     case MIME:
-        if (p->nameMode == 0)
+        if (p->name_mode == 0)
         {
             p->status = PARSER_ERROR;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
-        p->nameMode = 1;
+        p->name_mode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -158,18 +158,18 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
         break;
     case CTC:
-        if (p->nameMode == 0)
+        if (p->name_mode == 0)
         {
             p->status = PARSER_ERROR;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
-        p->nameMode = 1;
+        p->name_mode = 1;
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -178,19 +178,19 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
         break;
     case THREADS:
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
-            p->threadMode = atoi(argv[pos + 1]);
+            p->thread_mode = atoi(argv[pos + 1]);
             // Verify if thread number is greater than one
-            if (p->threadMode < 1)
+            if (p->thread_mode < 1)
             {
                 p->status = PARSER_INVALID_PARAMETER;
-                p->errorPtr = pos;
+                p->error_ptr = pos;
                 return 0;
             }
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -199,7 +199,7 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
         break;
@@ -212,13 +212,13 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         else
         {
             p->status = PARSER_PARAM_MISSING;
-            p->errorPtr = pos;
+            p->error_ptr = pos;
             return 0;
         }
         break;
     default:
         p->status = PARSER_INVALID_OPTION;
-        p->errorPtr = pos;
+        p->error_ptr = pos;
         return 0;
     }
 
