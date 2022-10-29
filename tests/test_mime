@@ -9,11 +9,11 @@ then
 fi
 
 function test_find_mime () {
-    if [ ! "$(./ftc $1 "-mime" $2)" == $3 ];
+    if [ ! "$(./ftc "$1" "-mime" "$2")" == $3 ];
     then
         echo "🔴 Test of the mime type failed for type \"$2\""
-        echo "$(./ftc $1 "-mime" $2)"
-        echo "$(find $1 "-name" $3)"
+        echo "$(./ftc "$1" "-mime" "$2")"
+        echo "$(find "$1" "-name" "$3")"
     else
         echo "✅ Test of find with mime type succeeded (type: \"$2\")."
     fi

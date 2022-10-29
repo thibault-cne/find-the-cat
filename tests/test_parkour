@@ -9,10 +9,10 @@ then
 fi
 
 function test_parkour () {
-    if [ ! "$(./ftc $1 | wc -l)" == "$(find $1 -type d | wc -l)" ];
+    if [ ! "$(./ftc "$1" | wc -l)" == "$(find "$1" -type d | wc -l)" ];
     then
         echo "🔴 Test of the file tree failed for dir \"$1\""
-        echo "$(./ftc $1)"
+        echo "$(./ftc "$1")"
     else
         echo "✅ Test of the file tree succeeded (dir: \"$1\")."
     fi

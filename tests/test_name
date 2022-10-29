@@ -9,7 +9,7 @@ then
 fi
 
 function test_find_name () {
-    if [ ! "$(./ftc $1 "-name" $2)" 2>/dev/null == "$3" ];
+    if [ ! "$(./ftc "$1" "-name" "$2")" == "$3" ];
     then
         echo "🔴 Test of find with name failed for file \"$2\""
     else
