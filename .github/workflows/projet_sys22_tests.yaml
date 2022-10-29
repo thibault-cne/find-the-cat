@@ -23,3 +23,6 @@ jobs:
 
       - name: Check test build
         run: ./tests/file_exist ./ftc
+
+      - name: Check test args
+        run: ./tests/test_args
