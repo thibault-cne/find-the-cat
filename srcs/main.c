@@ -30,6 +30,8 @@ int main(int argc, char **argv)
             printf("Error: please make sure to enter a valid path as first argument.\n");
             return 1;
         }
+        // Remove trailing slash if any
+        format_entry_path(argv[1]);
 
         token_list l;
         parser p;

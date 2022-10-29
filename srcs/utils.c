@@ -101,3 +101,19 @@ int is_dir(const char *path)
 
     return 0;
 }
+
+char *format_entry_path(char *path)
+{
+    // Remove trailing slash if any
+    if (path[strlen(path) - 1] == '/')
+    {
+        char *new_path = malloc(sizeof(char) * (strlen(path) + 1));
+        strcpy(new_path, path);
+        new_path[strlen(path) - 1] = '\0';
+
+        strcpy((char *)path, new_path);
+        free(new_path);
+    }
+
+    return path;
+}
