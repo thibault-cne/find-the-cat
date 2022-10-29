@@ -9,7 +9,7 @@ then
 fi
 
 function test_wellformed_param () {
-    if [ ! "$(./ftc $1 "-test" $2 $3)" == "La valeur du flag $2 est $3" ];
+    if [ ! "$(./ftc $1 "-test" $2 "$3")" == "La valeur du flag $2 est $3" ];
     then
         echo "🔴 Test of basic arguments failed with flag \"$2\" and value \"$3\""
         echo $(./ftc $1 "-test" $2 $3)
