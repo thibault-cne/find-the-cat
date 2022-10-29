@@ -18,8 +18,6 @@ jobs:
         run: |
           mkdir tests
           cp /tests/* tests
-          mkdir arbre
-          cp -r /arbre/* arbre
 
       - name: Check test build
         run: ./tests/file_exist ./ftc
