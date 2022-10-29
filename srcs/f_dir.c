@@ -16,11 +16,11 @@ void *get_subdirectories(void *args)
 {
     DIR *dir;
     struct dirent *entry;
-    t_args *a;
-    t_args new_args;
+    t_args_get_subdir *a;
+    t_args_get_subdir new_args;
     char *new_path;
 
-    a = (t_args *)args;
+    a = (t_args_get_subdir *)args;
 
     if (!(dir = opendir(a->path)))
         return (NULL);
@@ -40,11 +40,12 @@ void *get_subdirectories(void *args)
             new_path = malloc(strlen(a->path) + strlen(entry->d_name) + 2);
             sprintf(new_path, "%s/%s", a->path, entry->d_name);
 
-            create_t_arg(&new_args, a->pl, a->t, new_path);
+            create_t_args_get_subdir(&new_args, a->pl, a->t, new_path);
 
             get_subdirectories((void *)&new_args);
 
-            destroy_t_arg(&new_args);
+            // Free allocated memory
+            destroy_t_args_get_subdir(&new_args);
             free(new_path);
         }
     }
@@ -61,17 +62,4 @@ int verify_directories_by_name(const char *path, const char *name)
     }
 
     return 1;
-}
-
-void create_t_arg(t_args *a, path_list *pl, thread *t, const char *path)
-{
-    a->pl = pl;
-    a->t = t;
-    a->path = malloc(sizeof(char) * strlen(path) + 1);
-    strcpy(a->path, path);
-}
-
-void destroy_t_arg(t_args *a)
-{
-    free(a->path);
 }

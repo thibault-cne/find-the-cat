@@ -37,6 +37,8 @@ char *get_error_message(parser_status err)
         return "Parser error";
     case PARSER_PARAM_MISSING:
         return "Missing parameter";
+    case PARSER_INVALID_PARAMETER:
+        return "Invalid parameter";
     default:
         return "Unknown error";
     }

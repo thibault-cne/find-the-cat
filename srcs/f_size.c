@@ -24,19 +24,19 @@ int verify_files_by_size(const char *path, char *size)
         switch (size[0])
         {
         case '+':
-            if (get_file_size(path) <= real_size)
+            if (get_file_size(path) > real_size)
             {
                 return 0;
             }
             break;
         case '-':
-            if (get_file_size(path) >= real_size)
+            if (get_file_size(path) < real_size)
             {
                 return 0;
             }
             break;
         default:
-            if (get_file_size(path) != real_size)
+            if (get_file_size(path) == real_size)
             {
                 return 0;
             }

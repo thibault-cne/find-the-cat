@@ -186,6 +186,13 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
         {
             p->threadMode = atoi(argv[pos + 1]);
+            // Verify if thread number is greater than one
+            if (p->threadMode < 1)
+            {
+                p->status = PARSER_INVALID_PARAMETER;
+                p->errorPtr = pos;
+                return 0;
+            }
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }

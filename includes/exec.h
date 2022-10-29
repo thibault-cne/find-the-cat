@@ -19,7 +19,7 @@
 
 // Exec parser
 void exec_parser(parser *p, token_list *l, const char *path);
-void exec_parser_rec(parser *p, token_list *l, path_list *pl, thread *t, const char *path);
-int validate_file(token_list *l, path_list *pl, struct dirent *entry, const char *path);
+void *exec_parser_rec(void *arg_exec);
+void *validate_file(void *args);
 
 #endif // FTC_EXEC_H

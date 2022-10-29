@@ -11,6 +11,7 @@ enum _parser_status
     PARSER_ERROR,
     PARSER_INVALID_OPTION,
     PARSER_PARAM_MISSING,
+    PARSER_INVALID_PARAMETER,
 };
 typedef enum _parser_status parser_status;
 
