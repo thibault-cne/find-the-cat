@@ -13,7 +13,6 @@ jobs:
       - run: cp /tests/* tests
       - run: mkdir arbre
       - run: cp -r /arbre/* arbre
-      - run: test -e make
 
   build:
     runs-on: ubuntu-latest
