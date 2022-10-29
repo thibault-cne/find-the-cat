@@ -23,7 +23,7 @@ function test_find_mime () {
 test_find_mime "arbre/economic/player/his/a/" "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" "arbre/economic/player/his/a/buy.xlsx"
 
 function test_find_mime_nb() {
-    if [ ! "$(./ftc "$1" "-mime" "$2" | wc -l)" == $3 ];
+    if [ ! "$(./ftc "$1" "-mime" "$2" | wc -l)" == "$(find "$1" -name "$3" | wc -l)" ];
     then
        echo "🔴 Test of the mime type failed for type \"$2\""
         echo "$(./ftc "$1" "-mime" "$2" | wc -l)"
@@ -34,4 +34,4 @@ function test_find_mime_nb() {
     fi
 }
 
-test_find_mime_nb "arbre" "image/png" "     228"
+test_find_mime_nb "arbre" "image/png" "*.png"
