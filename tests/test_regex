@@ -9,7 +9,7 @@ then
 fi
 
 function test_find_regex_exact () {
-    if [ ! "$(./ftc $1 "-name" $2)" == $3 ];
+    if [ ! "$(./ftc $1 "-name" $2)" == "$(find $1 "-regex" $2 "-type" "f")" ];
     then
         echo "🔴 Test of regex failed for \"$2\""
     else
@@ -20,7 +20,7 @@ function test_find_regex_exact () {
 test_find_regex_exact "arbre/" "*st.gif" "arbre/put/least.gif"
 
 function test_find_regex () {
-    if [ ! "$(./ftc $1 "-name" $2 | wc -l)" == "$(find $1 "-regex" $2 | wc -l)" ];
+    if [ ! "$(./ftc $1 "-name" $2 | wc -l)" == "$(find $1 "-regex" $2 "-type" "f" | wc -l)" ];
     then
         echo "🔴 Test of regex failed for \"$2\""
     else
@@ -29,6 +29,5 @@ function test_find_regex () {
 }
 
 
-test_find_regex 
 test_find_regex "arbre/" "*[^a-s]ty.mp3"
 test_find_regex "arbre/" "*[^a-u]ty.mp3"
