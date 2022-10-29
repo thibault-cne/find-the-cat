@@ -8,12 +8,15 @@ jobs:
     container:
       image: racouchot/projet_sys22
     steps:
-      - name: Build tests files
+      - name: Checkout repository
         uses: actions/checkout@v3
-        run: mkdir tests
-        run: cp /tests/* tests
-        run: mkdir arbre
-        run: cp -r /arbre/* arbre
+
+      - name: Build tests files
+        run: |
+          mkdir tests
+          cp /tests/* tests
+          mkdir arbre
+          cp -r /arbre/* arbre
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -38,7 +41,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: projet_sys22
-  
-      - name: Check test build
+
+      - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Check test build
         run: ./tests/file_exist ftc
