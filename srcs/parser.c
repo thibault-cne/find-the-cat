@@ -79,6 +79,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_ERROR;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         p->name_mode = 0;
@@ -98,6 +104,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_ERROR;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         p->name_mode = 1;
@@ -110,6 +122,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_PARAM_MISSING;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         break;
@@ -118,6 +136,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_ERROR;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         p->name_mode = 1;
@@ -130,6 +154,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_PARAM_MISSING;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         break;
@@ -143,6 +173,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_PARAM_MISSING;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         break;
@@ -151,6 +187,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_ERROR;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         p->name_mode = 1;
@@ -163,6 +205,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_PARAM_MISSING;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         break;
@@ -171,6 +219,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_ERROR;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         p->name_mode = 1;
@@ -183,6 +237,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_PARAM_MISSING;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         break;
@@ -195,6 +255,8 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
             {
                 p->status = PARSER_INVALID_PARAMETER;
                 p->error_ptr = pos;
+
+                create_token(&t, pos, opt, "");
                 return 0;
             }
             create_token(&t, pos, opt, argv[pos + 1]);
@@ -204,6 +266,12 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_PARAM_MISSING;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         break;
@@ -217,12 +285,24 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         {
             p->status = PARSER_PARAM_MISSING;
             p->error_ptr = pos;
+
+            create_token(&t, pos, opt, "");
+            add_token_list(l, t);
+
+            // Destroy used token
+            destroy_token(&t);
             return 0;
         }
         break;
     default:
         p->status = PARSER_INVALID_OPTION;
         p->error_ptr = pos;
+
+        create_token(&t, pos, opt, "");
+        add_token_list(l, t);
+
+        // Destroy used token
+        destroy_token(&t);
         return 0;
     }
 

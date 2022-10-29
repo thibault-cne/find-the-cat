@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 
         if (p.status != PARSER_SUCCESS)
         {
-            parser_error(p.status, p.color_mode, p.error_ptr);
+            parser_error(&l, p.color_mode, p.error_ptr);
 
             // Free allocated memory
             destroy_token_list(&l);

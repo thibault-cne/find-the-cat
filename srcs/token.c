@@ -48,7 +48,7 @@ void add_token_list(token_list *l, token tok)
 
 token *get_token_list_index(token_list *l, int i)
 {
-    if (i >= l->size)
+    if (i >= l->ptr)
     {
         return NULL;
     }
