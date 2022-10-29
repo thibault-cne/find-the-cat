@@ -44,6 +44,7 @@ int regex_match(const char *str, const char *pattern)
 {
     regex_t regex;
     int reti;
+    int res;
 
     reti = regcomp(&regex, pattern, 0);
     if (reti)
@@ -52,7 +53,11 @@ int regex_match(const char *str, const char *pattern)
         exit(1);
     }
 
-    return regexec(&regex, str, 0, NULL, 0);
+    res = regexec(&regex, str, 0, NULL, 0);
+
+    // Free memory allocated to the pattern buffer by regcomp()
+    regfree(&regex);
+    return res;
 }
 
 char *get_last_dir(const char *path)
