@@ -9,7 +9,7 @@ then
 fi
 
 function test_find_dir () {
-    if [ ! "$(./ftc "$1" "-dir" "$2" | wc -l) " == "$(find "$1" "-name" "$2" "-type" "d" | wc -l)" ];
+    if [ ! "$(./ftc "$1" "-dir" "$2")" == "$(find "$1" "-name" "$2" "-type" "d")" ];
     then
         echo "🔴 Test of find with name failed for file \"$2\""
     else

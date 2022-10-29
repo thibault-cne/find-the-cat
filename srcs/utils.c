@@ -75,6 +75,7 @@ char *get_last_dir(const char *path)
     char *temp;
     char *ptr;
     char *last;
+    char *res;
 
     temp = strdup(path);
 
@@ -86,7 +87,11 @@ char *get_last_dir(const char *path)
         ptr = strtok(NULL, "/");
     }
 
-    return last;
+    res = strdup(last);
+
+    free(temp);
+
+    return res;
 }
 
 int is_dir(const char *path)

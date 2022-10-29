@@ -93,10 +93,18 @@ void display_subdirectories(const char *path)
 // Verify directories by name
 int verify_directories_by_name(const char *path, const char *name)
 {
+    char *last_dir;
+    int i;
 
     if (path != NULL)
     {
-        return regex_match(get_last_dir(path), name);
+        last_dir = get_last_dir(path);
+
+        i = regex_match(last_dir, name);
+
+        free(last_dir);
+
+        return i;
     }
 
     return 1;
