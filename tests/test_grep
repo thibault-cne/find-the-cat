@@ -9,7 +9,7 @@ then
 fi
 
 function test_find_grep () {
-    if [ ! "$(./ftc $1 "-ctc" $2)" == "$(grep "-r" "$2" $1/*)" ];
+    if [ ! "$(./ftc $1 "-ctc" "$2")" == "$(grep "-r" "$2" $1/*)" ];
     then
         echo "🔴 Test of \"catch the cat\" failed for \"$2\""
         echo "$(./ftc $1 "-ctc" $2 | wc -l)"

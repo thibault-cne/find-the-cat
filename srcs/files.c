@@ -52,7 +52,7 @@ int file_contains_pattern(const char *path, const char *pattern)
 
     buf = read_ascii_file(path);
 
-    if (!buf)
+    if (buf == NULL)
     {
         printf("Couldn't read the file.\n");
         return 0;
