@@ -21,5 +21,3 @@ function test_find_mime () {
 
 
 test_find_mime "arbre/economic/player/his/a/" "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" "arbre/economic/player/his/a/buy.xlsx"
-
-test_find_mime "arbre/economic/player/his/a/" "video/quicktime" ""
