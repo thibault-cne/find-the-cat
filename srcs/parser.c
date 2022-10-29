@@ -298,7 +298,7 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         p->status = PARSER_INVALID_OPTION;
         p->error_ptr = pos;
 
-        create_token(&t, pos, opt, "");
+        create_token(&t, pos, NONE, argv[pos]);
         add_token_list(l, t);
 
         // Destroy used token

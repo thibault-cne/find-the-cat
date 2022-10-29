@@ -32,6 +32,7 @@ enum _Options
     THREADS,
     OR,
     TEST,
+    NONE,
 };
 typedef enum _Options Options;
 
