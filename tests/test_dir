@@ -23,7 +23,7 @@ test_find_dir "arbre" "season"
 test_find_dir "arbre" "dog"
 
 function test_find_dir_nb () {
-    if [ ! "$(./ftc "$1" "-dir" "$2" | wc -l)" == "$(find "$1" "-name" "$2" "-type" "d" | wc -l)" ];
+    if [ ! "$(./ftc "$1" "-dir" "$2" | wc -l)" == "$(find "$1" "-regex" "$2" "-type" "d" | wc -l)" ];
     then
         echo "🔴 Test of find with name failed for file \"$2\""
         exit 1
@@ -32,8 +32,8 @@ function test_find_dir_nb () {
     fi
 }
 
-test_find_dir_nb "arbre" "buy"
-test_find_dir_nb "arbre" "by"
+test_find_dir_nb "arbre" ".*/*buy"
+test_find_dir_nb "arbre" ".*/*by"
 
 function test_find_dir_regex () {
     if [ ! "$(./ftc "$1" "-dir" "$2" | wc -l)" == "$(find "$1" "-regex" "$2" "-type" "d" | wc -l)" ];
@@ -41,7 +41,7 @@ function test_find_dir_regex () {
         echo "🔴 Test of find with name failed for file \"$2\""
         exit 1
     else
-        echo "✅ Test of find with name succeeded (file: \"$2\")."
+        echo "✅ Test of find with regex succeeded (file: \"$2\")."
     fi
 }
 
