@@ -137,14 +137,20 @@ void *exec_parser_rec(void *arg_exec)
             sprintf(new_path, "%s/%s", path, entry->d_name);
 
             // Get inactive thread
-            th = get_thread(t);
+            if (!p->name_mode)
+            {
+                th = get_thread(t);
 
-            create_t_arg_validation(&args, pl, l, th, entry, new_path, p->or_mode);
+                create_t_arg_validation(&args, pl, l, th, entry, new_path, p->or_mode);
 
-            // Validate with threads
-            pthread_create(th->threads, NULL, (void *)validate_file, (void *)&args);
-            pthread_join(*th->threads, NULL);
-            th->active = 0;
+                // Validate with threads
+                pthread_create(th->threads, NULL, (void *)validate_file, (void *)&args);
+                pthread_join(*th->threads, NULL);
+                th->active = 0;
+
+                // Free args
+                destroy_t_arg_validation(&args);
+            }
 
             // Create new args
             create_t_arg_exec(&new_args, p, l, pl, t, new_path);
@@ -155,9 +161,9 @@ void *exec_parser_rec(void *arg_exec)
             free(new_path);
 
             // Free args
-            destroy_t_arg_validation(&args);
             destroy_t_arg_exec(&new_args);
         }
+        else
         {
             // Check if entry is a symlink
             if (entry->d_type == DT_LNK && p->link_mode)

@@ -28,14 +28,24 @@ long get_file_size(const char *file_path)
 double get_seconds_from_last_modification(const char *file_path)
 {
     struct stat st;
+    char *cp_path;
 
-    if (stat(file_path, &st) == 0)
+    cp_path = (char *)malloc(sizeof(char) * (strlen(file_path) + 1));
+    strcpy(cp_path, file_path);
+
+    if (stat(cp_path, &st) == 0)
     {
         time_t t = st.st_mtime;
         time_t now = time(NULL);
 
+        // Free memory
+        free(cp_path);
+
         return difftime(now, t);
     }
+
+    // Free memory
+    free(cp_path);
 
     return -1;
 }
