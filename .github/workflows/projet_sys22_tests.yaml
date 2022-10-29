@@ -3,31 +3,10 @@ name: projet_sys22/tests
 on: [push]
 
 jobs:
-  make-test:
+  full-option-job:
     runs-on: ubuntu-latest
     container:
       image: yewolf/projet_sys22
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build tests files
-        run: |
-          mkdir tests
-          cp /tests/* tests
-          mkdir arbre
-          cp -r /arbre/* arbre
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: projet_sys22
-          path: |
-            /tests
-            /arbre
-
-  build:
-    runs-on: ubuntu-latest
     steps:
       - name: Check repository
         uses: actions/checkout@v3
@@ -35,29 +14,12 @@ jobs:
       - name: Build executable
         run: make
 
-      - name: Upload build executable
-        uses: actions/upload-artifact@v3
-        with:
-          name: projet_sys22_exec
-          path: |
-            ./ftc
-
-  check-test-build:
-    runs-on: ubuntu-latest
-    needs: [make-test, build]
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: projet_sys22
-      
-      - name: Download executable
-        uses: actions/download-artifact@v3
-        with:
-          name: projet_sys22_exec
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Build tests files
+        run: |
+          mkdir tests
+          cp /tests/* tests
+          mkdir arbre
+          cp -r /arbre/* arbre
 
       - name: Check test build
         run: ./tests/file_exist ./ftc
