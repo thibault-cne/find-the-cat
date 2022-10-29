@@ -51,7 +51,7 @@ In addition to those parameters, you should give a valid path to analyse has the
 For exemple :
 
 ```bash
-./build/findTheCat ./baz -date 3h
+./ftc ./baz -date 3h
 ```
 
 This line search for files last modified earlier than 3 hours inside the `./baz` folder.
