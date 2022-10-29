@@ -21,7 +21,7 @@ function test_find_exact_size () {
 test_find_exact_size "arbre" "27c" "arbre/tree/character/kind/ball.wav"
 
 function test_find_size () {
-    if [ ! "$(./ftc $1 "-size" $2 | wc -l)" == "$3" ];
+    if [ ! "$(./ftc $1 "-size" $2 | wc -l)" == "$(find $1 "-size" $2 | wc -l)" ];
     then
         echo "🔴 Test of find with size failed for param \"$2 $3\""
     else
