@@ -86,7 +86,6 @@ char *get_last_dir(const char *path)
         ptr = strtok(NULL, "/");
     }
 
-    free(temp);
     return last;
 }
 
