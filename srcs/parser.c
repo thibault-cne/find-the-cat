@@ -60,19 +60,51 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
     {
     case TEST:
         p->test_mode = 1;
-        create_token(&t, pos, opt, "test");
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
+        {
+            create_token(&t, pos, opt, argv[pos + 1]);
+            incr = 1;
+        }
+        else
+        {
+            create_token(&t, pos, opt, "test");
+        }
         break;
     case COLOR:
         p->color_mode = 1;
-        create_token(&t, pos, opt, "color");
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
+        {
+            create_token(&t, pos, opt, argv[pos + 1]);
+            incr = 1;
+        }
+        else
+        {
+            create_token(&t, pos, opt, "color");
+        }
         break;
     case OR:
         p->or_mode = 1;
-        create_token(&t, pos, opt, "or");
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
+        {
+            create_token(&t, pos, opt, argv[pos + 1]);
+            incr = 1;
+        }
+        else
+        {
+            create_token(&t, pos, opt, "or");
+        }
         break;
     case LINK:
         p->link_mode = 1;
-        create_token(&t, pos, opt, "link");
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
+        {
+            create_token(&t, pos, opt, argv[pos + 1]);
+            incr = 1;
+        }
+        else
+        {
+            create_token(&t, pos, opt, "link");
+        }
         break;
     case DIRECTORY:
         if (p->name_mode == 1)
