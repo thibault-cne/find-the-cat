@@ -23,14 +23,13 @@ FILES 	=	main.c 			\
 S_PATH	=	srcs/
 O_PATH	=	objs/
 I_PATH	=	includes/
-B_PATH	=	build/
 
 SRCS	=	${addprefix ${S_PATH}, ${FILES}}
 OBJS	=	${addprefix ${O_PATH}, ${FILES:.c=.o}}
 
 CC		=	gcc
 
-NAME	=	findTheCat
+NAME	=	ftc
 
 RM		=	rm -rf
 
@@ -42,7 +41,7 @@ ${O_PATH}%.o:	${S_PATH}%.c
 				@echo "${BOLD}${CYAN}Compiling${S}${S} ${IGREY}$<${S} ${YELLOW}-> ${S}${SBLUE}$@${S} ⚙️"
 
 
-${NAME}:			${OBJS} build
+${NAME}:			${OBJS}
 					@${CC} ${OBJS} ${CFLAGS} -o ${NAME} -I ${I_PATH}
 					@echo ""
 					@echo "${BOLD}${PURPLE}Building${S}${S} ${IGREY}$@${S} 🖥️"
@@ -57,16 +56,13 @@ clean:
 			@echo "${BOLD}${SRED}Removing${S}${S} ${IGREY}${O_PATH}${S} 🗑️"
 
 fclean:		clean
-			@${RM} ${B_PATH}*
+			@${RM} ${NAME}
 			@echo "${BOLD}${SRED}Removing${S}${S} ${IGREY}${B_PATH}${S} 🗑️"
 
 space:
 			@echo " "
 
 re:			fclean space all
-
-build: 		
-			@mkdir -p ${B_PATH}
 
 .PHONY: all clean fclean re build space
 

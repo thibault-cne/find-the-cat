@@ -6,7 +6,7 @@ jobs:
   make-test:
     runs-on: ubuntu-latest
     container:
-      image: racouchot/projet_sys22
+      image: yewolf/projet_sys22
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -35,6 +35,13 @@ jobs:
       - name: Build executable
         run: make
 
+      - name: Upload build executable
+        uses: actions/upload-artifact@v3
+        with:
+          name: projet_sys22_exec
+          path: |
+            ./ftc
+
   check-test-build:
     runs-on: ubuntu-latest
     needs: make-test
@@ -43,9 +50,14 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: projet_sys22
+      
+      - name: Download executable
+        uses: actions/download-artifact@v3
+        with:
+          name: projet_sys22_exec
 
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Check test build
-        run: ./projet_sys22/tests/file_exist ./build/findTheCat
+        run: ./tests/file_exist ./ftc
