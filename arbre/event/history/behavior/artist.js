@@ -1,1 +1,0 @@
-Energy moment tend share game actually. White research see people when father from.

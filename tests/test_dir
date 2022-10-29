@@ -1,0 +1,22 @@
+#!/bin/bash
+
+REQUIRED_FILE="./ftc"
+
+if [ ! -f ${REQUIRED_FILE} ] 
+then
+    echo "⚠️ Executable ${REQUIRED_FILE} not found."
+    exit 1
+fi
+
+function test_find_dir () {
+    if [ ! "$(./ftc $1 "-dir" $2 | wc -l) " == "$3" ];
+    then
+        echo "🔴 Test of find with name failed for file \"$2\""
+    else
+        echo "✅ Test of find with name succeeded (file: \"$2\")."
+    fi
+}
+
+
+test_find_dir "arbre" "season" "7"
+test_find_dir "arbre" "dog" "9"

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+REQUIRED_FILE="./ftc"
+
+if [ ! -f ${REQUIRED_FILE} ] 
+then
+    echo "⚠️ Executable ${REQUIRED_FILE} not found."
+    exit 1
+fi
+
+function test_find_perm () {
+    if [ ! "$(./ftc $1 "-perm" $2 | wc -l)" == $3 ];
+    then
+        echo "🔴 Test of perm failed for \"$2\""
+        #exit 1
+    else
+        echo "✅ Test of perm succeeded (string: \"$2\")."
+    fi
+}
+
+test_find_perm "arbre" "700" "77"
+test_find_perm "arbre" "001" "3"
+
+function test_find_perm_detailed () {
+    if [ ! "$(./ftc $1 "-perm" $2)" == $3 ];
+    then
+        echo "🔴 Test of perm failed for \"$2\""
+    else
+        echo "✅ Test of perm succeeded (string: \"$2\")."
+    fi
+}
+
+test_find_perm_detailed "." "000" "arbre/put/trade/explain/real.jpg"

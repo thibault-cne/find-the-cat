@@ -11,13 +11,13 @@ jobs:
       - name: Check repository
         uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
-
       - name: Build tests files
         run: |
-          mkdir tests
-          cp /tests/* tests
+          mkdir arbre
+          cp -r /arbre/* arbre
+
+      - name: Build executable
+        run: make
 
       - name: Check test build
         run: ./tests/file_exist ./ftc

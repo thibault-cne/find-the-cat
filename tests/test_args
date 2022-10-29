@@ -1,0 +1,49 @@
+#!/bin/bash
+
+REQUIRED_FILE="./ftc"
+
+if [ ! -f ${REQUIRED_FILE} ] 
+then
+    echo "⚠️ Executable ${REQUIRED_FILE} not found."
+    exit 1
+fi
+
+function test_wellformed_param () {
+    if [ ! "$(./ftc $1 "-test" $2 $3)" == "La valeur du flag $2 est $3" ];
+    then
+        echo "🔴 Test of basic arguments failed with flag \"$2\" and value \"$3\""
+        echo $(./ftc $1 "-test" $2 $3)
+    else
+        echo "✅ Test of basic arguments succeeded (flag: \"$2\")."
+    fi
+}
+
+test_wellformed_param "." "-name" "mimou"
+test_wellformed_param ".." "-size" "mimou"
+test_wellformed_param "." "-date" "mimou"
+test_wellformed_param "." "-ctc" "mimou"
+test_wellformed_param "." "-mime" "mimou"
+
+function test_not_wellformed_param () {
+    if [ ! "$(./ftc $1 "-test" $2 $3)" == "Le flag $2 n'est pas correct" ];
+    then 
+        echo "🔴 Test of incorrect arguments failed with flag $2"
+        echo "\n $(./ftc $1 "-test" $2 $3)"
+    else
+        echo "✅ Test of incorrect arguments succeeded (wrong flag: \"$2\")."
+    fi
+}
+
+test_not_wellformed_param "." "-mimou" "so"
+
+function test_optional_param () {
+    if [ ! "$(./ftc $1 "-test" $2 $3)" == "La valeur du flag $2 est $3" ];
+    then
+        echo "🔴 Test of optional arguments failed with flag \"$2\" and value \"$3\""
+    else
+        echo "✅ Test of optional arguments succeeded (flag: \"$2\")."
+    fi
+}
+
+test_optional_param "." "-perm" "mimou"
+test_optional_param "." "-link" "so"
