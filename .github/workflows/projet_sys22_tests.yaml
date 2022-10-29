@@ -44,7 +44,7 @@ jobs:
 
   check-test-build:
     runs-on: ubuntu-latest
-    needs: make-test
+    needs: [make-test, build]
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
