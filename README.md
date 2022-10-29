@@ -27,6 +27,7 @@ Here is a list of the currently available options and parameter for the CLI. Ple
 | -dir | Search files by dir name. If no parameters are passed, just display the subdirectories. | A string or a regex. |
 | -color | Active color mode | None |
 | -test | Test parssing of the arguments | None |
+| -perm | Search files or directory by permissions. | An octal value of the permissions. |
 
 Files size
 | Symbol | Size |
