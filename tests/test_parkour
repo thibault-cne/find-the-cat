@@ -9,7 +9,7 @@ then
 fi
 
 function test_parkour () {
-    if [ ! "$(./ftc $1 | wc -l)" == $2 ];
+    if [ ! "$(./ftc $1 | wc -l)" == "$(find $1 -type d | wc -l)" ];
     then
         echo "🔴 Test of the file tree failed for dir \"$1\""
         echo "$(./ftc $1)"
@@ -19,5 +19,5 @@ function test_parkour () {
 }
 
 
-test_parkour "arbre" "6863"
-test_parkour "arbre/economic/old/officer/" "11"
+test_parkour "arbre"
+test_parkour "arbre/economic/old/officer/"

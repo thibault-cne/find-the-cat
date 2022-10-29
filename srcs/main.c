@@ -89,9 +89,16 @@ int main(int argc, char **argv)
 
         return 0;
     }
-    else
+    if (argc == 2)
     {
-        printf("%d\n", get_size("-15c"));
+        // Run validation on the entry path
+        if (validate_entry_path(argv[1]) != VALIDATION_SUCCESS)
+        {
+            printf("Error: please make sure to enter a valid path as first argument.\n");
+            return 1;
+        }
+
+        display_subdirectories((const char *)argv[1]);
     }
 
     return 0;

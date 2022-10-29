@@ -25,6 +25,9 @@ jobs:
       - name: Check test args
         run: ./tests/test_args
       
+      - name: Check test parkour
+        run: ./tests/test_parkour
+      
       - name: Check test name
         run: ./tests/test_name
       
@@ -33,3 +36,18 @@ jobs:
 
       - name: Check test date
         run: ./tests/test_date
+
+      - name: Check test regex
+        run: ./tests/test_regex
+
+      - name: Check test mime
+        run: ./tests/test_mime
+      
+      - name: Check test grep
+        run: ./tests/test_grep
+      
+      - name: Check test dir
+        run: ./tests/test_dir
+      
+      - name: Check test perm
+        run: ./tests/test_perm

@@ -55,6 +55,41 @@ void *get_subdirectories(void *args)
     return (NULL);
 }
 
+void display_subdirectories(const char *path)
+{
+    DIR *dir;
+    struct dirent *entry;
+    char *new_path;
+
+    if (!(dir = opendir(path)))
+    {
+        return;
+    }
+
+    printf("%s\n", path);
+
+    while ((entry = readdir(dir)) != NULL)
+    {
+        if (entry->d_type == DT_DIR)
+        {
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+            sprintf(new_path, "%s/%s", path, entry->d_name);
+
+            display_subdirectories(new_path);
+
+            // Free allocated memory
+            free(new_path);
+        }
+    }
+
+    closedir(dir);
+
+    return;
+}
+
 // Verify directories by name
 int verify_directories_by_name(const char *path, const char *name)
 {

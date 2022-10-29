@@ -14,6 +14,7 @@
 #include "t_arg.h"
 
 void *get_subdirectories(void *args);
+void display_subdirectories(const char *path);
 
 // Directory functions
 int verify_directories_by_name(const char *path, const char *name);
