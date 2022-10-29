@@ -18,11 +18,11 @@ function test_find_perm () {
     fi
 }
 
-test_find_perm "arbre" "700" "77"
-test_find_perm "arbre" "001" "3"
+test_find_perm "arbre" "700"
+test_find_perm "arbre" "001"
 
 function test_find_perm_detailed () {
-    if [ ! "$(./ftc $1 "-perm" $2)" == $3 ];
+    if [ ! "$(./ftc $1 "-perm" $2)" == "$(find $1 "-perm" $2 "-type" "f")" ];
     then
         echo "🔴 Test of perm failed for \"$2\""
     else
@@ -30,4 +30,4 @@ function test_find_perm_detailed () {
     fi
 }
 
-test_find_perm_detailed "." "000" "arbre/put/trade/explain/real.jpg"
+test_find_perm_detailed "." "000"

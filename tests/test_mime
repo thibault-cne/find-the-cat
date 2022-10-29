@@ -18,6 +18,6 @@ function test_find_mime () {
 }
 
 
-test_find_mime "arbre/economic/player/his/a/" "application" "arbre/economic/player/his/a/buy.xlsx"
+test_find_mime "arbre/economic/player/his/a/" "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" "arbre/economic/player/his/a/buy.xlsx"
 
-test_find_mime "arbre/economic/player/his/a/" "image/jpeg" "arbre/personal/account/for/little/another.mov "
+test_find_mime "arbre/economic/player/his/a/" "video/quicktime" "arbre/personal/account/for/little/another.mov"
