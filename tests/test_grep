@@ -9,7 +9,7 @@ then
 fi
 
 function test_find_grep () {
-    if [ ! "$(./ftc $1 "-ctc" "$2")" == "$(grep "-r" "$2" $1/*)" ];
+    if [ ! "$(./ftc "$1" "-ctc" "$2")" == "$(grep "-rl" "$2" "$1"/*)" ];
     then
         echo "🔴 Test of \"catch the cat\" failed for \"$2\""
         echo "$(./ftc $1 "-ctc" "$2")"
@@ -22,7 +22,7 @@ function test_find_grep () {
 test_find_grep "arbre" "audience do pipoulapi" "arbre/sell/foreign.mp3"
 
 function test_find_grep_nb () {
-    if [ ! "$(./ftc $1 "-ctc" $2 | wc -l)" == "$(grep "-r" "$2" $1/* | wc -l)" ];
+    if [ ! "$(./ftc "$1" "-ctc" "$2" | wc -l)" == "$(grep "-rl" "$2" "$1"/* | wc -l)" ];
     then
         echo "🔴 Test of \"catch the cat\" failed for \"$2\""
         echo "$(./ftc $1 "-ctc" $2 | wc -l)"
@@ -35,7 +35,7 @@ function test_find_grep_nb () {
 test_find_grep_nb "arbre" "Property current include"
 
 function test_find_grep_regex () {
-    if [ ! "$(./ftc $1 "-ctc" $2 | wc -l)" == "$(grep "-r" "$2" $1/* | wc -l)" ];
+    if [ ! "$(./ftc "$1" "-ctc" "$2" | wc -l)" == "$(grep "-rl" "$2" "$1"/* | wc -l)" ];
     then
         echo "🔴 Test of \"catch the cat\" with regex failed for \"$2\""
     else
