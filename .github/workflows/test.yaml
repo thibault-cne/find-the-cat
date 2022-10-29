@@ -2,12 +2,9 @@ image: racouchot/projet_sys22
 
 on: [push]
 
-stages:
-  - build
-  - test
-
 jobs:
   build:
+    runs-on: ubuntu-latest
     stage: build
     before_script:
       # Copie des tests et arbre au bon endroit
@@ -27,6 +24,7 @@ jobs:
         - ./tests
 
   test-arguments:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_args
@@ -34,6 +32,7 @@ jobs:
       - build
 
   test-parkour:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_parkour
@@ -41,6 +40,7 @@ jobs:
       - build
 
   test-name:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_name
@@ -48,6 +48,7 @@ jobs:
       - build
 
   test-size:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_size
@@ -55,6 +56,7 @@ jobs:
       - build
 
   test-date:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_date
@@ -62,6 +64,7 @@ jobs:
       - build
 
   test-mime:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_mime
@@ -69,6 +72,7 @@ jobs:
       - build
 
   test-regex:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_regex
@@ -76,6 +80,7 @@ jobs:
       - build
 
   test-ftc:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_grep
@@ -83,6 +88,7 @@ jobs:
       - build
 
   test-dir:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_dir
@@ -90,6 +96,7 @@ jobs:
       - build
 
   test-perm:
+    runs-on: ubuntu-latest
     stage: test
     script:
       - ./tests/test_perm
