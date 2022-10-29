@@ -26,3 +26,12 @@ jobs:
 
       - name: Check test args
         run: ./tests/test_args
+      
+      - name: Check test name
+        run: ./tests/test_name
+      
+      - name: Check test size
+        run: ./tests/test_size
+
+      - name: Check test date
+        run: ./tests/test_date
