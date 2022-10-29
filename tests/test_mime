@@ -35,3 +35,6 @@ function test_find_mime_nb() {
 }
 
 test_find_mime_nb "arbre" "image/png" "*.png"
+test_find_mime_nb "arbre" "text/plain" "*.txt"
+test_find_mime_nb "arbre" "text/html" "*.html"
+test_find_grep_nb "arbre" "video/quicktime" "*.mov"
