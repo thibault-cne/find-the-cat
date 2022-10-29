@@ -73,3 +73,15 @@ char *get_last_dir(const char *path)
 
     return last;
 }
+
+int is_dir(const char *path)
+{
+    struct stat st;
+
+    if (stat(path, &st) == 0)
+    {
+        return S_ISDIR(st.st_mode);
+    }
+
+    return 0;
+}

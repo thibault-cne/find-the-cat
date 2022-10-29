@@ -70,6 +70,10 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
         p->or_mode = 1;
         create_token(&t, pos, opt, "or");
         break;
+    case LINK:
+        p->link_mode = 1;
+        create_token(&t, pos, opt, "link");
+        break;
     case DIRECTORY:
         if (p->name_mode == 1)
         {

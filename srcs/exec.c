@@ -124,6 +124,7 @@ void *exec_parser_rec(void *arg_exec)
 
     while ((entry = readdir(dir)) != NULL)
     {
+
         if (entry->d_type == DT_DIR)
         {
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
@@ -154,8 +155,40 @@ void *exec_parser_rec(void *arg_exec)
             destroy_t_arg_validation(&args);
             destroy_t_arg_exec(&new_args);
         }
-        else
         {
+            // Check if entry is a symlink
+            if (entry->d_type == DT_LNK && p->link_mode)
+            {
+                // Follow symlink
+                char *link_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+                sprintf(link_path, "%s/%s", path, entry->d_name);
+
+                char *real_path = malloc(0x100);
+                realpath(link_path, real_path);
+
+                // Check if real path is a directory
+                if (is_dir(real_path))
+                {
+                    // Create new args
+                    create_t_arg_exec(&new_args, p, l, pl, t, real_path);
+
+                    exec_parser_rec((void *)&new_args);
+
+                    // Free allocated memory
+                    free(real_path);
+                    free(link_path);
+
+                    // Free args
+                    destroy_t_arg_exec(&new_args);
+                }
+                else
+                {
+                    // Free allocated memory
+                    free(real_path);
+                    free(link_path);
+                }
+            }
+
             new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
             sprintf(new_path, "%s/%s", path, entry->d_name);
 

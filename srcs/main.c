@@ -40,6 +40,8 @@ int main(int argc, char **argv)
         // Initialize the parser
         p.name_mode = -1;
         p.thread_mode = 1;
+        p.or_mode = 0;
+        p.link_mode = 0;
 
         start_parser(&p, &l, argc, argv);
 

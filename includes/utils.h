@@ -18,5 +18,6 @@ long get_file_size(const char *file_path);
 double get_seconds_from_last_modification(const char *file_path);
 int regex_match(const char *str, const char *pattern);
 char *get_last_dir(const char *path);
+int is_dir(const char *path);
 
 #endif // FTC_UTILS_H

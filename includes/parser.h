@@ -25,6 +25,7 @@ struct _parser
     int name_mode;
     int dir_mode;
     int thread_mode;
+    int link_mode;
 };
 typedef struct _parser parser;
 
