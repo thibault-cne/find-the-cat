@@ -17,12 +17,12 @@ jobs:
       run: cp -r /arbre/* arbre
     -
       name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: projet_sys22
-          path: |
-            /tests
-            /arbre
+      uses: actions/upload-artifact@v3
+      with:
+        name: projet_sys22
+        path: |
+          /tests
+          /arbre
 
   build:
     runs-on: ubuntu-latest
