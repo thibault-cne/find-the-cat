@@ -62,7 +62,10 @@ int main(int argc, char **argv)
             while (++i < l.ptr)
             {
                 token *t = get_token_list_index(&l, i);
-                printf("Value of flag %s is %s\n", get_options_flag(t->TokenType), t->value);
+                if (t->TokenType != TEST)
+                {
+                    printf("La valeur du flag %s est %s\n", get_options_flag(t->TokenType), t->value);
+                }
             }
 
             // printf("\nDisplay all subdirectories\n");
