@@ -28,22 +28,22 @@ void parser_error(token_list *l, int isColored, int pos)
         // Display the error in red
         if (t->TokenType == NONE)
         {
-            fprintf(stderr, "Le flag %s n'est pas correct\n", format_text(format_text(t->value, STYLE_BOLD), COLOR_RED));
+            printf("Le flag %s n'est pas correct\n", format_text(format_text(t->value, STYLE_BOLD), COLOR_RED));
         }
         else
         {
-            fprintf(stderr, "Le flag %s n'est pas correct\n", format_text(format_text(get_options_flag(t->TokenType), STYLE_BOLD), COLOR_RED));
+            printf("Le flag %s n'est pas correct\n", format_text(format_text(get_options_flag(t->TokenType), STYLE_BOLD), COLOR_RED));
         }
     }
     else
     {
         if (t->TokenType == NONE)
         {
-            fprintf(stderr, "Le flag %s n'est pas correct\n", t->value);
+            printf("Le flag %s n'est pas correct\n", t->value);
         }
         else
         {
-            fprintf(stderr, "Le flag %s n'est pas correct\n", get_options_flag(t->TokenType));
+            printf("Le flag %s n'est pas correct\n", get_options_flag(t->TokenType));
         }
     }
 }
