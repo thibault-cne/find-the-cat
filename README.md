@@ -28,6 +28,9 @@ Here is a list of the currently available options and parameter for the CLI. Ple
 | -color | Active color mode | None |
 | -test | Test parssing of the arguments | None |
 | -perm | Search files or directory by permissions. | An octal value of the permissions. |
+| -threads | Activate thread mode. | The number of thread you want. Must be greater than one. |
+| -ou | Activate or mode. | Exec options with `or` instead of `and`. |
+| -link | Activate the follow of symbolic links directories. | None |
 
 Files size
 | Symbol | Size |
