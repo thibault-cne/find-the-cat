@@ -10,7 +10,7 @@ fi
 
 function test_find_date () {
     touch $2
-    if [ ! "$(./ftc $1 -date $3)" == $2 ];
+    if [ ! "$(./ftc $1 "-date" $3)" == $2 ];
     then
         echo "🔴 Test of the file tree failed for date param \"$3\""
         echo "$(./ftc $1 -date $3)"
