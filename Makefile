@@ -8,6 +8,7 @@ FILES 	=	main.c 			\
 			f_mime.c 		\
 			f_name.c 		\
 			f_size.c 		\
+			f_perm.c		\
 			path.c 			\
 			display.c 		\
 			validation.c 	\

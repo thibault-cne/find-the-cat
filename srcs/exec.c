@@ -243,6 +243,12 @@ void *validate_file(void *args)
                 return NULL;
             }
             break;
+        case PERM:
+            if (verify_file_perm(path, atoi(t->value)))
+            {
+                return NULL;
+            }
+            break;
         default:
             break;
         }

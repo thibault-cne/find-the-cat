@@ -203,6 +203,19 @@ int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv,
             return 0;
         }
         break;
+    case PERM:
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
+        {
+            create_token(&t, pos, opt, argv[pos + 1]);
+            incr = 1;
+        }
+        else
+        {
+            p->status = PARSER_PARAM_MISSING;
+            p->errorPtr = pos;
+            return 0;
+        }
+        break;
     default:
         p->status = PARSER_INVALID_OPTION;
         p->errorPtr = pos;

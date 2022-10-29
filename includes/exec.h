@@ -16,6 +16,7 @@
 #include "f_date.h"
 #include "f_grep.h"
 #include "f_dir.h"
+#include "f_perm.h"
 
 // Exec parser
 void exec_parser(parser *p, token_list *l, const char *path);
