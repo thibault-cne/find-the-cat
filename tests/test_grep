@@ -27,6 +27,7 @@ function test_find_grep_nb () {
         echo "🔴 Test of \"catch the cat\" failed for \"$2\""
         echo "$(./ftc $1 "-ctc" $2 | wc -l)"
         echo "$(grep "-r" "$2" $1/* | wc -l)"
+        exit 1
     else
         echo "✅ Test of \"catch the cat\" succeeded (string: \"$2\")."
     fi

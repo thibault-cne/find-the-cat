@@ -13,6 +13,7 @@ function test_parkour () {
     then
         echo "🔴 Test of the file tree failed for dir \"$1\""
         echo "$(./ftc "$1")"
+        exit 1
     else
         echo "✅ Test of the file tree succeeded (dir: \"$1\")."
     fi

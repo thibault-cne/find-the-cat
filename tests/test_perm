@@ -12,7 +12,7 @@ function test_find_perm () {
     if [ ! "$(./ftc "$1" "-perm" "$2" | wc -l)" == "$(find "$1" "-perm" "$2" "-type" "f" | wc -l)" ];
     then
         echo "🔴 Test of perm failed for \"$2\""
-        #exit 1
+        exit 1
     else
         echo "✅ Test of perm succeeded (string: \"$2\")."
     fi
@@ -25,6 +25,7 @@ function test_find_perm_detailed () {
     if [ ! "$(./ftc "$1" "-perm" "$2")" == "$(find "$1" "-perm" "$2" "-type" "f")" ];
     then
         echo "🔴 Test of perm failed for \"$2\""
+        exit 1
     else
         echo "✅ Test of perm succeeded (string: \"$2\")."
     fi

@@ -14,6 +14,7 @@ function test_find_date () {
         echo "🔴 Test of the file tree failed for date param \"$2\""
         echo "$(./ftc "$1" "-date" "$2" | wc -l)"
         echo "$(find "$1" "-mmin" "$3" | wc -l)"
+        exit 1
     else
         echo "✅ Test of find with name succeeded (date: \"$3\")."
     fi
@@ -27,6 +28,7 @@ function test_find_date_several () {
         echo "🔴 Test of the file tree failed for date param \"$2\""
         echo "$(./ftc "$1" -date "$2" | wc -l)"
         echo "$(find "$1" "-mmin" "$3" | wc -l)"
+        exit 1
     else
         echo "✅ Test of find with name succeeded (date: \"$3\")."
     fi

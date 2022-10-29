@@ -12,6 +12,7 @@ function test_find_regex_exact () {
     if [ ! "$(./ftc "$1" "-name" "$2")" == "$(find "$1" "-regex" "$2" "-type" "f")" ];
     then
         echo "🔴 Test of regex failed for \"$2\""
+        exit 1
     else
         echo "✅ Test of find with regex succeeded (regex: \"$2\")."
     fi
@@ -23,6 +24,7 @@ function test_find_regex () {
     if [ ! "$(./ftc "$1" "-name" "$2" | wc -l)" == "$(find "$1" "-regex" "$2" "-type" "f" | wc -l)" ];
     then
         echo "🔴 Test of regex failed for \"$2\""
+        exit 1
     else
         echo "✅ Test of find with regex succeeded (regex: \"$2\")."
     fi
