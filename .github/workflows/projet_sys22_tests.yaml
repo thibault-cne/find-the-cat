@@ -17,16 +17,12 @@ jobs:
       run: cp -r /arbre/* arbre
     -
       name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: projet_sys22_tests
-          path: /tests
-    -
-      name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: projet_sys22_arbre
-          path: /arbre
+          name: projet_sys22
+          path: |
+            /tests
+            /arbre
 
   build:
     runs-on: ubuntu-latest
@@ -42,16 +38,9 @@ jobs:
     steps:
     -
       name: Download artifact
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
-        name: projet_sys22_tests
-        path: /tests
-    -
-      name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: projet_sys22_arbre
-          path: /arbre
+        name: projet_sys22
     -
       name: Check test build
       uses: actions/checkout@v3
