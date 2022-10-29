@@ -23,6 +23,7 @@ jobs:
 
   check-test-build:
     runs-on: ubuntu-latest
+    needs: make-test
     steps:
       - uses: actions/checkout@v3
       - run: ./tests/file_exist ftc
