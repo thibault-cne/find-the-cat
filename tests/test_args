@@ -22,6 +22,7 @@ test_wellformed_param "." "-name" "mimou"
 test_wellformed_param ".." "-size" "mimou"
 test_wellformed_param "." "-date" "mimou"
 test_wellformed_param "." "-ctc" "mimou"
+test_wellformed_param "." "-ctc" "audience do pipoulapi"
 test_wellformed_param "." "-mime" "mimou"
 
 function test_not_wellformed_param () {
