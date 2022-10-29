@@ -120,7 +120,10 @@ void *exec_parser_rec(void *arg_exec)
     char *new_path;
 
     if (!(dir = opendir(path)))
+    {
+        closedir(dir);
         return NULL;
+    }
 
     while ((entry = readdir(dir)) != NULL)
     {

@@ -18,8 +18,12 @@ ValidationStatus validate_entry_path(const char *entry)
 
     if (!(dir = opendir(entry)))
     {
+        closedir(dir);
+
         return VALIDATION_ERROR;
     }
+
+    closedir(dir);
 
     return VALIDATION_SUCCESS;
 }

@@ -49,6 +49,9 @@ void *get_subdirectories(void *args)
             free(new_path);
         }
     }
+
+    closedir(dir);
+
     return (NULL);
 }
 
