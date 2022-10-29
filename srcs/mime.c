@@ -758,11 +758,19 @@ char *Mime_types[][ARRAY_SIZE] = {
 char *get_mime_type(char *filename)
 {
     char *ext;
+    char *f_name;
     int i;
 
-    ext = strrchr(filename, '.');
+    f_name = (char *)malloc(sizeof(char) * strlen(filename) + 1);
+    strcpy((char *)f_name, filename);
+
+    ext = strrchr(f_name, '.');
     if (!ext)
+    {
+        // Free memory
+        free(f_name);
         return NULL;
+    }
 
     i = 0;
 
@@ -770,10 +778,14 @@ char *get_mime_type(char *filename)
     {
         if (!strcmp(Mime_types[i][0], ext))
         {
+            // Free memory
+            free(f_name);
             return Mime_types[i][1];
         }
         i++;
     }
 
+    // Free memory
+    free(f_name);
     return NULL;
 }
