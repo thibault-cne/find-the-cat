@@ -18,9 +18,18 @@
 #include "f_dir.h"
 #include "f_perm.h"
 
-// Exec parser
+// Execute the parser
+// @param p the parser
+// @param l the token list
+// @param path the path to search
 void exec_parser(parser *p, token_list *l, const char *path);
+
+// Execute the parser recursively inside all subdirectory
+// @param args_exec a pointer to the functions arguments
 void *exec_parser_rec(void *arg_exec);
+
+// Validate an entry with the parser settings
+// @param args a pointer to the functions arguments
 void *validate_file(void *args);
 
 #endif // FTC_EXEC_H

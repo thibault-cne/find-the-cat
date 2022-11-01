@@ -29,7 +29,21 @@ struct _parser
 };
 typedef struct _parser parser;
 
+// Start parsing the command line
+// @param p the parser
+// @param l the token list
+// @param argc the number of arguments
+// @param argv the arguments
 void start_parser(parser *p, token_list *l, int argc, char **argv);
+
+// Add a token to the token list
+// @param p the parser
+// @param l the token list
+// @param opt the option type
+// @param argc the number of arguments
+// @param argv the arguments
+// @param pos the current position
+// @return the offset of the next token
 int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv, int pos);
 
 #endif // FTC_PARSER_H

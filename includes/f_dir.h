@@ -13,10 +13,18 @@
 #include "thread.h"
 #include "t_arg.h"
 
+// Get all subdirectories of a given directory
+// @param args a pointer to the functions arguments
 void *get_subdirectories(void *args);
+
+// Display all subdirectories of a given directory
+// @param path the path to the directory
 void display_subdirectories(const char *path);
 
-// Directory functions
+// Verify if the name of a directory is valid
+// @param path the path to the file
+// @param name the name of the file
+// @return 0 if the name is valid, 1 otherwise
 int verify_directories_by_name(const char *path, const char *name);
 
 #endif // FTC_F_DIR_H

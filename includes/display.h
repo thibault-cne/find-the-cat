@@ -23,10 +23,23 @@
 
 #include "path.h"
 
+// Display the map of path
+// @param pl the path list
+// @param isColor if the color is enable
 void path_display(path_list *l, int isColor);
+
+// Display the map of path with color
+// @param pl path list
 void path_display_color(path_list *l);
 
+// Format a given string with a given format
+// @param text the string to format
+// @param format the format to apply
+// @return The formatted string
 char *format_text(char *text, char *format);
+
+// Display the help menu
+// @param isColor if the color is enable
 void display_help(int isColored);
 
 #endif // FTC_DISPLAY_H

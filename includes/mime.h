@@ -12,6 +12,9 @@ enum
     ARRAY_SIZE,
 };
 
+// Get the mime type of a file
+// @param path the path to the file
+// @return the mime type of the file
 char *get_mime_type(char *filename);
 
 #endif // FTC_MIME_H

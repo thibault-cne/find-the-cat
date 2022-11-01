@@ -11,7 +11,10 @@
 #include "path.h"
 #include "utils.h"
 
-// Date functions
+// Verify if the file modification date is valid regarding the given date
+// @param path the path to the file
+// @param date the date to compare
+// @return 0 if the file modification date is valid, 1 otherwise
 int verify_files_by_date(const char *path, char *date);
 
 #endif // FTC_F_DATE_H

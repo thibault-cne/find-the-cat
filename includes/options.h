@@ -36,15 +36,34 @@ enum _Options
 };
 typedef enum _Options Options;
 
+// Get the option from one command line argument
+// @param arg the command line argument
+// @return the option
 Options get_flag_options(const char *opt);
+
+// Get the argument from an option
+// @param opt the option
+// @return the argument
 char *get_options_flag(Options opt);
 
-// Size functions
+// Get the size from the size option
+// @param size the size option parameter
+// @return the size
 int get_size(char *size);
+
+// Get the multiplier from the size option
+// @param size the size option parameter
+// @return the multiplier
 int get_multiplier(char s);
 
-// Date functions
+// Get the time from the date option
+// @param date the date option parameter
+// @return the time
 double get_time(char *time);
+
+// Get the multiplier from the date option
+// @param date the date option parameter
+// @return the multiplier
 int get_time_multiplier(char s);
 
 #endif // FTC_OPTIONS_H

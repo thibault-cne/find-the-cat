@@ -11,7 +11,11 @@
 #include "path.h"
 #include "utils.h"
 
-// Mime functions
+// Verify if the file mime type is valid regarding the given mime type.
+// We verify mime type by extension
+// @param path the path to the file
+// @param mime the mime type to compare
+// @return 0 if the file mime type is valid, 1 otherwise
 int verify_files_by_mime(const char *path, char *mime);
 
 #endif // FTC_F_MIME_H

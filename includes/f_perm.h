@@ -13,7 +13,14 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+// Get the file permission
+// @param path the path to the file
 int get_file_perm(const char *path);
+
+// Verify if the file permission is valid
+// @param path the path to the file
+// @param perm the permission to compare
+// @return 0 if the file permission is valid, 1 otherwise
 int verify_file_perm(const char *path, int perm);
 
 #endif // FTC_F_PERM_H
