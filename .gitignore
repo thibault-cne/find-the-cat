@@ -2,5 +2,6 @@
 objs/
 *.o
 
-# Ignore build folder
+# Ignore build folder and exec file
 build/
+ftc
