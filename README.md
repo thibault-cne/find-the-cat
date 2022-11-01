@@ -17,7 +17,7 @@ make
 
 Here is a list of the currently available options and parameter for the CLI. Please note that for now, all commands are run as AND commands (the CLI handle multiple options as AND options).
 
-| Options name | Description | Parameters |
+| Options name &nbsp; | Description | Parameters |
 | :--- | :---: | ---: |
 | -name | Search files by name inside the subdirectories. | A string with the file extension or a regex. |
 | -size | Search files by size inside the subdirectories. | For the size measurement units please refer to the next tables. You can add a `+` or a `-` in front of the size to specify if it should search for files with greater or lower size. |
