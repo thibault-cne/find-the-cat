@@ -113,6 +113,8 @@ void *exec_parser_rec(void *arg_exec)
 
     // Create thread
     t_arg_exec new_arg_exec;
+    t_arg_validation arg_validation;
+    char *new_path;
     thread *th;
     DIR *dir;
     struct dirent *entry;
@@ -125,34 +127,38 @@ void *exec_parser_rec(void *arg_exec)
 
     while ((entry = readdir(dir)) != NULL)
     {
-        t_arg_validation arg_validation;
-        char *new_path;
-
-        new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-        sprintf(new_path, "%s/%s", path, entry->d_name);
-
-        create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
 
         if (entry->d_type == DT_DIR)
         {
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
                 continue;
 
+            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+            sprintf(new_path, "%s/%s", path, entry->d_name);
+
             // Get inactive thread
             if (!p->name_mode)
             {
                 th = get_thread(t);
 
+                create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
+
                 // Validate with threads
                 pthread_create(th->threads, NULL, (void *)validate_file, (void *)&arg_validation);
                 pthread_join(*th->threads, NULL);
                 th->active = 0;
+
+                // Free args
+                destroy_t_arg_validation(&arg_validation);
             }
 
             // Create new args
             create_t_arg_exec(&new_arg_exec, p, l, pl, t, new_path);
 
             exec_parser_rec((void *)&new_arg_exec);
+
+            // Free new path
+            free(new_path);
 
             // Free args
             destroy_t_arg_exec(&new_arg_exec);
@@ -195,17 +201,22 @@ void *exec_parser_rec(void *arg_exec)
             // Get inactive thread
             th = get_thread(t);
 
+            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+            sprintf(new_path, "%s/%s", path, entry->d_name);
+
+            create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
+
             // Validate with threads
             pthread_create(th->threads, NULL, (void *)validate_file, (void *)&arg_validation);
             pthread_join(*th->threads, NULL);
             th->active = 0;
+
+            // Free new path
+            free(new_path);
+
+            // Free args
+            destroy_t_arg_validation(&arg_validation);
         }
-
-        // Free allocated memory
-        free(new_path);
-
-        // Free args
-        destroy_t_arg_validation(&arg_validation);
     }
 
     closedir(dir);
