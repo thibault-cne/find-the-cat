@@ -33,7 +33,7 @@ void f_printp(const char *path, int isColor)
 {
     if (!isColor)
     {
-        printf("Here %s\n", path);
+        printf("%s\n", path);
         return;
     }
 
@@ -55,7 +55,7 @@ void f_printp(const char *path, int isColor)
             f_printf("COLOR_BLUE|%.*s%c|S", (int)(end - beg), beg, *end);
             break;
         }
-        f_printf("COLOR_RED|%.*s%c|S", (int)(end - beg), beg, *end);
+        f_printf("S|%.*s%c", (int)(end - beg), beg, *end);
 
         beg = end + 1;
     }
@@ -118,7 +118,6 @@ void f_printf(const char *format, ...)
     {
         beg += strspn(beg, whitespace);
         end = beg + strcspn(beg, delimiters);
-
         f_cprintf(&beg, &end);
 
         beg = end + 1;
