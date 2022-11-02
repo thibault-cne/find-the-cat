@@ -103,5 +103,7 @@ int main(int argc, char **argv)
         display_subdirectories((const char *)argv[1]);
     }
 
+    f_printf("This is a %s |COLOR_RED|STYLE_BOLD|Test\n|S", "test");
+
     return 0;
 }

@@ -1,8 +1,9 @@
 #ifndef FTC_DISPLAY_H
 #define FTC_DISPLAY_H
 
+#define RESET "\033[0m"
+
 // Colors
-#define COLOR_RESET "\033[0m"
 #define COLOR_RED "\033[31m"
 #define COLOR_GREEN "\033[32m"
 #define COLOR_YELLOW "\033[33m"
@@ -20,6 +21,8 @@
 #define STYLE_HIDDEN "\033[8m"
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
 #include "path.h"
 
@@ -41,5 +44,8 @@ char *format_text(char *text, char *format);
 // Display the help menu
 // @param isColor if the color is enable
 void display_help(int isColored);
+
+void f_printf(const char *format, ...);
+void f_fprintf(char **beg, char **end);
 
 #endif // FTC_DISPLAY_H
