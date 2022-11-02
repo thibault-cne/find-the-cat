@@ -19,11 +19,17 @@ int verify_files_by_mime(const char *f_name, char *mime)
 
     file_mime = get_mime_type((char *)f_name);
 
-    if (file_mime != NULL && ((!strcmp(file_mime, mime) || !strncmp(file_mime, mime, strlen(mime)))))
+    if (file_mime == NULL)
+    {
+        return 0;
+    }
+
+    if ((!strcmp(file_mime, mime) || !strncmp(file_mime, mime, strlen(mime))))
     {
         free(file_mime);
         return 1;
     }
 
+    free(file_mime);
     return 0;
 }
