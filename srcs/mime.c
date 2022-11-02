@@ -759,10 +759,11 @@ char *get_mime_type(char *filename)
 {
     char *ext;
     char *f_name;
+    char *res;
     int i;
 
-    f_name = (char *)malloc(sizeof(char) * strlen(filename) + 1);
-    strcpy((char *)f_name, filename);
+    f_name = (char *)malloc(sizeof(char) * (strlen(filename) + 1));
+    strcpy(f_name, filename);
 
     ext = strrchr(f_name, '.');
     if (!ext)
@@ -780,7 +781,11 @@ char *get_mime_type(char *filename)
         {
             // Free memory
             free(f_name);
-            return Mime_types[i][1];
+
+            // Get mime type
+            res = (char *)malloc(sizeof(char) * (strlen(Mime_types[i][1]) + 1));
+            strcpy(res, Mime_types[i][1]);
+            return res;
         }
         i++;
     }

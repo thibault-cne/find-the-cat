@@ -15,7 +15,7 @@
 // We verify mime type by extension
 // @param path the path to the file
 // @param mime the mime type to compare
-// @return 0 if the file mime type is valid, 1 otherwise
+// @return 1 if the file mime type is valid, 0 otherwise
 int verify_files_by_mime(const char *path, char *mime);
 
 #endif // FTC_F_MIME_H

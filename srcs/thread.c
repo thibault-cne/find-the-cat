@@ -12,6 +12,8 @@
 
 #include "../includes/thread.h"
 
+#include <stdio.h>
+
 void create_thread(thread *t, pthread_t *pt, pthread_mutex_t *m)
 {
     t->threads = pt;

@@ -112,12 +112,10 @@ void *exec_parser_rec(void *arg_exec)
     t = a->t;
 
     // Create thread
-    t_arg_exec new_args;
-    t_arg_validation args;
+    t_arg_exec new_arg_exec;
     thread *th;
     DIR *dir;
     struct dirent *entry;
-    char *new_path;
 
     if (!(dir = opendir(path)))
     {
@@ -127,41 +125,37 @@ void *exec_parser_rec(void *arg_exec)
 
     while ((entry = readdir(dir)) != NULL)
     {
+        t_arg_validation arg_validation;
+        char *new_path;
+
+        new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
+        sprintf(new_path, "%s/%s", path, entry->d_name);
+
+        create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
 
         if (entry->d_type == DT_DIR)
         {
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
                 continue;
 
-            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-            sprintf(new_path, "%s/%s", path, entry->d_name);
-
             // Get inactive thread
             if (!p->name_mode)
             {
                 th = get_thread(t);
 
-                create_t_arg_validation(&args, pl, l, th, entry, new_path, p->or_mode);
-
                 // Validate with threads
-                pthread_create(th->threads, NULL, (void *)validate_file, (void *)&args);
+                pthread_create(th->threads, NULL, (void *)validate_file, (void *)&arg_validation);
                 pthread_join(*th->threads, NULL);
                 th->active = 0;
-
-                // Free args
-                destroy_t_arg_validation(&args);
             }
 
             // Create new args
-            create_t_arg_exec(&new_args, p, l, pl, t, new_path);
+            create_t_arg_exec(&new_arg_exec, p, l, pl, t, new_path);
 
-            exec_parser_rec((void *)&new_args);
-
-            // Free allocated memory
-            free(new_path);
+            exec_parser_rec((void *)&new_arg_exec);
 
             // Free args
-            destroy_t_arg_exec(&new_args);
+            destroy_t_arg_exec(&new_arg_exec);
         }
         else
         {
@@ -179,16 +173,16 @@ void *exec_parser_rec(void *arg_exec)
                 if (is_dir(real_path))
                 {
                     // Create new args
-                    create_t_arg_exec(&new_args, p, l, pl, t, real_path);
+                    create_t_arg_exec(&new_arg_exec, p, l, pl, t, real_path);
 
-                    exec_parser_rec((void *)&new_args);
+                    exec_parser_rec((void *)&new_arg_exec);
 
                     // Free allocated memory
                     free(real_path);
                     free(link_path);
 
                     // Free args
-                    destroy_t_arg_exec(&new_args);
+                    destroy_t_arg_exec(&new_arg_exec);
                 }
                 else
                 {
@@ -198,25 +192,20 @@ void *exec_parser_rec(void *arg_exec)
                 }
             }
 
-            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-            sprintf(new_path, "%s/%s", path, entry->d_name);
-
             // Get inactive thread
             th = get_thread(t);
 
-            create_t_arg_validation(&args, pl, l, th, entry, new_path, p->or_mode);
-
             // Validate with threads
-            pthread_create(th->threads, NULL, (void *)validate_file, (void *)&args);
+            pthread_create(th->threads, NULL, (void *)validate_file, (void *)&arg_validation);
             pthread_join(*th->threads, NULL);
             th->active = 0;
-
-            // Free allocated memory
-            free(new_path);
-
-            // Free args
-            destroy_t_arg_validation(&args);
         }
+
+        // Free allocated memory
+        free(new_path);
+
+        // Free args
+        destroy_t_arg_validation(&arg_validation);
     }
 
     closedir(dir);
@@ -275,11 +264,11 @@ void *validate_file(void *args)
             }
             break;
         case MIME:
-            if (verify_files_by_mime(entry->d_name, t->value) && !or_mode)
+            if (!verify_files_by_mime(entry->d_name, t->value) && !or_mode)
             {
                 return NULL;
             }
-            if (!verify_files_by_mime(entry->d_name, t->value) && or_mode)
+            if (verify_files_by_mime(entry->d_name, t->value) && or_mode)
             {
                 valid = 1;
             }

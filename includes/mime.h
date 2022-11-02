@@ -12,7 +12,8 @@ enum
     ARRAY_SIZE,
 };
 
-// Get the mime type of a file
+// Get the mime type of a file. It return NULL if the file is not found or
+// an allocated string containing the mime type.
 // @param path the path to the file
 // @return the mime type of the file
 char *get_mime_type(char *filename);
