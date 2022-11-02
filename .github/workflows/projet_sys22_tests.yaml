@@ -3,7 +3,7 @@ name: projet_sys22/tests
 on: [push]
 
 jobs:
-  full-option-job:
+  build-and-test:
     runs-on: ubuntu-latest
     container:
       image: yewolf/projet_sys22
