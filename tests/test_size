@@ -9,7 +9,7 @@ then
 fi
 
 function test_find_exact_size () {
-    if [ ! "$(./ftc "$1" "-size" "$2")" == "$(find "$1" "-size" "$2")" ];
+    if [ ! "$(./ftc "$1" "-size" "$2")" == "$(find "$1" "-size" -type f "$2")" ];
     then
         echo "🔴 Test of find with exact size failed for param \"$2 $3\""
         echo "$(./ftc "$1" "-size" "$2")"
@@ -22,7 +22,7 @@ function test_find_exact_size () {
 test_find_exact_size "arbre" "27c"
 
 function test_find_size () {
-    if [ ! "$(./ftc "$1" "-size" "$2" | wc -l)" == "$(find "$1" "-size" "$2" | wc -l)" ];
+    if [ ! "$(./ftc "$1" "-size" "$2" | wc -l)" == "$(find "$1" "-size" "$2" -type f | wc -l)" ];
     then
         echo "🔴 Test of find with size failed for param \"$2 $3\""
         exit 1
