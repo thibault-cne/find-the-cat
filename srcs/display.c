@@ -44,7 +44,14 @@ void path_display_color(path_list *pl)
     {
         if (pl->data[i] != NULL)
         {
-            f_printf("COLOR_GREEN|%s\n|S", pl->data[i]);
+            if (is_dir(pl->data[i]))
+            {
+                f_printf("COLOR_GREEN|%s\n|S", pl->data[i]);
+            }
+            else
+            {
+                f_printf("COLOR_BLUE|%s\n|S", pl->data[i]);
+            }
         }
     }
 }

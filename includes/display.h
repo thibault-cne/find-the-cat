@@ -25,6 +25,7 @@
 #include <stdarg.h>
 
 #include "path.h"
+#include "utils.h"
 
 // Display the map of path
 // @param pl the path list

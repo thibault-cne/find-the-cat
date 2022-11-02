@@ -58,10 +58,8 @@ int main(int argc, char **argv)
 
         if (p.test_mode)
         {
-            path_list pl;
             int i;
 
-            create_path_list(&pl, 1);
             i = -1;
 
             while (++i < l.ptr)
@@ -72,13 +70,6 @@ int main(int argc, char **argv)
                     printf("La valeur du flag %s est %s\n", get_options_flag(t->TokenType), t->value);
                 }
             }
-
-            // printf("\nDisplay all subdirectories\n");
-            // get_subdirectories(&pl, argv[1]);
-            // path_display(&pl, 0);
-
-            // Free the path list
-            destroy_path_list(&pl);
         }
         else
         {
@@ -102,8 +93,6 @@ int main(int argc, char **argv)
 
         display_subdirectories((const char *)argv[1]);
     }
-
-    f_printf("This is a %s |COLOR_RED|STYLE_BOLD|Test\n|S", "test");
 
     return 0;
 }
