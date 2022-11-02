@@ -12,20 +12,19 @@
 
 #include "../includes/validation.h"
 
-ValidationStatus validate_entry_path(const char *entry)
+#include <stdio.h>
+
+int validate_entry_path(const char *entry)
 {
-    DIR *dir;
+    struct stat st;
 
-    if (!(dir = opendir(entry)))
-    {
-        closedir(dir);
+    stat(entry, &st);
 
-        return VALIDATION_ERROR;
-    }
+    // Check for file existence
+    if (S_ISDIR(st.st_mode))
+        return VALIDATION_SUCCESS;
 
-    closedir(dir);
-
-    return VALIDATION_SUCCESS;
+    return VALIDATION_ERROR;
 }
 
 int validate_entry_is_not_opt(char *entry)

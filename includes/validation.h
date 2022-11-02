@@ -3,6 +3,8 @@
 
 #include <dirent.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 enum _ValidationStatus
 {
@@ -14,7 +16,7 @@ typedef enum _ValidationStatus ValidationStatus;
 // Verify if the entry path is valid
 // @param entry the path to the entry
 // @return 0 if the entry path is valid, 1 otherwise
-ValidationStatus validate_entry_path(const char *entry);
+int validate_entry_path(const char *entry);
 
 // Verify if an entry is an option
 // @param entry the string to verify

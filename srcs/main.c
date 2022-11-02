@@ -25,10 +25,10 @@ int main(int argc, char **argv)
     if (argc > 2)
     {
         // Run validation on the entry path
-        if (validate_entry_path(argv[1]) != VALIDATION_SUCCESS)
+        if (validate_entry_path(argv[1]))
         {
             printf("Error: please make sure to enter a valid path as first argument.\n");
-            return 1;
+            exit(1);
         }
         // Remove trailing slash if any
         format_entry_path(argv[1]);
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
         if (validate_entry_path(argv[1]) != VALIDATION_SUCCESS)
         {
             printf("Error: please make sure to enter a valid path as first argument.\n");
-            return 1;
+            exit(1);
         }
 
         display_subdirectories((const char *)argv[1]);
