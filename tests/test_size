@@ -9,11 +9,11 @@ then
 fi
 
 function test_find_exact_size () {
-    if [ ! "$(./ftc "$1" "-size" "$2")" == "$(find "$1" "-size" "$2" "-type" "-d")" ];
+    if [ ! "$(./ftc "$1" "-size" "$2")" == "$(find "$1" "-size" "$2" "-type" "d")" ];
     then
         echo "🔴 Test of find with exact size failed for param \"$2 $3\""
         echo "$(./ftc "$1" "-size" "$2")"
-        echo "$(find "$1" "-size" -type f "$2")"
+        echo "$(find "$1" "-size" "$2" "-type" "d")"
         exit 1
     else
         echo "✅ Test of find with exact size succeeded (file: \"$2\")."
