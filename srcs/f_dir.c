@@ -83,6 +83,10 @@ void display_subdirectories(const char *path)
             // Free allocated memory
             free(new_path);
         }
+        else
+        {
+            printf("%s/%s\n", path, entry->d_name);
+        }
     }
 
     closedir(dir);
