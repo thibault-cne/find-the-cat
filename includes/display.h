@@ -34,19 +34,14 @@ void path_display(path_list *l, int isColor);
 
 // Display the map of path with color
 // @param pl path list
-void path_display_color(path_list *l);
-
-// Format a given string with a given format
-// @param text the string to format
-// @param format the format to apply
-// @return The formatted string
-char *format_text(char *text, char *format);
+void f_printp(const char *path, int isColor);
 
 // Display the help menu
 // @param isColor if the color is enable
 void display_help(int isColored);
 
+char *f_sprintf(const char *format, va_list args);
 void f_printf(const char *format, ...);
-void f_fprintf(char **beg, char **end);
+void f_cprintf(char **beg, char **end);
 
 #endif // FTC_DISPLAY_H

@@ -14,46 +14,53 @@
 
 void path_display(path_list *pl, int isColor)
 {
-    if (isColor)
-    {
-        path_display_color(pl);
-    }
-    else
-    {
-        int i;
-
-        i = -1;
-
-        while (++i < pl->ptr)
-        {
-            if (pl->data[i] != NULL)
-            {
-                printf("%s\n", pl->data[i]);
-            }
-        }
-    }
-}
-
-void path_display_color(path_list *pl)
-{
     int i;
 
     i = -1;
 
     while (++i < pl->ptr)
     {
-        if (pl->data[i] != NULL)
+        if (pl->data[i] == NULL)
         {
-            if (is_dir(pl->data[i]))
-            {
-                f_printf("COLOR_GREEN|%s\n|S", pl->data[i]);
-            }
-            else
-            {
-                f_printf("COLOR_BLUE|%s\n|S", pl->data[i]);
-            }
+            continue;
         }
+
+        f_printp(pl->data[i], isColor);
     }
+}
+
+void f_printp(const char *path, int isColor)
+{
+    if (!isColor)
+    {
+        printf("Here %s\n", path);
+        return;
+    }
+
+    const char *delimiters = "/";
+
+    char *beg;
+    char *end;
+
+    beg = (char *)path;
+    end = (char *)path;
+
+    while (*end != '\0')
+    {
+        beg += strspn(beg, delimiters);
+        end = beg + strcspn(beg, delimiters);
+
+        if (*end == '\0')
+        {
+            f_printf("COLOR_BLUE|%.*s%c|S", (int)(end - beg), beg, *end);
+            break;
+        }
+        f_printf("COLOR_RED|%.*s%c|S", (int)(end - beg), beg, *end);
+
+        beg = end + 1;
+    }
+
+    putchar('\n');
 }
 
 void display_help(int isColored)
@@ -68,36 +75,38 @@ void display_help(int isColored)
     }
 }
 
+char *f_sprintf(const char *format, va_list args)
+{
+    va_list args2;
+    size_t len;
+
+    va_copy(args2, args);
+
+    len = vsnprintf(NULL, 0, format, args);
+    char *str = (char *)malloc((len + 1) * sizeof(char));
+
+    vsnprintf(str, len + 1, format, args2);
+
+    va_end(args);
+
+    str[len] = '\0';
+    return str;
+}
+
 // Format is a string like COLOR|STYLE|text|COLOR|STYLE|text|...
 // Example: "COLOR_GREEN|STYLE_BOLD|Hello World|" will return "Hello World" in green and bold
 void f_printf(const char *format, ...)
 {
-    size_t len;
-    char *str;
     va_list args;
-    va_list args2;
+    char *str;
     char *beg;
     char *end;
     char *whitespace;
     char *delimiters;
 
     va_start(args, format);
-
-    // Copy the args to args2
-    va_copy(args2, args);
-
-    // Get the length of the string
-    len = vsnprintf(NULL, 0, format, args);
-
-    // Allocate the string
-    str = malloc(len + 1);
-
-    // Write the string
-    vsprintf(str, format, args2);
-
+    str = f_sprintf(format, args);
     va_end(args);
-
-    str[len] = '\0';
 
     beg = str;
     end = str;
@@ -105,25 +114,20 @@ void f_printf(const char *format, ...)
     whitespace = " \t";
     delimiters = "|";
 
-    while (1)
+    while (*end != '\0')
     {
         beg += strspn(beg, whitespace);
         end = beg + strcspn(beg, delimiters);
 
-        f_fprintf(&beg, &end);
+        f_cprintf(&beg, &end);
 
         beg = end + 1;
-
-        if (*end == '\0')
-        {
-            break;
-        }
     }
 
     free(str);
 }
 
-void f_fprintf(char **beg, char **end)
+void f_cprintf(char **beg, char **end)
 {
     char *format;
 
