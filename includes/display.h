@@ -41,7 +41,7 @@ const char *converted_styles[] = {
     COLOR_CYAN, COLOR_WHITE, RESET, STYLE_BOLD, STYLE_DIM,
     STYLE_UNDERLINED, STYLE_BLINK, STYLE_REVERSE, STYLE_HIDDEN,
     NULL};
-#endif
+#endif // __styles
 
 // Display the map of path
 // @param pl the path list

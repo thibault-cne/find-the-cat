@@ -5,6 +5,12 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#ifdef __flags
+const char *flags[] = {
+    "-name", "-size", "-mime", "-ctc", "-perm", "-dir",
+    "-date", "-link", "-color", "-threads", "-test", "-ou", NULL};
+#endif // __flags
+
 enum _ValidationStatus
 {
     VALIDATION_SUCCESS,
