@@ -107,7 +107,12 @@ int verify_directories_by_name(const char *path, const char *name)
 
         free(last_dir);
 
-        return i;
+        if (!i)
+        {
+            return 1;
+        }
+
+        return 0;
     }
 
     return 0;
