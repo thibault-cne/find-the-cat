@@ -27,6 +27,22 @@
 #include "path.h"
 #include "utils.h"
 
+#ifdef __styles
+// Styles used by the display functions
+const char *styles[] = {
+    "COLOR_RED", "COLOR_GREEN", "COLOR_YELLOW", "COLOR_BLUE", "COLOR_MAGENTA",
+    "COLOR_CYAN", "COLOR_WHITE", "S", "STYLE_BOLD", "STYLE_DIM",
+    "STYLE_UNDERLINED", "STYLE_BLINK", "STYLE_REVERSE", "STYLE_HIDDEN",
+    NULL};
+
+// Styles used in the terminal
+const char *converted_styles[] = {
+    COLOR_RED, COLOR_GREEN, COLOR_YELLOW, COLOR_BLUE, COLOR_MAGENTA,
+    COLOR_CYAN, COLOR_WHITE, RESET, STYLE_BOLD, STYLE_DIM,
+    STYLE_UNDERLINED, STYLE_BLINK, STYLE_REVERSE, STYLE_HIDDEN,
+    NULL};
+#endif
+
 // Display the map of path
 // @param pl the path list
 // @param isColor if the color is enable
