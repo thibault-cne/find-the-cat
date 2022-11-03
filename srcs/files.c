@@ -61,9 +61,9 @@ int file_contains_pattern(const char *path, const char *pattern)
     if (!regex_match(buf, pattern))
     {
         free(buf);
-        return 0;
+        return 1;
     }
 
     free(buf);
-    return 1;
+    return 0;
 }

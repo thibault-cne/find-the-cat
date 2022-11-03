@@ -14,6 +14,7 @@ function test_find_grep () {
         echo "🔴 Test of \"catch the cat\" failed for \"$2\""
         echo "$(./ftc $1 "-ctc" "$2" | wc -l)"
         echo "$(grep "-rl" "$2" $1/* | wc -l)"
+        exit 1
     else
         echo "✅ Test of \"catch the cat\" succeeded (string: \"$2\")."
     fi
@@ -39,6 +40,7 @@ function test_find_grep_regex () {
     if [ ! "$(./ftc "$1" "-ctc" "$2" | wc -l)" == "$(grep "-rl" "$2" "$1"/* | wc -l)" ];
     then
         echo "🔴 Test of \"catch the cat\" with regex failed for \"$2\""
+        exit 1
     else
         echo "✅ Test of \"catch the cat\" with regex succeeded (regex: \"$2\")."
     fi
