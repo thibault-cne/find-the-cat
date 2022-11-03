@@ -12,14 +12,14 @@
 
 #include "../includes/path.h"
 
-void create_path_list(path_list *l, int size)
+void create_path_list(path_list_t *l, int size)
 {
     l->data = (char **)malloc(sizeof(char *) * size);
     l->ptr = 0;
     l->size = size;
 }
 
-void add_path_list(path_list *l, char *path)
+void add_path_list(path_list_t *l, char *path)
 {
     if (l->ptr >= l->size)
     {
@@ -35,7 +35,7 @@ void add_path_list(path_list *l, char *path)
     l->data[l->ptr++] = p;
 }
 
-char *get_path_list_index(path_list *l, int i)
+char *get_path_list_index(path_list_t *l, int i)
 {
     if (i >= l->size)
     {
@@ -45,7 +45,7 @@ char *get_path_list_index(path_list *l, int i)
     return l->data[i];
 }
 
-void remove_path_list_index(path_list *l, int i)
+void remove_path_list_index(path_list_t *l, int i)
 {
     if (i >= l->size)
     {
@@ -56,7 +56,7 @@ void remove_path_list_index(path_list *l, int i)
     l->data[i] = NULL;
 }
 
-void destroy_path_list(path_list *l)
+void destroy_path_list(path_list_t *l)
 {
     int i;
 

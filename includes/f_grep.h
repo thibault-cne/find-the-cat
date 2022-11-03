@@ -14,7 +14,7 @@
 // Verify if the file content contains the given string
 // @param path the path to the file
 // @param pattern the string to search
-// @return 0 if the file content contains the given string, 1 otherwise
+// @return 1 if the file content contains the given string, 0 otherwise
 int verify_files_by_content_pattern(const char *path, const char *pattern);
 
 #endif // FTC_F_GREP_H

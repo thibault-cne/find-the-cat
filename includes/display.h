@@ -46,7 +46,7 @@ const char *converted_styles[] = {
 // Display the map of path
 // @param pl the path list
 // @param isColor if the color is enable
-void path_display(path_list *l, int isColor);
+void path_display(path_list_t *l, int isColor);
 
 // Display a path in color or not
 // @param path the path to display

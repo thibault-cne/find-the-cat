@@ -12,9 +12,9 @@
 
 #include "../includes/exec.h"
 
-void exec_parser(parser *p, token_list *l, const char *path)
+void exec_parser(parser_t *p, token_list *l, const char *path)
 {
-    path_list pl;
+    path_list_t pl;
     pthread_t *threads;
     pthread_mutex_t mutex;
     thread_collection t;
@@ -48,9 +48,7 @@ void exec_parser(parser *p, token_list *l, const char *path)
         create_t_args_get_subdir(&args, &pl, th, path);
 
         // Get subdirectories with threads
-        pthread_create(th->threads, NULL, (void *)get_subdirectories, (void *)&args);
-        pthread_join(*th->threads, NULL);
-        th->active = 0;
+        _create_thread(th, get_subdirectories, &args);
 
         // Free args
         destroy_t_args_get_subdir(&args);
@@ -67,9 +65,7 @@ void exec_parser(parser *p, token_list *l, const char *path)
             th = get_thread(&t);
 
             // Create thread
-            pthread_create(th->threads, NULL, (void *)exec_parser_rec, (void *)&args);
-            pthread_join(*th->threads, NULL);
-            th->active = 0;
+            _create_thread(th, exec_parser_rec, &args);
         }
         else
         {
@@ -97,9 +93,9 @@ void *exec_parser_rec(void *arg_exec)
 {
     // Retrieve args
     t_arg_exec *a;
-    parser *p;
+    parser_t *p;
     token_list *l;
-    path_list *pl;
+    path_list_t *pl;
     const char *path;
     thread_collection *t;
 
@@ -144,9 +140,7 @@ void *exec_parser_rec(void *arg_exec)
                 create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
 
                 // Validate with threads
-                pthread_create(th->threads, NULL, (void *)validate_file, (void *)&arg_validation);
-                pthread_join(*th->threads, NULL);
-                th->active = 0;
+                _create_thread(th, validate_file, &arg_validation);
 
                 // Free args
                 destroy_t_arg_validation(&arg_validation);
@@ -207,9 +201,7 @@ void *exec_parser_rec(void *arg_exec)
             create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
 
             // Validate with threads
-            pthread_create(th->threads, NULL, (void *)validate_file, (void *)&arg_validation);
-            pthread_join(*th->threads, NULL);
-            th->active = 0;
+            _create_thread(th, validate_file, &arg_validation);
 
             // Free new path
             free(new_path);
@@ -228,7 +220,7 @@ void *validate_file(void *args)
 {
     t_arg_validation *a;
     token_list *l;
-    path_list *pl;
+    path_list_t *pl;
     struct dirent *entry;
     char *path;
     token *t;
@@ -255,21 +247,21 @@ void *validate_file(void *args)
         switch (t->TokenType)
         {
         case NAME:
-            if ((entry->d_type == DT_DIR || verify_files_by_name(entry->d_name, t->value)) && !or_mode)
+            if (entry->d_type == DT_DIR || (!verify_files_by_name(entry->d_name, t->value) && !or_mode))
             {
                 return NULL;
             }
-            if ((!(entry->d_type == DT_DIR) && !verify_files_by_name(entry->d_name, t->value)) && or_mode)
+            if ((!(entry->d_type == DT_DIR) && verify_files_by_name(entry->d_name, t->value)) && or_mode)
             {
                 valid = 1;
             }
             break;
         case SIZE:
-            if (verify_files_by_size(path, t->value) && !or_mode)
+            if (!verify_files_by_size(path, t->value) && !or_mode)
             {
                 return NULL;
             }
-            if (!verify_files_by_size(path, t->value) && or_mode)
+            if (verify_files_by_size(path, t->value) && or_mode)
             {
                 valid = 1;
             }
@@ -285,41 +277,41 @@ void *validate_file(void *args)
             }
             break;
         case CTC:
-            if (verify_files_by_content_pattern(path, t->value) && !or_mode)
+            if (!verify_files_by_content_pattern(path, t->value) && !or_mode)
             {
                 return NULL;
             }
-            if (!verify_files_by_content_pattern(path, t->value) && or_mode)
+            if (verify_files_by_content_pattern(path, t->value) && or_mode)
             {
                 valid = 1;
             }
             break;
         case DIRECTORY:
-            if ((entry->d_type != DT_DIR || verify_directories_by_name(path, t->value)) && !or_mode)
+            if (entry->d_type != DT_DIR || (!verify_directories_by_name(path, t->value) && !or_mode))
             {
                 return NULL;
             }
-            if (entry->d_type == DT_DIR && !verify_directories_by_name(path, t->value) && or_mode)
+            if (entry->d_type == DT_DIR && verify_directories_by_name(path, t->value) && or_mode)
             {
                 valid = 1;
             }
             break;
         case DATE:
-            if (verify_files_by_date(path, t->value) && !or_mode)
+            if (!verify_files_by_date(path, t->value) && !or_mode)
             {
                 return NULL;
             }
-            if (!verify_files_by_date(path, t->value) && or_mode)
+            if (verify_files_by_date(path, t->value) && or_mode)
             {
                 valid = 1;
             }
             break;
         case PERM:
-            if (verify_file_perm(path, atoi(t->value)) && !or_mode)
+            if (!verify_file_perm(path, atoi(t->value)) && !or_mode)
             {
                 return NULL;
             }
-            if (!verify_file_perm(path, atoi(t->value)) && or_mode)
+            if (verify_file_perm(path, atoi(t->value)) && or_mode)
             {
                 valid = 1;
             }

@@ -24,7 +24,7 @@ void display_subdirectories(const char *path);
 // Verify if the name of a directory is valid
 // @param path the path to the file
 // @param name the name of the file
-// @return 0 if the name is valid, 1 otherwise
+// @return 1 if the name is valid, 0 otherwise
 int verify_directories_by_name(const char *path, const char *name);
 
 #endif // FTC_F_DIR_H

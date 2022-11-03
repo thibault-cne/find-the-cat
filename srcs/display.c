@@ -14,7 +14,7 @@
 
 #include "../includes/display.h"
 
-void path_display(path_list *pl, int isColor)
+void path_display(path_list_t *pl, int isColor)
 {
     int i;
 

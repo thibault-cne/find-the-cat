@@ -12,8 +12,16 @@
 
 #include "../includes/f_name.h"
 
-// Verify if files in the path list correspond to the given name
 int verify_files_by_name(const char *f_name, char *name)
 {
-    return regex_match(f_name, name);
+    int res;
+
+    res = regex_match(f_name, name);
+
+    if (!res)
+    {
+        return 1;
+    }
+
+    return 0;
 }

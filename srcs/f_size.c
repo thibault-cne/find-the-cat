@@ -26,23 +26,23 @@ int verify_files_by_size(const char *path, char *size)
         case '+':
             if (get_file_size(path) > real_size)
             {
-                return 0;
+                return 1;
             }
             break;
         case '-':
             if (get_file_size(path) < real_size)
             {
-                return 0;
+                return 1;
             }
             break;
         default:
             if (get_file_size(path) == real_size)
             {
-                return 0;
+                return 1;
             }
             break;
         }
     }
 
-    return 1;
+    return 0;
 }

@@ -12,7 +12,6 @@
 
 #include "../includes/f_date.h"
 
-// Verify if files in the path list correspond to the given date
 int verify_files_by_date(const char *path, char *date)
 {
     double file_time;
@@ -29,19 +28,19 @@ int verify_files_by_date(const char *path, char *date)
         case '+':
             if (file_time > real_time)
             {
-                return 0;
+                return 1;
             }
             break;
         default:
             if (file_time <= real_time)
             {
-                return 0;
+                return 1;
             }
             break;
         }
 
-        return 1;
+        return 0;
     }
 
-    return 1;
+    return 0;
 }

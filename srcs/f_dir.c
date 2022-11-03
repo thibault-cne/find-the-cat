@@ -94,7 +94,6 @@ void display_subdirectories(const char *path)
     return;
 }
 
-// Verify directories by name
 int verify_directories_by_name(const char *path, const char *name)
 {
     char *last_dir;
@@ -111,5 +110,5 @@ int verify_directories_by_name(const char *path, const char *name)
         return i;
     }
 
-    return 1;
+    return 0;
 }

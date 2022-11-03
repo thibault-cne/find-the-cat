@@ -34,7 +34,7 @@ int main(int argc, char **argv)
         format_entry_path(argv[1]);
 
         token_list l;
-        parser p;
+        parser_t p;
 
         // Initialize the token list
         create_token_list(&l, 1);

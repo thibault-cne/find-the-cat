@@ -18,11 +18,20 @@
 #include "f_dir.h"
 #include "f_perm.h"
 
+// Shortcut to create and join a thread
+// @param t the thread structure
+// @param f the function to execute
+// @param a the arguments of the function
+#define _create_thread(t, f, a)                             \
+    pthread_create(t->threads, NULL, (void *)f, (void *)a); \
+    pthread_join(*t->threads, NULL);                        \
+    t->active = 0;
+
 // Execute the parser
 // @param p the parser
 // @param l the token list
 // @param path the path to search
-void exec_parser(parser *p, token_list *l, const char *path);
+void exec_parser(parser_t *p, token_list *l, const char *path);
 
 // Execute the parser recursively inside all subdirectory
 // @param args_exec a pointer to the functions arguments

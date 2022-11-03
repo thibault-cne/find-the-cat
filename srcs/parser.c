@@ -12,7 +12,7 @@
 
 #include "../includes/parser.h"
 
-void start_parser(parser *p, token_list *l, int argc, char **argv)
+void start_parser(parser_t *p, token_list *l, int argc, char **argv)
 {
     int i;
     int incr;
@@ -49,7 +49,7 @@ void start_parser(parser *p, token_list *l, int argc, char **argv)
     return;
 }
 
-int set_opt_parser(parser *p, token_list *l, Options opt, int argc, char **argv, int pos)
+int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **argv, int pos)
 {
     token t;
     int incr;

@@ -26,7 +26,7 @@ double get_seconds_from_last_modification(const char *file_path);
 // Check the match between a string and a pattern
 // @param str the string to match
 // @param pattern the pattern to match
-// @return 1 if the string matches the pattern, 0 otherwise
+// @return 0 if the string matches the pattern, 1 otherwise
 int regex_match(const char *str, const char *pattern);
 
 // Get the last directory of a path
