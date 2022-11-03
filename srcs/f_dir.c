@@ -25,7 +25,7 @@ void *get_subdirectories(void *args)
     if (!(dir = opendir(a->path)))
         return (NULL);
 
-    // Lock mutex
+    // Lock mutex and add in list
     pthread_mutex_lock(a->t->mutex);
     add_path_list(a->pl, (char *)a->path);
     pthread_mutex_unlock(a->t->mutex);

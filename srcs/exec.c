@@ -18,7 +18,6 @@ void exec_parser(parser_t *p, token_list *l, const char *path)
     pthread_t *threads;
     pthread_mutex_t mutex;
     thread_collection t;
-    int i;
     thread *th;
 
     create_path_list(&pl, 1);
@@ -27,15 +26,9 @@ void exec_parser(parser_t *p, token_list *l, const char *path)
     threads = (pthread_t *)malloc(sizeof(pthread_t) * p->thread_mode);
     pthread_mutex_init(&mutex, NULL);
 
-    // Create threads
-    i = -1;
+    // Create thread collection and init it
     create_thread_collection(&t, p->thread_mode);
-    while (++i < p->thread_mode)
-    {
-        thread th;
-        create_thread(&th, &threads[i], &mutex);
-        add_thread(&t, &th);
-    }
+    _create_thread_collection(p->thread_mode, t, threads, &mutex);
 
     if (p->dir_mode == 1)
     {

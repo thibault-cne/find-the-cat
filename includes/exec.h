@@ -27,6 +27,20 @@
     pthread_join(*t->threads, NULL);                        \
     t->active = 0;
 
+// Shortcut to init a thread collection
+// @param n the number of threads
+// @param tc the thread collection pointer
+// @param p_t the thread pointer
+// @param m the mutex pointer
+#define _create_thread_collection(n, t_c, p_t, m) \
+    int i = -1;                                   \
+    while (++i < n)                               \
+    {                                             \
+        thread th;                                \
+        create_thread(&th, &p_t[i], m);           \
+        add_thread(&t_c, &th);                    \
+    }
+
 // Execute the parser
 // @param p the parser
 // @param l the token list
