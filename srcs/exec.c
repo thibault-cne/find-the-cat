@@ -38,8 +38,8 @@ void ft_exec_parser(parser_t *p, token_list *l, const char *path) {
 	a = (arg_exec_t *)malloc(sizeof(arg_exec_t) * p->thread_mode);
 
 	while(++i < p->thread_mode) {
-		if (i + 1 == p->thread_mode) { create_arg_exec_t(&a[i], i * mult, el.ptr, &mutex, &el, p->or_mode, l, &pl); }
-		else { create_arg_exec_t(&a[i], i * mult, (i + 1) * mult, &mutex, &el, p->or_mode, l, &pl); }
+		if (i + 1 == p->thread_mode) { create_arg_exec_t(&a[i], i * mult, el.ptr, &mutex, &el, p->or_mode, l, &pl, p->name_mode); }
+		else { create_arg_exec_t(&a[i], i * mult, (i + 1) * mult, &mutex, &el, p->or_mode, l, &pl, p->name_mode); }
 
 		pthread_create(&pthread[i], NULL, (void *)ft_verify_entry, (void *)&a[i]);
 	}
@@ -58,21 +58,6 @@ void ft_exec_parser(parser_t *p, token_list *l, const char *path) {
     pthread_mutex_destroy(&mutex);
     free(pthread);
 	free(a);
-}
-
-void ft_display_path(entry_list_t *el) {
-	int i;
-	entry_t *e;
-
-	i = -1;
-
-	while(++i < el->ptr) {
-		e = get_entry_list(el, i);
-
-		if (e->status == STATUS_OK) {
-			printf("%s\n", e->path);
-		}
-	}
 }
 
 void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
@@ -141,13 +126,13 @@ void *ft_verify_entry(void *arg) {
 		entry = get_entry_list(el, i);
 		pthread_mutex_unlock(mutex);
 
-		ft_verify_entry_1(entry, tl, or_mode, mutex, pl);
+		ft_verify_entry_1(entry, tl, or_mode, mutex, pl, arg_t->name_mode);
 	}
 
 	return NULL;
 }
 
-void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl) {
+void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int name_mode) {
 	int i;
 	token *t;
 	
@@ -176,7 +161,7 @@ void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 				}
 				break;
 			default:
-				ft_verify_entry_2(e, tl, or_mode, mutex, pl, i);
+				ft_verify_entry_2(e, tl, or_mode, mutex, pl, i, name_mode);
 				return;
 		}
 	}
@@ -184,7 +169,7 @@ void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 	ft_add_entry(e, pl, mutex);
 }
 
-void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int beg) {
+void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int beg, int name_mode) {
 	int i;
 	token *t;
 
@@ -221,7 +206,7 @@ void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 				}
 				break;
 			default:
-				ft_verify_entry_3(e, tl, or_mode, mutex, pl, i);
+				ft_verify_entry_3(e, tl, or_mode, mutex, pl, i, name_mode);
 				return;
 		}
 	}
@@ -229,7 +214,7 @@ void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 	ft_add_entry(e, pl, mutex);
 }
 
-void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int beg) {
+void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int beg, int name_mode) {
 	int i;
 	token *t;
 
@@ -242,8 +227,10 @@ void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 
 		switch(t->TokenType) {
 			case DATE:
-				if (!verify_files_by_date(e->path, t->value) && !or_mode)
-					return;
+				if (!verify_files_by_date(e->path, t->value) && !or_mode) {
+					if ((e->entry->d_type == DT_DIR && name_mode) || (e->entry->d_type == DT_REG && !name_mode))
+						return;
+				}
 				if (verify_files_by_date(e->path, t->value) && or_mode) {
 					ft_add_entry(e, pl, mutex);
 				}
