@@ -101,6 +101,7 @@ void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
 		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && links_mode))
 			ft_fetch_path(el, new_path, links_mode);
 
+		destroy_entry(&e);
 		free(new_path);
 	}
 
