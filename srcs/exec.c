@@ -21,8 +21,6 @@ void ft_exec_parser(parser_t *p, token_list *l, const char *path) {
 	int mult;
 	arg_exec_t *a;
 
-	printf("%d\n", p->name_mode);
-
 	create_path_list(&pl, 1);
 	create_entry_list(&el, 1);
 
