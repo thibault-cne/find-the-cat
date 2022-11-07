@@ -19,6 +19,7 @@ void *get_subdirectories(void *args)
     t_args_get_subdir *a;
     t_args_get_subdir new_args;
     char *new_path;
+	int len;
 
     a = (t_args_get_subdir *)args;
 
@@ -37,8 +38,9 @@ void *get_subdirectories(void *args)
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
                 continue;
 
-            new_path = malloc(strlen(a->path) + strlen(entry->d_name) + 2);
-            snprintf(new_path, sizeof(new_path), "%s/%s", a->path, entry->d_name);
+			len = strlen(a->path) + strlen(entry->d_name);
+            new_path = malloc(len + 2);
+            snprintf(new_path, len + 2, "%s/%s", a->path, entry->d_name);
 
             create_t_args_get_subdir(&new_args, a->pl, a->t, new_path);
 
@@ -60,6 +62,7 @@ void display_subdirectories(const char *path)
     DIR *dir;
     struct dirent *entry;
     char *new_path;
+	int len;
 
     if (!(dir = opendir(path)))
     {
@@ -74,9 +77,10 @@ void display_subdirectories(const char *path)
         {
             if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
                 continue;
-
-            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-            snprintf(new_path, sizeof(new_path), "%s/%s", path, entry->d_name);
+			
+			len = strlen(path) + strlen(entry->d_name);
+            new_path = malloc(len + 2);
+            snprintf(new_path, len + 2, "%s/%s", path, entry->d_name);
 
             display_subdirectories(new_path);
 
