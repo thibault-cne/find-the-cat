@@ -72,24 +72,14 @@ int regex_match(const char *str, const char *pattern)
 
 char *get_last_dir(const char *path)
 {
-    char *temp;
-    char *ptr;
-    char *last;
-    char *res;
+	char *temp;
+	char *res;
 
-    temp = strdup(path);
+	temp = (char *)malloc(sizeof(char) * strlen(path) + 1);
+	strcpy(temp, path);
+	temp[strlen(path)] = '\0';
 
-    ptr = strtok(temp, "/");
-
-    while (ptr != NULL)
-    {
-        last = ptr;
-        ptr = strtok(NULL, "/");
-    }
-
-    res = strdup(last);
-
-    free(temp);
+	res = dirname(temp);
 
     return res;
 }

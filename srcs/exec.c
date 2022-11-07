@@ -79,7 +79,6 @@ void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
 	add_entry_list_t(el, e);
 
 	destroy_entry(&e);
-	free(d_name);
 
 	ft_fetch_path_1(el, path, links_mode);
 }
@@ -87,7 +86,6 @@ void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
 void ft_fetch_path_1(entry_list_t *el, const char *path, int links_mode) {
 	DIR *dir;
 	struct dirent *entry;
-	char *new_path;
 	entry_t e;
 	int len;
 
@@ -95,6 +93,8 @@ void ft_fetch_path_1(entry_list_t *el, const char *path, int links_mode) {
 		return;
 
     while ((entry = readdir(dir)) != NULL) {
+		char *new_path;
+
     	if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
         	 continue;
 		
@@ -106,7 +106,7 @@ void ft_fetch_path_1(entry_list_t *el, const char *path, int links_mode) {
 		add_entry_list_t(el, e);
 		
 		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && links_mode))
-			ft_fetch_path(el, new_path, links_mode);
+			ft_fetch_path_1(el, new_path, links_mode);
 
 		destroy_entry(&e);
 		free(new_path);
@@ -124,7 +124,7 @@ void ft_display_entry(entry_list_t *el, int color_mode) {
 	while(++i < el->ptr) {
 		e = get_entry_list(el, i);
 
-		f_printp(e->path, color_mode);
+		printf("%s\n", e->path);
 	}
 }
 

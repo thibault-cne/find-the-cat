@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <libgen.h>
 
 // Include mime utils
 #include "mime.h"
