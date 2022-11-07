@@ -89,7 +89,5 @@ int main(int argc, char **argv)
         display_subdirectories((const char *)argv[1]);
     }
 
-    f_printf("COLOR_BLUE|%.*s %c|S", 5, "Hello", '!');
-
     return 0;
 }
