@@ -70,6 +70,21 @@ void ft_exec_parser_1(entry_list_t *el, parser_t *p, token_list *tl, path_list_t
 }
 
 void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
+	char *d_name;
+	entry_t e;
+
+	d_name = get_last_dir(path);
+
+	create_entry(&e,(char *)path, DT_DIR, d_name);
+	add_entry_list_t(el, e);
+
+	destroy_entry(&e);
+	free(d_name);
+
+	ft_fetch_path_1(el, path, links_mode);
+}
+
+void ft_fetch_path_1(entry_list_t *el, const char *path, int links_mode) {
 	DIR *dir;
 	struct dirent *entry;
 	char *new_path;
