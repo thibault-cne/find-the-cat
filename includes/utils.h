@@ -17,7 +17,7 @@
 // Get the size of a file
 // @param path the path to the file
 // @return the size of the file
-long get_file_size(const char *file_path);
+off_t get_file_size(const char *file_path);
 
 // Get the last modification time of a file in seconds
 // @param path the path to the file

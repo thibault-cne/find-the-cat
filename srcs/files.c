@@ -67,3 +67,4 @@ int file_contains_pattern(const char *path, const char *pattern)
     free(buf);
     return 0;
 }
+

@@ -13,7 +13,7 @@
 #include "../includes/utils.h"
 
 // Get file size in bytes of a dirent
-long get_file_size(const char *file_path)
+off_t get_file_size(const char *file_path)
 {
     struct stat st;
 
@@ -119,3 +119,4 @@ char *format_entry_path(char *path)
 
     return path;
 }
+

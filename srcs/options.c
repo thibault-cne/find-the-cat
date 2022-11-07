@@ -102,12 +102,12 @@ char *get_options_flag(Options opt)
 }
 
 // Size functions
-int get_size(char *size)
+off_t get_size(char *size)
 {
     int i;
     int offset;
     char *new_size;
-    int res;
+    off_t res;
 
     res = 0;
 

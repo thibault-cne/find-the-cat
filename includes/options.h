@@ -17,6 +17,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <sys/types.h>
 
 enum _Options
 {
@@ -49,7 +50,7 @@ char *get_options_flag(Options opt);
 // Get the size from the size option
 // @param size the size option parameter
 // @return the size
-int get_size(char *size);
+off_t get_size(char *size);
 
 // Get the multiplier from the size option
 // @param size the size option parameter
