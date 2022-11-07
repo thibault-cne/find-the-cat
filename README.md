@@ -3,6 +3,8 @@
 Find the cat is a school project made for TELECOM Nancy. The purpose of this project is to familiarise students with system calls in the C language.
 The aim of the project is to create a CLI tool to search files inside a linux OS.
 
+IF YOU ARE A TNCY STUDENT PLEASE DO NOT COPY PASTE THE PROGRAM TRY TO MAKE IT ON YOUR OWN.
+
 ## Installation
 
 To install the CLI tool you just need to clone the repo and use the given makefile.
