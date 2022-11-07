@@ -8,7 +8,8 @@
 
 struct _entry_t {
 	char *path;
-	struct dirent *entry;
+	unsigned char d_type;
+	char *d_name;
 	enum _status_t {
 		STATUS_OK,
 		STATUS_NULL,
@@ -16,7 +17,7 @@ struct _entry_t {
 };
 typedef struct _entry_t entry_t;
 
-void create_entry(entry_t *e, char *path, struct dirent *entry);
+void create_entry(entry_t *e, char *path, unsigned char d_type, char *d_name);
 void destroy_entry(entry_t *e);
 
 struct _entry_list_t {

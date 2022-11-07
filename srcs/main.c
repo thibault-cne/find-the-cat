@@ -22,7 +22,7 @@
 
 int main(int argc, char **argv)
 {
-    if (argc > 2)
+    if (argc > 1)
     {
         // Run validation on the entry path
         if (validate_entry_path(argv[1]))
@@ -68,6 +68,9 @@ int main(int argc, char **argv)
         }
         else
         {
+			if (argc == 2)
+				p.dir_mode = 1;
+
             // Run the program
             ft_exec_parser(&p, &l, argv[1]);
         }
@@ -76,17 +79,6 @@ int main(int argc, char **argv)
         destroy_token_list(&l);
 
         return 0;
-    }
-    if (argc == 2)
-    {
-        // Run validation on the entry path
-        if (validate_entry_path(argv[1]) != VALIDATION_SUCCESS)
-        {
-            printf("Error: please make sure to enter a valid path as first argument.\n");
-            exit(1);
-        }
-
-        display_subdirectories((const char *)argv[1]);
     }
 
     return 0;

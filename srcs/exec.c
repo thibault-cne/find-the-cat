@@ -66,7 +66,7 @@ void ft_exec_parser_1(entry_list_t *el, parser_t *p, token_list *tl, path_list_t
 
 	free(a);
 	free(pthread);
-    pthread_mutex_destroy(&mutex);
+	pthread_mutex_destroy(&mutex);
 }
 
 void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
@@ -76,20 +76,18 @@ void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
 	entry_t e;
 	int len;
 
-    if (!(dir = opendir(path)))
-    {
-        return;
-    }
+	if (!(dir = opendir(path)))
+		return;
 
     while ((entry = readdir(dir)) != NULL) {
     	if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
         	 continue;
 		
 		len = strlen(path) + strlen(entry->d_name);
-        new_path = malloc(len + 2);
-        snprintf(new_path, len + 2, "%s/%s", path, entry->d_name);
+		new_path = malloc(len + 2);
+		snprintf(new_path, len + 2, "%s/%s", path, entry->d_name);
 
-		create_entry(&e, new_path, entry);
+		create_entry(&e, new_path, entry->d_type, entry->d_name);
 		add_entry_list_t(el, e);
 		
 		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && links_mode))
@@ -167,9 +165,9 @@ void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 
 		switch (t->TokenType) {
 			case NAME:
-				if (e->entry->d_type != DT_REG || (!verify_files_by_name(e->entry->d_name, t->value) && !or_mode))
+				if (e->d_type != DT_REG || (!verify_files_by_name(e->d_name, t->value) && !or_mode))
 					return;
-				if (e->entry->d_type == DT_REG && or_mode && verify_files_by_name(e->entry->d_name, t->value)) {
+				if (e->d_type == DT_REG && or_mode && verify_files_by_name(e->d_name, t->value)) {
 					ft_add_entry(e, pl, mutex);
 					return;
 				}
@@ -204,25 +202,25 @@ void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 
 		switch(t->TokenType) {
 			case MIME:
-				if (e->entry->d_type != DT_REG || (!verify_files_by_mime(e->entry->d_name, t->value) && !or_mode))
+				if (e->d_type != DT_REG || (!verify_files_by_mime(e->d_name, t->value) && !or_mode))
 					return;
-				if (e->entry->d_type == DT_REG && verify_files_by_mime(e->entry->d_name, t->value) && or_mode) {
+				if (e->d_type == DT_REG && verify_files_by_mime(e->d_name, t->value) && or_mode) {
 					ft_add_entry(e, pl, mutex);
 					return;	
 				}
 				break;
 			case CTC:
-				if (e->entry->d_type != DT_REG || (!verify_files_by_content_pattern(e->path, t->value) && !or_mode))
+				if (e->d_type != DT_REG || (!verify_files_by_content_pattern(e->path, t->value) && !or_mode))
 					return;
-				if (e->entry->d_type == DT_REG && verify_files_by_content_pattern(e->path, t->value) && or_mode) {
+				if (e->d_type == DT_REG && verify_files_by_content_pattern(e->path, t->value) && or_mode) {
 					ft_add_entry(e, pl, mutex);
 					return;	
 				}
 				break;
 			case DIRECTORY:
-				if (e->entry->d_type != DT_DIR || (!verify_directories_by_name(e->path, t->value) && !or_mode))
+				if (e->d_type != DT_DIR || (!verify_directories_by_name(e->path, t->value) && !or_mode))
 					return;
-				if (e->entry->d_type == DT_DIR && verify_directories_by_name(e->path, t->value) && or_mode) {
+				if (e->d_type == DT_DIR && verify_directories_by_name(e->path, t->value) && or_mode) {
 					ft_add_entry(e, pl, mutex);
 					return;	
 				}
@@ -249,7 +247,7 @@ void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 
 		switch(t->TokenType) {
 			case DATE:
-				if ((e->entry->d_type == DT_DIR && name_mode) || (e->entry->d_type == DT_REG && !name_mode))
+				if ((e->d_type == DT_DIR && name_mode) || (e->d_type == DT_REG && !name_mode))
 					return;
 				if (!verify_files_by_date(e->path, t->value) && !or_mode)
 					return;
