@@ -16,7 +16,10 @@ FILES 	=	main.c 			\
 			utils.c 		\
 			mime.c 			\
 			files.c 		\
-			exec.c			\
+			exec/exec.c		\
+			exec/exec_1.c	\
+			exec/exec_2.c	\
+			exec/exec_3.c	\
 			t_arg.c			\
 			entry.c
 
