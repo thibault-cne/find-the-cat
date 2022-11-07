@@ -40,11 +40,6 @@ int main(int argc, char **argv)
         create_token_list(&l, 1);
 
         // Initialize the parser
-        p.name_mode = -1;
-        p.thread_mode = 1;
-        p.or_mode = 0;
-        p.link_mode = 0;
-
         start_parser(&p, &l, argc, argv);
 
         if (p.status != PARSER_SUCCESS)

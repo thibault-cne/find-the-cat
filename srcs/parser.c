@@ -20,8 +20,11 @@ void start_parser(parser_t *p, token_list *l, int argc, char **argv)
     i = 1;
     incr = 0;
 
-    p->color_mode = 0;
+    p->name_mode = -1;
+    p->thread_mode = 1;
     p->or_mode = 0;
+    p->link_mode = 0;
+    p->color_mode = 0;
     p->test_mode = 0;
     p->status = PARSER_SUCCESS;
 
@@ -45,6 +48,9 @@ void start_parser(parser_t *p, token_list *l, int argc, char **argv)
             i += incr;
         }
     }
+
+	if (p->name_mode == -1)
+		p->name_mode = 1;
 
     return;
 }

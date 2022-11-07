@@ -21,6 +21,8 @@ void ft_exec_parser(parser_t *p, token_list *l, const char *path) {
 	int mult;
 	arg_exec_t *a;
 
+	printf("%d\n", p->name_mode);
+
 	create_path_list(&pl, 1);
 	create_entry_list(&el, 1);
 
@@ -227,10 +229,10 @@ void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 
 		switch(t->TokenType) {
 			case DATE:
-				if (!verify_files_by_date(e->path, t->value) && !or_mode) {
-					if ((e->entry->d_type == DT_DIR && name_mode) || (e->entry->d_type == DT_REG && !name_mode))
-						return;
-				}
+				if ((e->entry->d_type == DT_DIR && name_mode) || (e->entry->d_type == DT_REG && !name_mode))
+					return;
+				if (!verify_files_by_date(e->path, t->value) && !or_mode)
+					return;
 				if (verify_files_by_date(e->path, t->value) && or_mode) {
 					ft_add_entry(e, pl, mutex);
 				}
