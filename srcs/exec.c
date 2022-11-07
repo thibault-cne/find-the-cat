@@ -79,6 +79,7 @@ void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
 	add_entry_list_t(el, e);
 
 	destroy_entry(&e);
+	free(d_name);
 
 	ft_fetch_path_1(el, path, links_mode);
 }
