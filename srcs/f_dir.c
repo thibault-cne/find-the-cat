@@ -38,7 +38,7 @@ void *get_subdirectories(void *args)
                 continue;
 
             new_path = malloc(strlen(a->path) + strlen(entry->d_name) + 2);
-            sprintf(new_path, "%s/%s", a->path, entry->d_name);
+            snprintf(new_path, sizeof(new_path), "%s/%s", a->path, entry->d_name);
 
             create_t_args_get_subdir(&new_args, a->pl, a->t, new_path);
 
@@ -76,7 +76,7 @@ void display_subdirectories(const char *path)
                 continue;
 
             new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-            sprintf(new_path, "%s/%s", path, entry->d_name);
+            snprintf(new_path, sizeof(new_path), "%s/%s", path, entry->d_name);
 
             display_subdirectories(new_path);
 

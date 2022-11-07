@@ -74,7 +74,7 @@ int main(int argc, char **argv)
         else
         {
             // Run the program
-            exec_parser(&p, &l, argv[1]);
+            ft_exec_parser(&p, &l, argv[1]);
         }
 
         // Free allocated memory

@@ -2,11 +2,13 @@
 #define FTC_T_ARG_H
 
 #include <string.h>
+#include <pthread.h>
 
 #include "path.h"
 #include "thread.h"
 #include "token.h"
 #include "parser.h"
+#include "entry.h"
 
 struct _t_args_get_subdir
 {
@@ -73,5 +75,18 @@ void create_t_arg_exec(t_arg_exec *a, parser_t *p, token_list *l, path_list_t *p
 // Free the t_arg_exec
 // @param a the t_arg_exec pointer
 void destroy_t_arg_exec(t_arg_exec *a);
+
+struct _arg_exec_t {
+	int beg;
+	int end;
+	pthread_mutex_t *mutex;
+	entry_list_t *el;
+	int or_mode;
+	token_list *tl;
+	path_list_t *pl;
+};
+typedef struct _arg_exec_t arg_exec_t;
+
+void create_arg_exec_t(arg_exec_t *a, int beg, int end, pthread_mutex_t *mutex, entry_list_t *el, int or_mode, token_list *tl, path_list_t *pl);
 
 #endif // FTC_T_ARG_H

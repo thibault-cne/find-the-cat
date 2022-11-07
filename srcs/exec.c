@@ -12,318 +12,260 @@
 
 #include "../includes/exec.h"
 
-void exec_parser(parser_t *p, token_list *l, const char *path)
-{
-    path_list_t pl;
-    pthread_t *threads;
-    pthread_mutex_t mutex;
-    thread_collection t;
-    thread *th;
+void ft_exec_parser(parser_t *p, token_list *l, const char *path) {
+	entry_list_t el;
+	path_list_t pl;
+	pthread_t *pthread;
+	pthread_mutex_t mutex;
+	int i;
+	int mult;
+	arg_exec_t *a;
 
-    create_path_list(&pl, 1);
+	create_path_list(&pl, 1);
+	create_entry_list(&el, 1);
 
-    // Init mutex and threads
-    threads = (pthread_t *)malloc(sizeof(pthread_t) * p->thread_mode);
-    pthread_mutex_init(&mutex, NULL);
+	// Fetch all files and subdirs from the path
+	ft_fetch_path(&el, path, p->link_mode);
 
-    // Create thread collection and init it
-    create_thread_collection(&t, p->thread_mode);
-    _create_thread_collection(p->thread_mode, t, threads, &mutex);
+	// Split verification of each path between all the threads
+	pthread = (pthread_t *)malloc(sizeof(pthread_t) * p->thread_mode);
+	pthread_mutex_init(&mutex, NULL);
 
-    if (p->dir_mode == 1)
-    {
-        t_args_get_subdir args;
+	// Create all threads and affect it to a certain zone
+	i = -1;
+	mult = (int)el.ptr/p->thread_mode;
 
-        // Get inactive thread
-        th = get_thread(&t);
+	a = (arg_exec_t *)malloc(sizeof(arg_exec_t) * p->thread_mode);
 
-        // Set args inside the args array
-        create_t_args_get_subdir(&args, &pl, th, path);
+	while(++i < p->thread_mode) {
+		if (i + 1 == p->thread_mode) { create_arg_exec_t(&a[i], i * mult, el.ptr, &mutex, &el, p->or_mode, l, &pl); }
+		else { create_arg_exec_t(&a[i], i * mult, (i + 1) * mult, &mutex, &el, p->or_mode, l, &pl); }
 
-        // Get subdirectories with threads
-        _create_thread(th, get_subdirectories, &args);
+		pthread_create(&pthread[i], NULL, (void *)ft_verify_entry, (void *)&a[i]);
+	}
 
-        // Free args
-        destroy_t_args_get_subdir(&args);
-    }
-    else
-    {
-        t_arg_exec args;
+	// Join all threads
+	i = -1;
 
-        // Create args exec
-        create_t_arg_exec(&args, p, l, &pl, &t, path);
+	while(++i < p->thread_mode) {
+		pthread_join(pthread[i], NULL);
+	}
 
-        if (p->thread_mode > 1)
-        {
-            th = get_thread(&t);
+	path_display(&pl, p->color_mode);
 
-            // Create thread
-            _create_thread(th, exec_parser_rec, &args);
-        }
-        else
-        {
-            exec_parser_rec((void *)&args);
-        }
-
-        // Free exec args
-        destroy_t_arg_exec(&args);
-    }
-
-    path_display(&pl, p->color_mode);
-
-    // Destroy mutex and threads
+	destroy_entry_list(&el);
+	destroy_path_list(&pl);
     pthread_mutex_destroy(&mutex);
-    free(threads);
-
-    // Destroy path list
-    destroy_path_list(&pl);
-
-    // Destroy thread collection
-    destroy_thread_collection(&t);
+    free(pthread);
+	free(a);
 }
 
-void *exec_parser_rec(void *arg_exec)
-{
-    // Retrieve args
-    t_arg_exec *a;
-    parser_t *p;
-    token_list *l;
-    path_list_t *pl;
-    const char *path;
-    thread_collection *t;
+void ft_display_path(entry_list_t *el) {
+	int i;
+	entry_t *e;
 
-    a = (t_arg_exec *)arg_exec;
+	i = -1;
 
-    p = a->p;
-    l = a->l;
-    pl = a->pl;
-    path = a->path;
-    t = a->t;
+	while(++i < el->ptr) {
+		e = get_entry_list(el, i);
 
-    // Create thread
-    t_arg_exec new_arg_exec;
-    t_arg_validation arg_validation;
-    char *new_path;
-    thread *th;
-    DIR *dir;
-    struct dirent *entry;
+		if (e->status == STATUS_OK) {
+			printf("%s\n", e->path);
+		}
+	}
+}
+
+void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
+	DIR *dir;
+	struct dirent *entry;
+	char *new_path;
+	entry_t e;
+	int len;
 
     if (!(dir = opendir(path)))
     {
-        closedir(dir);
-        return NULL;
+        return;
     }
 
-    while ((entry = readdir(dir)) != NULL)
-    {
+    while ((entry = readdir(dir)) != NULL) {
+    	if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+        	 continue;
+		
+		len = strlen(path) + strlen(entry->d_name);
+        new_path = malloc(len + 2);
+        snprintf(new_path, len + 2, "%s/%s", path, entry->d_name);
 
-        if (entry->d_type == DT_DIR)
-        {
-            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
-                continue;
+		create_entry(&e, new_path, entry);
+		add_entry_list_t(el, e);
+		
+		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && links_mode))
+			ft_fetch_path(el, new_path, links_mode);
 
-            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-            sprintf(new_path, "%s/%s", path, entry->d_name);
+		free(new_path);
+	}
 
-            // Get inactive thread
-            if (!p->name_mode)
-            {
-                th = get_thread(t);
-
-                create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
-
-                // Validate with threads
-                _create_thread(th, validate_file, &arg_validation);
-
-                // Free args
-                destroy_t_arg_validation(&arg_validation);
-            }
-
-            // Create new args
-            create_t_arg_exec(&new_arg_exec, p, l, pl, t, new_path);
-
-            exec_parser_rec((void *)&new_arg_exec);
-
-            // Free new path
-            free(new_path);
-
-            // Free args
-            destroy_t_arg_exec(&new_arg_exec);
-        }
-        else
-        {
-            // Check if entry is a symlink
-            if (entry->d_type == DT_LNK && p->link_mode)
-            {
-                // Follow symlink
-                char *link_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-                sprintf(link_path, "%s/%s", path, entry->d_name);
-
-                char *real_path = malloc(0x100);
-                realpath(link_path, real_path);
-
-                // Check if real path is a directory
-                if (is_dir(real_path))
-                {
-                    // Create new args
-                    create_t_arg_exec(&new_arg_exec, p, l, pl, t, real_path);
-
-                    exec_parser_rec((void *)&new_arg_exec);
-
-                    // Free allocated memory
-                    free(real_path);
-                    free(link_path);
-
-                    // Free args
-                    destroy_t_arg_exec(&new_arg_exec);
-                }
-                else
-                {
-                    // Free allocated memory
-                    free(real_path);
-                    free(link_path);
-                }
-            }
-
-            // Get inactive thread
-            th = get_thread(t);
-
-            new_path = malloc(strlen(path) + strlen(entry->d_name) + 2);
-            sprintf(new_path, "%s/%s", path, entry->d_name);
-
-            create_t_arg_validation(&arg_validation, pl, l, th, entry, new_path, p->or_mode);
-
-            // Validate with threads
-            _create_thread(th, validate_file, &arg_validation);
-
-            // Free new path
-            free(new_path);
-
-            // Free args
-            destroy_t_arg_validation(&arg_validation);
-        }
-    }
-
-    closedir(dir);
-
-    return NULL;
+	closedir(dir);
 }
 
-void *validate_file(void *args)
-{
-    t_arg_validation *a;
-    token_list *l;
-    path_list_t *pl;
-    struct dirent *entry;
-    char *path;
-    token *t;
-    int or_mode;
+void *ft_verify_entry(void *arg) {
+	arg_exec_t *arg_t;
+	int beg;
+	int end;
+	pthread_mutex_t *mutex;
+	entry_list_t *el;
+	token_list *tl;
+	int or_mode;
+	path_list_t *pl;
+	int i;
+	entry_t *entry;
 
-    int i;
-    int valid;
+	arg_t = (arg_exec_t *)arg;
+	beg = arg_t->beg;
+	end = arg_t->end;
+	mutex = arg_t->mutex;
+	el = arg_t->el;
+	tl = arg_t->tl;
+	or_mode = arg_t->or_mode;
+	pl = arg_t->pl;
 
-    // Get args
-    a = (t_arg_validation *)args;
-    l = a->tl;
-    pl = a->pl;
-    entry = a->entry;
-    path = a->path;
-    or_mode = a->or_mode;
+	i = beg - 1;
 
-    i = -1;
-    valid = 0;
+	if (end > el->ptr) {
+		printf("Error in index : out of bound\n");
+		return NULL;
+	}
 
-    while (++i < l->ptr)
-    {
-        t = get_token_list_index(l, i);
+	while (++i < end) {
+		pthread_mutex_lock(mutex);
+		entry = get_entry_list(el, i);
+		pthread_mutex_unlock(mutex);
 
-        switch (t->TokenType)
-        {
-        case NAME:
-            if (entry->d_type == DT_DIR || (!verify_files_by_name(entry->d_name, t->value) && !or_mode))
-            {
-                return NULL;
-            }
-            if ((!(entry->d_type == DT_DIR) && verify_files_by_name(entry->d_name, t->value)) && or_mode)
-            {
-                valid = 1;
-            }
-            break;
-        case SIZE:
-            if (!verify_files_by_size(path, t->value) && !or_mode)
-            {
-                return NULL;
-            }
-            if (verify_files_by_size(path, t->value) && or_mode)
-            {
-                valid = 1;
-            }
-            break;
-        case MIME:
-            if (!verify_files_by_mime(entry->d_name, t->value) && !or_mode)
-            {
-                return NULL;
-            }
-            if (verify_files_by_mime(entry->d_name, t->value) && or_mode)
-            {
-                valid = 1;
-            }
-            break;
-        case CTC:
-            if (!verify_files_by_content_pattern(path, t->value) && !or_mode)
-            {
-                return NULL;
-            }
-            if (verify_files_by_content_pattern(path, t->value) && or_mode)
-            {
-                valid = 1;
-            }
-            break;
-        case DIRECTORY:
-            if (entry->d_type != DT_DIR || (!verify_directories_by_name(path, t->value) && !or_mode))
-            {
-                return NULL;
-            }
-            if (entry->d_type == DT_DIR && verify_directories_by_name(path, t->value) && or_mode)
-            {
-                valid = 1;
-            }
-            break;
-        case DATE:
-            if (!verify_files_by_date(path, t->value) && !or_mode)
-            {
-                return NULL;
-            }
-            if (verify_files_by_date(path, t->value) && or_mode)
-            {
-                valid = 1;
-            }
-            break;
-        case PERM:
-            if (!verify_file_perm(path, atoi(t->value)) && !or_mode)
-            {
-                return NULL;
-            }
-            if (verify_file_perm(path, atoi(t->value)) && or_mode)
-            {
-                valid = 1;
-            }
-            break;
-        default:
-            break;
-        }
-    }
+		ft_verify_entry_1(entry, tl, or_mode, mutex, pl);
+	}
 
-    // Lock mutex
-    pthread_mutex_lock(a->t->mutex);
-
-    // Add to path list
-    if (valid || !or_mode)
-    {
-        add_path_list(pl, path);
-    }
-
-    // Unlock mutex
-    pthread_mutex_unlock(a->t->mutex);
-    return NULL;
+	return NULL;
 }
+
+void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl) {
+	int i;
+	token *t;
+	
+	i = -1;
+
+	while(++i < tl->ptr) {
+		pthread_mutex_lock(mutex);
+		t = get_token_list_index(tl, i);
+		pthread_mutex_unlock(mutex);
+
+		switch (t->TokenType) {
+			case NAME:
+				if (e->entry->d_type != DT_REG || (!verify_files_by_name(e->entry->d_name, t->value) && !or_mode))
+					return;
+				if (e->entry->d_type == DT_REG && or_mode && verify_files_by_name(e->entry->d_name, t->value)) {
+					ft_add_entry(e, pl, mutex);
+					return;
+				}
+				break;
+			case SIZE:
+				if (!verify_files_by_size(e->path, t->value) && !or_mode)
+					return;
+				if (verify_files_by_size(e->path, t->value) && or_mode) {
+					ft_add_entry(e, pl, mutex);
+					return;
+				}
+				break;
+			default:
+				ft_verify_entry_2(e, tl, or_mode, mutex, pl, i);
+				return;
+		}
+	}
+
+	ft_add_entry(e, pl, mutex);
+}
+
+void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int beg) {
+	int i;
+	token *t;
+
+	i = beg - 1;
+
+	while(++i < tl->ptr) {
+		pthread_mutex_lock(mutex);
+		t = get_token_list_index(tl, i);
+		pthread_mutex_unlock(mutex);
+
+		switch(t->TokenType) {
+			case MIME:
+				if (e->entry->d_type != DT_REG || (!verify_files_by_mime(e->entry->d_name, t->value) && !or_mode))
+					return;
+				if (e->entry->d_type == DT_REG && verify_files_by_mime(e->entry->d_name, t->value) && or_mode) {
+					ft_add_entry(e, pl, mutex);
+					return;	
+				}
+				break;
+			case CTC:
+				if (e->entry->d_type != DT_REG || (!verify_files_by_content_pattern(e->path, t->value) && !or_mode))
+					return;
+				if (e->entry->d_type == DT_REG && verify_files_by_content_pattern(e->path, t->value) && or_mode) {
+					ft_add_entry(e, pl, mutex);
+					return;	
+				}
+				break;
+			case DIRECTORY:
+				if (e->entry->d_type != DT_DIR || (!verify_directories_by_name(e->path, t->value) && !or_mode))
+					return;
+				if (e->entry->d_type == DT_DIR && verify_directories_by_name(e->path, t->value) && or_mode) {
+					ft_add_entry(e, pl, mutex);
+					return;	
+				}
+				break;
+			default:
+				ft_verify_entry_3(e, tl, or_mode, mutex, pl, i);
+				return;
+		}
+	}
+
+	ft_add_entry(e, pl, mutex);
+}
+
+void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int beg) {
+	int i;
+	token *t;
+
+	i = beg - 1;
+
+	while (++i < tl->ptr) {
+		pthread_mutex_lock(mutex);
+		t = get_token_list_index(tl, i);
+		pthread_mutex_unlock(mutex);
+
+		switch(t->TokenType) {
+			case DATE:
+				if (!verify_files_by_date(e->path, t->value) && !or_mode)
+					return;
+				if (verify_files_by_date(e->path, t->value) && or_mode) {
+					ft_add_entry(e, pl, mutex);
+				}
+				break;
+			case PERM:
+				if (!verify_file_perm(e->path, atoi(t->value)) && !or_mode)
+					return;
+				if (verify_file_perm(e->path, atoi(t->value)) && or_mode) {
+					ft_add_entry(e, pl, mutex);
+					return;
+				}
+				break;
+			default:
+				break;
+		}
+	}
+
+	ft_add_entry(e, pl, mutex);
+}
+
+void ft_add_entry(entry_t *entry, path_list_t *pl, pthread_mutex_t *mutex) {
+	pthread_mutex_lock(mutex);
+	add_path_list(pl, entry->path);
+	pthread_mutex_unlock(mutex);
+}
+

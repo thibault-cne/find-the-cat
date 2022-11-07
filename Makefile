@@ -18,7 +18,8 @@ FILES 	=	main.c 			\
 			files.c 		\
 			exec.c			\
 			thread.c		\
-			t_arg.c
+			t_arg.c			\
+			entry.c
 
 S_PATH	=	srcs/
 O_PATH	=	objs/
