@@ -10,12 +10,7 @@
 #include "options.h"
 #include "path.h"
 #include "utils.h"
-#include "thread.h"
 #include "t_arg.h"
-
-// Get all subdirectories of a given directory
-// @param args a pointer to the functions arguments
-void *get_subdirectories(void *args);
 
 // Display all subdirectories of a given directory
 // @param path the path to the directory

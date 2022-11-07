@@ -17,7 +17,6 @@ FILES 	=	main.c 			\
 			mime.c 			\
 			files.c 		\
 			exec.c			\
-			thread.c		\
 			t_arg.c			\
 			entry.c
 
