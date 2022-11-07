@@ -20,4 +20,5 @@ function test_find_date_several () {
     fi
 }
 
+test_find_date_several "arbre" "-2m" "-2"
 test_find_date_several "arbre" "-4m" "-4"

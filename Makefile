@@ -2,13 +2,13 @@ FILES 	=	main.c 			\
 			parser.c 		\
 			token.c 		\
 			options.c 		\
-			f_dir.c 		\
-			f_date.c 		\
-			f_grep.c 		\
-			f_mime.c 		\
-			f_name.c 		\
-			f_size.c 		\
-			f_perm.c		\
+			files/f_dir.c 	\
+			files/f_date.c 	\
+			files/f_grep.c 	\
+			files/f_mime.c 	\
+			files/f_name.c 	\
+			files/f_size.c 	\
+			files/f_perm.c	\
 			path.c 			\
 			display.c 		\
 			validation.c 	\
