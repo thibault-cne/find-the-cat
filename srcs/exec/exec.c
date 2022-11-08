@@ -81,10 +81,11 @@ void ft_display_entry(entry_list_t *el, int color_mode) {
 
 	i = -1;
 
-	while(++i < el->ptr) {
+	while(++i < el->size) {
 		e = get_entry_list(el, i);
 
-		printf("%s\n", e->path);
+		if (e != NULL)
+			printf("%s\n", e->path);
 	}
 }
 
