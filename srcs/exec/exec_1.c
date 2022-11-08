@@ -6,28 +6,33 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:04:12 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 13:06:48 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/08 19:09:43 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void ft_fetch_path(entry_list_t *el, const char *path, int links_mode) {
+void ft_fetch_path(path_list_t *pl, const char *path, parser_t *p, token_list *tl) {
 	char *d_name;
 	entry_t e;
 
-	d_name = get_last_dir(path);
+	if (p->dir_mode) {
+		f_printp(path, p->color_mode);
+	} else {
+		d_name = get_last_dir(path);
 
-	create_entry(&e,(char *)path, DT_DIR, d_name);
-	add_entry_list_t(el, e);
+		create_entry(&e,(char *)path, DT_DIR, d_name);
+		ft_verify_entry_1(&e, tl, p->or_mode, NULL, pl, p->name_mode);
 
-	destroy_entry(&e);
-	free(d_name);
+		destroy_entry(&e);
+		free(d_name);
+	}
 
-	ft_fetch_path_1(el, path, links_mode);
+
+	ft_fetch_path_1(pl, path, p, tl);
 }
 
-void ft_fetch_path_1(entry_list_t *el, const char *path, int links_mode) {
+void ft_fetch_path_1(path_list_t *pl, const char *path, parser_t *p, token_list *tl) {
 	DIR *dir;
 	struct dirent *entry;
 	entry_t e;
@@ -46,13 +51,17 @@ void ft_fetch_path_1(entry_list_t *el, const char *path, int links_mode) {
 		new_path = malloc(len + 2);
 		snprintf(new_path, len + 2, "%s/%s", path, entry->d_name);
 
-		create_entry(&e, new_path, entry->d_type, entry->d_name);
-		add_entry_list_t(el, e);
+		if (p->dir_mode) {
+			f_printp(new_path, p->color_mode);
+		} else {
+			create_entry(&e, new_path, entry->d_type, entry->d_name);
+			ft_verify_entry_1(&e, tl, p->or_mode, NULL, pl, p->name_mode);
+			destroy_entry(&e);
+		}
 		
-		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && links_mode))
-			ft_fetch_path_1(el, new_path, links_mode);
+		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && p->link_mode))
+			ft_fetch_path_1(pl, new_path, p, tl);
 
-		destroy_entry(&e);
 		free(new_path);
 	}
 
