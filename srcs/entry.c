@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/06 22:53:59 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 14:22:29 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/08 14:57:44 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ entry_t *get_entry_list(entry_list_t *el, int index) {
 	ce = el->data;
 	i = -1;
 
-	while(ce->next != NULL && ++i < index) {
+	while(++i < index && ce->next != NULL) {
 		ce = ce->next;
 	}
 
