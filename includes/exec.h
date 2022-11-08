@@ -29,4 +29,13 @@ void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int beg, int nm);
 void ft_add_entry(entry_t *e, path_list_t *pl, pthread_mutex_t *mutex);
 
+void ft_exec_parser_2(entry_list_t *el, const char *path,  parser_t *p, token_list *tl, path_list_t *pl);
+void ft_mutex_init(pthread_mutex_t *m, int nb);
+void ft_mutex_destroy(pthread_mutex_t *m, int nb);
+
+void *ft_thread_fetch_path(void *arg);
+void ft_thread_fetch_path_1(entry_list_t *el, const char *path, int links_mode, pthread_mutex_t *mutex);
+
+void *ft_th_verify_entry(void *arg);
+
 #endif // FTC_EXEC_H

@@ -20,6 +20,9 @@ FILES 	=	main.c 			\
 			exec/exec_1.c	\
 			exec/exec_2.c	\
 			exec/exec_3.c	\
+			exec/exec_4.c	\
+			exec/exec_5.c	\
+			exec/exec_6.c	\
 			t_arg.c			\
 			entry.c
 

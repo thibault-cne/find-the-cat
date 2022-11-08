@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:07:57 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/07 19:08:38 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/08 12:32:30 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 	i = beg - 1;
 
 	while(++i < tl->ptr) {
-		pthread_mutex_lock(mutex);
 		t = get_token_list_index(tl, i);
-		pthread_mutex_unlock(mutex);
 
 		switch(t->TokenType) {
 			case MIME:
@@ -64,9 +62,7 @@ void ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 	i = beg - 1;
 
 	while (++i < tl->ptr) {
-		pthread_mutex_lock(mutex);
 		t = get_token_list_index(tl, i);
-		pthread_mutex_unlock(mutex);
 
 		switch(t->TokenType) {
 			case DATE:

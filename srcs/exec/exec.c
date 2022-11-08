@@ -17,16 +17,21 @@ void ft_exec_parser(parser_t *p, token_list *tl, const char *path) {
 	path_list_t pl;
 
 	create_path_list(&pl, 1);
-	create_entry_list(&el, 1);
+	create_entry_list(&el);
 
-	// Fetch all files and subdirs from the path
-	ft_fetch_path(&el, path, p->link_mode);
-
-	if (p->dir_mode == 1) {
-		ft_display_entry(&el, p->color_mode);
+	if (p->thread_mode > 1) {
+		ft_exec_parser_2(&el, path, p, tl, &pl);
+		path_display(&pl, p->color_mode);	
 	} else {
-		ft_exec_parser_1(&el, p, tl, &pl);
-		path_display(&pl, p->color_mode);
+		// Fetch all files and subdirs from the path
+		ft_fetch_path(&el, path, p->link_mode);
+
+		if (p->dir_mode == 1) {
+			ft_display_entry(&el, p->color_mode);
+		} else {
+			ft_exec_parser_1(&el, p, tl, &pl);
+			path_display(&pl, p->color_mode);
+		}
 	}
 
 	destroy_entry_list(&el);

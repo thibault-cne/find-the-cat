@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:05:45 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/07 19:07:47 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/08 12:32:14 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t 
 	i = -1;
 
 	while(++i < tl->ptr) {
-		pthread_mutex_lock(mutex);
 		t = get_token_list_index(tl, i);
-		pthread_mutex_unlock(mutex);
 
 		switch (t->TokenType) {
 			case NAME:

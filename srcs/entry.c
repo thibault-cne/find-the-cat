@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/06 22:53:59 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/07 11:53:44 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/08 14:16:01 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void create_entry(entry_t *e, char *path, unsigned char d_type, char *d_name) {
 	strcpy(e->d_name, d_name);
 
 	e->d_type = d_type;
+	e->next = NULL;
 }
 
 void destroy_entry(entry_t *e) {
@@ -30,40 +31,70 @@ void destroy_entry(entry_t *e) {
 	free(e->d_name);
 }
 
-void create_entry_list(entry_list_t *el, int size) {
-	el->size = size;
+void create_entry_list(entry_list_t *el) {
+	el->size = 0;
 	el->ptr = 0;
-	el->data = (entry_t *)malloc(sizeof(entry_t) * size);
+	el->data = NULL;
+	el->status = STATUS_GOING;
 }
 
 void add_entry_list_t(entry_list_t *el, entry_t e) {
-	if (el->ptr >= el->size) {
-		el->size *= 2;
-		el->data = (entry_t *)realloc(el->data, sizeof(entry_t) * el->size);
+	entry_t *ne;
+	
+	ne = (entry_t *)malloc(sizeof(entry_t));
+	create_entry(ne, e.path, e.d_type, e.d_name);
+	el->size++;
+
+	if (el->data == NULL) {
+		el->data = ne;
+		return;
 	}
 
-	entry_t *ne;
+	entry_t *ce;
 
-	ne = &el->data[el->ptr++];
-	create_entry(ne, e.path, e.d_type, e.d_name);
+	ce = el->data;
+	while(ce->next != NULL) {
+		ce = ce->next;
+	}
+
+	ce->next = ne;
 }
 
 entry_t *get_entry_list(entry_list_t *el, int index) {
-	if (index >= el->ptr) {
-		return NULL;
+	entry_t *ce;
+	int i;
+
+	ce = el->data;
+	i = -1;
+
+	while(ce->next != NULL && ++i < index) {
+		ce = ce->next;
 	}
 
-	return &el->data[index];
+	if (i == index)
+		return ce;
+
+	return NULL;
+}
+
+entry_t *get_entry_list_th(entry_list_t *el) {
+	if (el->ptr < el->size)
+		return get_entry_list(el, el->ptr++);
+	
+
+	return NULL;
 }
 
 void destroy_entry_list(entry_list_t *el) {
-	int i;
+	entry_t *temp;
+	entry_t *ce;
 
-	i = -1;
+	ce = el->data;
 
-	while(++i < el->ptr) {
-		destroy_entry(&el->data[i]);
+	while(ce->next != NULL) {
+		temp = ce;
+		ce = temp->next;
+		destroy_entry(temp);
+		free(temp);
 	}
-
-	free(el->data);
 }
