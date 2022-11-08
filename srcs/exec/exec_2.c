@@ -6,49 +6,24 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:05:45 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 12:32:14 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/08 14:38:18 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void *ft_verify_entry(void *arg) {
-	arg_exec_t *arg_t;
-	int beg;
-	int end;
-	pthread_mutex_t *mutex;
-	entry_list_t *el;
-	token_list *tl;
-	int or_mode;
-	path_list_t *pl;
+void ft_verify_entry(entry_list_t *el, token_list *tl, int or_mode, path_list_t *pl, int name_mode) {
 	int i;
 	entry_t *entry;
 
-	arg_t = (arg_exec_t *)arg;
-	beg = arg_t->beg;
-	end = arg_t->end;
-	mutex = arg_t->mutex;
-	el = arg_t->el;
-	tl = arg_t->tl;
-	or_mode = arg_t->or_mode;
-	pl = arg_t->pl;
+	i = - 1;
 
-	i = beg - 1;
-
-	if (end > el->ptr) {
-		printf("Error in index : out of bound\n");
-		return NULL;
-	}
-
-	while (++i < end) {
-		pthread_mutex_lock(mutex);
+	while (++i < el->size) {
 		entry = get_entry_list(el, i);
-		pthread_mutex_unlock(mutex);
 
-		ft_verify_entry_1(entry, tl, or_mode, mutex, pl, arg_t->name_mode);
+		if (entry != NULL)
+			ft_verify_entry_1(entry, tl, or_mode, NULL, pl, name_mode);
 	}
-
-	return NULL;
 }
 
 void ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, pthread_mutex_t *mutex, path_list_t *pl, int name_mode) {

@@ -29,8 +29,9 @@ void ft_exec_parser(parser_t *p, token_list *tl, const char *path) {
 		if (p->dir_mode == 1) {
 			ft_display_entry(&el, p->color_mode);
 		} else {
-			ft_exec_parser_1(&el, p, tl, &pl);
+			ft_verify_entry(&el, tl, p->or_mode, &pl, p->name_mode);
 			path_display(&pl, p->color_mode);
+
 		}
 	}
 
@@ -88,6 +89,11 @@ void ft_display_entry(entry_list_t *el, int color_mode) {
 }
 
 void ft_add_entry(entry_t *entry, path_list_t *pl, pthread_mutex_t *mutex) {
+	if (mutex == NULL) {
+		add_path_list(pl, entry->path);
+		return;
+	}
+
 	pthread_mutex_lock(mutex);
 	add_path_list(pl, entry->path);
 	pthread_mutex_unlock(mutex);
