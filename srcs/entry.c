@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/06 22:53:59 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 14:16:01 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/08 14:22:29 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,16 @@ void destroy_entry_list(entry_list_t *el) {
 
 	ce = el->data;
 
+	if (ce == NULL)
+		return;
+
 	while(ce->next != NULL) {
 		temp = ce;
 		ce = temp->next;
 		destroy_entry(temp);
 		free(temp);
 	}
+
+	destroy_entry(ce);
+	free(ce);
 }
