@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:07:57 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/09 09:17:49 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/09 15:08:43 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, int beg, int name
 		}
 	}
 
-	return 1;
+	return or_mode ^ 1;
 }
 
 int ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, int beg, int name_mode) {
@@ -83,6 +83,6 @@ int ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, int beg, int name
 		}
 	}
 
-	return 1;
+	return or_mode ^ 1;
 }
 

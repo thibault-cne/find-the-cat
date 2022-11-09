@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:05:45 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/09 09:17:23 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/09 15:09:02 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int name_mode) {
 		}
 	}
 
-	return 1;
+	return or_mode ^ 1;
 }
 
