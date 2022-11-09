@@ -24,10 +24,7 @@ void ft_exec_parser(parser_t *p, token_list *tl, const char *path) {
 		path_display(&pl, p->color_mode);	
 	} else {
 		// Fetch all files and subdirs from the path
-		ft_fetch_path(&pl, path, p, tl);
-
-		if (!p->dir_mode)
-			path_display(&pl, p->color_mode);
+		ft_fetch_path(path, p, tl);
 	}
 
 	destroy_entry_list(&el);

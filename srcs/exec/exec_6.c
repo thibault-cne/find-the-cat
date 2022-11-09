@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/08 12:23:20 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 14:16:12 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/09 09:19:32 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void *ft_th_verify_entry(void *arg) {
 		if (entry == NULL)
 			continue;
 		
-		ft_verify_entry_1(entry, a->tl, a->or_mode, &a->mutex[1], a->pl, a->name_mode);
+		if (ft_verify_entry_1(entry, a->tl, a->or_mode, a->name_mode))
+			ft_add_entry(entry, a->pl, &a->mutex[1]);
 	}
 
 	return NULL;

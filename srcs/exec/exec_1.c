@@ -6,13 +6,13 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:04:12 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 19:09:43 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/09 09:18:48 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void ft_fetch_path(path_list_t *pl, const char *path, parser_t *p, token_list *tl) {
+void ft_fetch_path(const char *path, parser_t *p, token_list *tl) {
 	char *d_name;
 	entry_t e;
 
@@ -22,17 +22,18 @@ void ft_fetch_path(path_list_t *pl, const char *path, parser_t *p, token_list *t
 		d_name = get_last_dir(path);
 
 		create_entry(&e,(char *)path, DT_DIR, d_name);
-		ft_verify_entry_1(&e, tl, p->or_mode, NULL, pl, p->name_mode);
+		if (ft_verify_entry_1(&e, tl, p->or_mode, p->name_mode))
+			f_printp(e.path, p->color_mode);
 
 		destroy_entry(&e);
 		free(d_name);
 	}
 
 
-	ft_fetch_path_1(pl, path, p, tl);
+	ft_fetch_path_1(path, p, tl);
 }
 
-void ft_fetch_path_1(path_list_t *pl, const char *path, parser_t *p, token_list *tl) {
+void ft_fetch_path_1(const char *path, parser_t *p, token_list *tl) {
 	DIR *dir;
 	struct dirent *entry;
 	entry_t e;
@@ -55,12 +56,15 @@ void ft_fetch_path_1(path_list_t *pl, const char *path, parser_t *p, token_list 
 			f_printp(new_path, p->color_mode);
 		} else {
 			create_entry(&e, new_path, entry->d_type, entry->d_name);
-			ft_verify_entry_1(&e, tl, p->or_mode, NULL, pl, p->name_mode);
+			
+			if (ft_verify_entry_1(&e, tl, p->or_mode, p->name_mode))
+				f_printp(e.path, p->color_mode);
+			
 			destroy_entry(&e);
 		}
 		
 		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && p->link_mode))
-			ft_fetch_path_1(pl, new_path, p, tl);
+			ft_fetch_path_1(new_path, p, tl);
 
 		free(new_path);
 	}
