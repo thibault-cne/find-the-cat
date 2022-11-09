@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/08 11:59:14 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/09 09:53:09 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/09 11:12:56 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ void ft_exec_parser_2(entry_list_t *el, const char *path,  parser_t *p, token_li
 	arg_th_exec_t a_th;
 	int i;
 
-	pthread = (pthread_t *)malloc(sizeof(pthread_t) * p->thread_mode);
+	pthread = (pthread_t *)malloc(sizeof(pthread_t) * p->thread_mode + 1);
 	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * 2);
 	ft_mutex_init(mutex, 2);
 
 	create_arg_fetch_t(&a_f, el, path, p->link_mode, &mutex[0]);
 	create_arg_th_exec_t(&a_th, mutex, el, p->or_mode, tl, p->color_mode, p->name_mode);
 
-	i = 0;
+	i = 1;
 	pthread_create(&pthread[i], NULL, (void *)ft_thread_fetch_path, (void *)&a_f);
 
 	while(++i < p->thread_mode) {
 		pthread_create(&pthread[i], NULL, (void *)ft_th_verify_entry, (void *)&a_th);
 	}
 
-	i = -1;
+	i = 0;
 
 	while(++i < p->thread_mode) {
 		pthread_join(pthread[i], NULL);
