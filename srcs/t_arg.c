@@ -37,12 +37,12 @@ void destroy_arg_fetch_t(arg_fetch_t *a) {
 	free(a->path);
 }
 
-void create_arg_th_exec_t(arg_th_exec_t *a, pthread_mutex_t *m, entry_list_t *el, int or_mode, token_list *tl, path_list_t *pl, int nm) {
+void create_arg_th_exec_t(arg_th_exec_t *a, pthread_mutex_t *m, entry_list_t *el, int or_mode, token_list *tl, int color_mode, int nm) {
 	a->mutex = m;
 	a->el = el;
 	a->or_mode = or_mode;
 	a->tl = tl;
-	a->pl = pl;
+	a->color_mode = color_mode;
 	a->name_mode = nm;
 	a->current_index = 0;
 }

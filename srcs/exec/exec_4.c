@@ -6,13 +6,13 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/08 11:59:14 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 13:18:25 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/09 09:53:09 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void ft_exec_parser_2(entry_list_t *el, const char *path,  parser_t *p, token_list *tl, path_list_t *pl) {
+void ft_exec_parser_2(entry_list_t *el, const char *path,  parser_t *p, token_list *tl) {
 	pthread_t *pthread;
 	pthread_mutex_t *mutex;
 	arg_fetch_t a_f;
@@ -24,7 +24,7 @@ void ft_exec_parser_2(entry_list_t *el, const char *path,  parser_t *p, token_li
 	ft_mutex_init(mutex, 2);
 
 	create_arg_fetch_t(&a_f, el, path, p->link_mode, &mutex[0]);
-	create_arg_th_exec_t(&a_th, mutex, el, p->or_mode, tl, pl, p->name_mode);
+	create_arg_th_exec_t(&a_th, mutex, el, p->or_mode, tl, p->color_mode, p->name_mode);
 
 	i = 0;
 	pthread_create(&pthread[i], NULL, (void *)ft_thread_fetch_path, (void *)&a_f);

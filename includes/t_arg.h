@@ -39,12 +39,12 @@ struct _arg_thread_exec_t {
 	entry_list_t *el;
 	int or_mode;
 	token_list *tl;
-	path_list_t *pl;
+	int color_mode;
 	int name_mode;
 	int current_index;
 };
 typedef struct _arg_thread_exec_t arg_th_exec_t;
 
-void create_arg_th_exec_t(arg_th_exec_t *a, pthread_mutex_t *m, entry_list_t *el, int or_mode, token_list *tl, path_list_t *pl, int name_mode);
+void create_arg_th_exec_t(arg_th_exec_t *a, pthread_mutex_t *m, entry_list_t *el, int or_mode, token_list *tl, int color_mode, int name_mode);
 
 #endif // FTC_T_ARG_H
