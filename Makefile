@@ -9,7 +9,6 @@ FILES 	=	main.c 			\
 			files/f_name.c 	\
 			files/f_size.c 	\
 			files/f_perm.c	\
-			path.c 			\
 			display.c 		\
 			validation.c 	\
 			errors.c 		\

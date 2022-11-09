@@ -8,7 +8,6 @@
 #include <sys/types.h>
 
 #include "options.h"
-#include "path.h"
 #include "utils.h"
 #include "t_arg.h"
 

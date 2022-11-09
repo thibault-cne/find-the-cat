@@ -24,7 +24,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "path.h"
 #include "utils.h"
 
 #ifdef __styles
@@ -42,11 +41,6 @@ const char *converted_styles[] = {
     STYLE_UNDERLINED, STYLE_BLINK, STYLE_REVERSE, STYLE_HIDDEN,
     NULL};
 #endif // __styles
-
-// Display the map of path
-// @param pl the path list
-// @param isColor if the color is enable
-void path_display(path_list_t *l, int isColor);
 
 // Display a path in color or not
 // @param path the path to display

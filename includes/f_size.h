@@ -8,7 +8,6 @@
 #include <sys/types.h>
 
 #include "options.h"
-#include "path.h"
 #include "utils.h"
 
 // Verify if the file size is valid regarding the given size

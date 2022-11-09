@@ -8,7 +8,6 @@
 #include <sys/types.h>
 
 #include "options.h"
-#include "path.h"
 #include "utils.h"
 
 // Verify if the name of a file is valid

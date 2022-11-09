@@ -14,23 +14,6 @@
 
 #include "../includes/display.h"
 
-void path_display(path_list_t *pl, int isColor)
-{
-    int i;
-
-    i = -1;
-
-    while (++i < pl->ptr)
-    {
-        if (pl->data[i] == NULL)
-        {
-            continue;
-        }
-
-        f_printp(pl->data[i], isColor);
-    }
-}
-
 void f_printp(const char *path, int isColor)
 {
     if (!isColor)

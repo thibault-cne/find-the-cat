@@ -19,7 +19,6 @@
 #include "f_perm.h"
 
 void ft_exec_parser(parser_t *p, token_list *l, const char *path);
-void ft_exec_parser_1(entry_list_t *el, parser_t *p, token_list *tl, path_list_t *pl);
 void ft_fetch_path(const char *path, parser_t *p, token_list *tl);
 void ft_fetch_path_1(const char *path, parser_t *p, token_list *tl);
 int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int nm);
