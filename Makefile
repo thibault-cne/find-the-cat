@@ -43,25 +43,25 @@ CFLAGS	= 	-Werror -Wall -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-
 ${O_PATH}%.o:	${S_PATH}%.c
 				@mkdir -p ${dir $@}
 				@${CC} ${CFLAGS} -c $< -o $@
-				@echo "${BOLD}${CYAN}Compiling${S}${S} ${IGREY}$<${S} ${YELLOW}-> ${S}${SBLUE}$@${S} ⚙️"
+				@echo "${ESC}${BOLD}${ESC}${CYAN}Compiling${ESC}${S}${ESC}${S} ${ESC}${IGREY}$<${ESC}${S} ${ESC}${YELLOW}-> ${ESC}${S}${ESC}${SBLUE}$@${ESC}${S} ⚙️"
 
 
 ${NAME}:			${OBJS}
 					@${CC} ${OBJS} ${CFLAGS} -o ${NAME} -I ${I_PATH}
 					@echo ""
-					@echo "${BOLD}${PURPLE}Building${S}${S} ${IGREY}$@${S} 🖥️"
+					@echo "${ESC}${BOLD}${ESC}${PURPLE}Building${ESC}${S}${ESC}${S} ${ESC}${IGREY}$@${ESC}${S} 🖥️"
 					@echo ""
-					@echo "\033[3;92mCompilation is completed !${S} 🎉"
+					@echo "${ESC}${ITALIC}${ESC}${SGREEN}Compilation is completed !${ESC}${S} 🎉"
 
 all:		${NAME}
 
 clean:
 			@${RM} ${O_PATH}*
-			@echo "${BOLD}${SRED}Removing${S}${S} ${IGREY}${O_PATH}${S} 🗑️"
+			@echo "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${O_PATH}${ESC}${S} 🗑️"
 
 fclean:		clean
 			@${RM} ${NAME}
-			@echo "${BOLD}${SRED}Removing${S}${S} ${IGREY}${NAME}${S} 🗑️"
+			@echo "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${NAME}${ESC}${S} 🗑️"
 
 space:
 			@echo " "
@@ -70,38 +70,44 @@ re:			fclean space all
 
 .PHONY: all clean fclean re build space
 
-S 		=		\033[0m
-BOLD 	= 		\033[1m
-ITALIC 	= 		\033[3m
-UNDER 	= 		\033[4m
-REV 	= 		\033[7m
+ESC		:=
+ifeq (${OS}, Windows_NT)
+	ESC	=		ESC
+else
+	ESC	=		\033
+endif
+
+S 		=		[0m
+BOLD 	= 		[1m
+ITALIC 	= 		[3m
+UNDER 	= 		[4m
+REV 	= 		[7m
 
 # Colors
-GREY 	= 		\033[30m
-RED 	= 		\033[31m
-GREEN	=		\033[32m
-YELLOW	=		\033[33m
-BLUE	=		\033[34m
-PURPLE	=		\033[35m
-CYAN	=		\033[36m
-WHITE	=		\033[37m
+GREY 	= 		[30m
+RED 	= 		[31m
+GREEN	=		[32m
+YELLOW	=		[33m
+BLUE	=		[34m
+PURPLE	=		[35m
+CYAN	=		[36m
+WHITE	=		[37m
 
-SGREY	=		\033[90m
-SRED	=		\033[91m
-SGREEN	=		\033[92m
-SYELLOW	=		\033[93m
-SBLUE	=		\033[94m
-SPURPLE	=		\033[95m
-SCYAN	=		\033[96m
-SWHITE	=		\033[97m
+SGREY	=		[90m
+SRED	=		[91m
+SGREEN	=		[92m
+SYELLOW	=		[93m
+SBLUE	=		[94m
+SPURPLE	=		[95m
+SCYAN	=		[96m
+SWHITE	=		[97m
 
 # Colored backgrounds
-
-IGREY	=		\033[40m
-IRED	=		\033[41m
-IGREEN	=		\033[42m
-IYELLOW	=		\033[43m
-IBLUE	=		\033[44m
-IPURPLE	=		\033[45m
-ICYAN	=		\033[46m
-IWHITE	=		\033[47m
+IGREY	=		[40m
+IRED	=		[41m
+IGREEN	=		[42m
+IYELLOW	=		[43m
+IBLUE	=		[44m
+IPURPLE	=		[45m
+ICYAN	=		[46m
+IWHITE	=		[47m
