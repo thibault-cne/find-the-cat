@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:04:12 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/09 09:18:48 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/10 12:06:29 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void ft_fetch_path_1(const char *path, parser_t *p, token_list *tl) {
 	struct dirent *entry;
 	entry_t e;
 	int len;
+	struct stat st;
 
 	if (!(dir = opendir(path)))
 		return;
@@ -63,7 +64,8 @@ void ft_fetch_path_1(const char *path, parser_t *p, token_list *tl) {
 			destroy_entry(&e);
 		}
 		
-		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && p->link_mode))
+		stat(new_path, &st);
+		if (S_ISDIR(st.st_mode) || (S_ISLNK(st.st_mode) && p->link_mode))
 			ft_fetch_path_1(new_path, p, tl);
 
 		free(new_path);
