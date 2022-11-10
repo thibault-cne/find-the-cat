@@ -122,8 +122,14 @@ char *format_entry_path(char *path)
 
 int get_entry_type(const char *path) {
 	struct stat st;
+	char *temp;
+	
+	temp = (char *)malloc(sizeof(char) * strlen(path) + 1);
+	strcpy(temp, path);
 
-	stat(path, &st);
+	stat(temp, &st);
+
+	free(temp);
 
 	if (S_ISDIR(st.st_mode))
 		return DT_DIR;
@@ -135,5 +141,6 @@ int get_entry_type(const char *path) {
 			return DT_LNK;
 	#endif // _WIN32
 
+	printf("Unknown\n");
 	return DT_UNKNOWN;
 }
