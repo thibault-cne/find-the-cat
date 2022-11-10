@@ -38,7 +38,13 @@ NAME	=	ftc
 
 RM		=	rm -rf
 
-CFLAGS	= 	-Werror -Wall -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls -pthread
+CFLAGS		:=
+ifeq (${OS}, Windows_NT)
+	CFLAGS	= 	-O0 -g3 -pthread
+else
+	CFLAGS	=	-Werror -Wall -O0 -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls -pthread
+endif
+
 
 ${O_PATH}%.o:	${S_PATH}%.c
 				@mkdir -p ${dir $@}
@@ -72,7 +78,7 @@ re:			fclean space all
 
 ESC		:=
 ifeq (${OS}, Windows_NT)
-	ESC	=		ESC
+	ESC	=		^<ESC^>
 else
 	ESC	=		\033
 endif
