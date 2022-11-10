@@ -1,7 +1,12 @@
 #ifndef FTC_F_DIR_H
 #define FTC_F_DIR_H
 
-#include <dirent.h>
+#ifdef WIN32
+	#include "dirent.h"
+#else
+	#include <dirent.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
