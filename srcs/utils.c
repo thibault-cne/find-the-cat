@@ -130,7 +130,7 @@ int get_entry_type(const char *path) {
 	if (S_ISREG(st.st_mode))
 		return DT_REG;
 
-	#ifdef _WIN32
+	#ifndef _WIN32
 		if (S_ISLNK(st.st_mode))
 			return DT_LNK;
 	#endif // _WIN32
