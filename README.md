@@ -15,6 +15,17 @@ cd find-the-cat
 make
 ```
 
+If you want to install it on windows (yes it works on too). You can dowload ![msys2](https://www.msys2.org) to use linux like commands such as make and gcc. On `msys2` you will need a couple of things :
+	- gcc
+	- regex.h
+
+You can dowload all those things with the following commands :
+
+``` bash
+pacman -S mingw-w64-ucrt-x86_64-gcc
+pacman -S $MINGW_PACKAGE_PREFIX-libsystre
+```
+
 ## Documentation
 
 Here is a list of the currently available options and parameter for the CLI. Please note that for now, all commands are run as AND commands (the CLI handle multiple options as AND options).
