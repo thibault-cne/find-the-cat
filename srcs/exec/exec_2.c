@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:05:45 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/09 15:09:02 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/10 20:59:42 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int name_mode) {
 
 		switch (t->TokenType) {
 			case NAME:
-				if (e->d_type != DT_REG || (!verify_files_by_name(e->d_name, t->value) && !or_mode))
+				if (get_entry_type(e->path) != DT_REG || (!verify_files_by_name(e->d_name, t->value) && !or_mode))
 					return 0;
-				if (e->d_type == DT_REG && or_mode && verify_files_by_name(e->d_name, t->value)) {
+				if (get_entry_type(e->path) == DT_REG && or_mode && verify_files_by_name(e->d_name, t->value)) {
 					return 1;
 				}
 				break;

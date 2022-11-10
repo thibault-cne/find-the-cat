@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:07:57 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/09 15:08:43 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/10 21:00:51 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@ int ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, int beg, int name
 
 		switch(t->TokenType) {
 			case MIME:
-				if (e->d_type != DT_REG || (!verify_files_by_mime(e->d_name, t->value) && !or_mode))
+				if (get_entry_type(e->path) != DT_REG || (!verify_files_by_mime(e->d_name, t->value) && !or_mode))
 					return 0;
-				if (e->d_type == DT_REG && verify_files_by_mime(e->d_name, t->value) && or_mode) {
+				if (get_entry_type(e->path) == DT_REG && verify_files_by_mime(e->d_name, t->value) && or_mode) {
 					return 1;	
 				}
 				break;
 			case CTC:
-				if (e->d_type != DT_REG || (!verify_files_by_content_pattern(e->path, t->value) && !or_mode))
+				if (get_entry_type(e->path) != DT_REG || (!verify_files_by_content_pattern(e->path, t->value) && !or_mode))
 					return 0;
-				if (e->d_type == DT_REG && verify_files_by_content_pattern(e->path, t->value) && or_mode) {
+				if (get_entry_type(e->path) == DT_REG && verify_files_by_content_pattern(e->path, t->value) && or_mode) {
 					return 1;	
 				}
 				break;
 			case DIRECTORY:
-				if (e->d_type != DT_DIR || (!verify_directories_by_name(e->path, t->value) && !or_mode))
+				if (get_entry_type(e->path) != DT_DIR || (!verify_directories_by_name(e->path, t->value) && !or_mode))
 					return 0;
-				if (e->d_type == DT_DIR && verify_directories_by_name(e->path, t->value) && or_mode) {
+				if (get_entry_type(e->path) == DT_DIR && verify_directories_by_name(e->path, t->value) && or_mode) {
 					return 1;	
 				}
 				break;
