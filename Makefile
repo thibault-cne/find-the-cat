@@ -45,29 +45,34 @@ else
 	CFLAGS	=	-Werror -Wall -O0 -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls -pthread
 endif
 
+ECHO_FLAG	:=
+ifeq (${OS}, Windows_NT)
+	ECHO_FLAG	=	-e
+endif
+
 
 ${O_PATH}%.o:	${S_PATH}%.c
 				@mkdir -p ${dir $@}
 				@${CC} ${CFLAGS} -c $< -o $@
-				@echo "${ESC}${BOLD}${ESC}${CYAN}Compiling${ESC}${S}${ESC}${S} ${ESC}${IGREY}$<${ESC}${S} ${ESC}${YELLOW}-> ${ESC}${S}${ESC}${SBLUE}$@${ESC}${S} ⚙️"
+				@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${CYAN}Compiling${ESC}${S}${ESC}${S} ${ESC}${IGREY}$<${ESC}${S} ${ESC}${YELLOW}-> ${ESC}${S}${ESC}${SBLUE}$@${ESC}${S} ⚙️"
 
 
 ${NAME}:			${OBJS}
 					@${CC} ${OBJS} ${CFLAGS} -o ${NAME} -I ${I_PATH}
 					@echo ""
-					@echo "${ESC}${BOLD}${ESC}${PURPLE}Building${ESC}${S}${ESC}${S} ${ESC}${IGREY}$@${ESC}${S} 🖥️"
+					@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${PURPLE}Building${ESC}${S}${ESC}${S} ${ESC}${IGREY}$@${ESC}${S} 🖥️"
 					@echo ""
-					@echo "${ESC}${ITALIC}${ESC}${SGREEN}Compilation is completed !${ESC}${S} 🎉"
+					@echo ${ECHO_FLAG} "${ESC}${ITALIC}${ESC}${SGREEN}Compilation is completed !${ESC}${S} 🎉"
 
 all:		${NAME}
 
 clean:
 			@${RM} ${O_PATH}*
-			@echo "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${O_PATH}${ESC}${S} 🗑️"
+			@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${O_PATH}${ESC}${S} 🗑️"
 
 fclean:		clean
 			@${RM} ${NAME}
-			@echo "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${NAME}${ESC}${S} 🗑️"
+			@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${NAME}${ESC}${S} 🗑️"
 
 space:
 			@echo " "
@@ -76,13 +81,7 @@ re:			fclean space all
 
 .PHONY: all clean fclean re build space
 
-ESC		:=
-ifeq (${OS}, Windows_NT)
-	ESC	=		^<ESC^>
-else
-	ESC	=		\033
-endif
-
+ESC		=		\033
 S 		=		[0m
 BOLD 	= 		[1m
 ITALIC 	= 		[3m
