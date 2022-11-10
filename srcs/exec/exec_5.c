@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/08 12:15:58 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 13:11:18 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/10 19:17:41 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void ft_thread_fetch_path_1(entry_list_t *el, const char *path, int links_mode, 
 		new_path = malloc(len + 2);
 		snprintf(new_path, len + 2, "%s/%s", path, entry->d_name);
 
-		create_entry(&e, new_path, entry->d_type, entry->d_name);
+		create_entry(&e, new_path, get_entry_type(new_path), entry->d_name);
 		pthread_mutex_lock(mutex);
 		add_entry_list_t(el, e);
 		pthread_mutex_unlock(mutex);
 		
-		if (entry->d_type == DT_DIR || (entry->d_type == DT_LNK && links_mode))
+		if (get_entry_type(new_path) == DT_DIR || (get_entry_type(new_path) == DT_LNK && links_mode))
 			ft_thread_fetch_path_1(el, new_path, links_mode, mutex);
 
 		destroy_entry(&e);
