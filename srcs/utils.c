@@ -120,3 +120,20 @@ char *format_entry_path(char *path)
     return path;
 }
 
+int get_entry_type(const char *path) {
+	struct stat st;
+
+	stat(path, &st);
+
+	if (S_ISDIR(st.st_mode))
+		return DT_DIR;
+	if (S_ISREG(st.st_mode))
+		return DT_REG;
+
+	#ifdef _WIN32
+		if (S_ISLNK(st.st_mode))
+			return DT_LNK;
+	#endif // _WIN32
+
+	return DT_UNKNOWN;
+}

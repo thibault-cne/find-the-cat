@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:04:12 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/10 12:06:29 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/10 17:33:49 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void ft_fetch_path(const char *path, parser_t *p, token_list *tl) {
 	} else {
 		d_name = get_last_dir(path);
 
-		create_entry(&e,(char *)path, DT_DIR, d_name);
+		create_entry(&e,(char *)path, get_entry_type(path), d_name);
 		if (ft_verify_entry_1(&e, tl, p->or_mode, p->name_mode))
 			f_printp(e.path, p->color_mode);
 
@@ -56,7 +56,7 @@ void ft_fetch_path_1(const char *path, parser_t *p, token_list *tl) {
 		if (p->dir_mode) {
 			f_printp(new_path, p->color_mode);
 		} else {
-			create_entry(&e, new_path, entry->d_type, entry->d_name);
+			create_entry(&e, new_path, get_entry_type(new_path), entry->d_name);
 			
 			if (ft_verify_entry_1(&e, tl, p->or_mode, p->name_mode))
 				f_printp(e.path, p->color_mode);

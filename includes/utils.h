@@ -1,9 +1,14 @@
 #ifndef FTC_UTILS_H
 #define FTC_UTILS_H
 
+#ifdef _WIN32
+	#include "windows.h"
+#endif // _WIN32
+
 #include <regex.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <dirent.h>
 #include <sys/stat.h>
 #include <time.h>
 #include <libgen.h>
@@ -44,5 +49,7 @@ int is_dir(const char *path);
 // @param path the path to the file
 // @return the formatted path
 char *format_entry_path(char *path);
+
+int get_entry_type(const char *path);
 
 #endif // FTC_UTILS_H
