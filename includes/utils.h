@@ -16,25 +16,6 @@
 // Include mime utils
 #include "mime.h"
 
-// Include files utils
-#include "files.h"
-
-// Get the size of a file
-// @param path the path to the file
-// @return the size of the file
-off_t get_file_size(const char *file_path);
-
-// Get the last modification time of a file in seconds
-// @param path the path to the file
-// @return the last modification time of the file in seconds
-double get_seconds_from_last_modification(const char *file_path);
-
-// Check the match between a string and a pattern
-// @param str the string to match
-// @param pattern the pattern to match
-// @return 0 if the string matches the pattern, 1 otherwise
-int regex_match(const char *str, const char *pattern);
-
 // Get the last directory of a path
 // @param path the path to the file
 // @return the last directory of the path

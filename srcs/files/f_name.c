@@ -6,11 +6,11 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:32:08 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/07 10:32:09 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/11 21:47:50 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/f_name.h"
+#include "../../includes/ft_file.h"
 
 int verify_files_by_name(const char *f_name, char *name)
 {
@@ -24,4 +24,24 @@ int verify_files_by_name(const char *f_name, char *name)
     }
 
     return 0;
+}
+
+int regex_match(const char *str, const char *pattern)
+{
+    regex_t regex;
+    int reti;
+    int res;
+
+    reti = regcomp(&regex, pattern, 0);
+    if (reti)
+    {
+        fprintf(stderr, "Could not compile regex %s\n", pattern);
+        exit(1);
+    }
+
+    res = regexec(&regex, str, 0, NULL, 0);
+
+    // Free memory allocated to the pattern buffer by regcomp()
+    regfree(&regex);
+    return res;
 }

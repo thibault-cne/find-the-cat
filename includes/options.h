@@ -47,24 +47,6 @@ Options get_flag_options(const char *opt);
 // @return the argument
 char *get_options_flag(Options opt);
 
-// Get the size from the size option
-// @param size the size option parameter
-// @return the size
-off_t get_size(char *size);
 
-// Get the multiplier from the size option
-// @param size the size option parameter
-// @return the multiplier
-int get_multiplier(char s);
-
-// Get the time from the date option
-// @param date the date option parameter
-// @return the time
-double get_time(char *time);
-
-// Get the multiplier from the date option
-// @param date the date option parameter
-// @return the multiplier
-int get_time_multiplier(char s);
 
 #endif // FTC_OPTIONS_H

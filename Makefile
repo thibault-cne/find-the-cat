@@ -14,7 +14,6 @@ FILES 	=	main.c 			\
 			errors.c 		\
 			utils.c 		\
 			mime.c 			\
-			files.c 		\
 			exec/exec.c		\
 			exec/exec_1.c	\
 			exec/exec_2.c	\

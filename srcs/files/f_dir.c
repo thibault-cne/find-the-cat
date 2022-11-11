@@ -10,7 +10,7 @@
 /*                                                                                                              */
 /* ************************************************************************************************************ */
 
-#include "../../includes/f_dir.h"
+#include "../../includes/ft_file.h"
 
 int verify_directories_by_name(const char *path, const char *name)
 {

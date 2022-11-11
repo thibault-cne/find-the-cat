@@ -8,14 +8,11 @@
 #include "validation.h"
 #include "parser.h"
 #include "entry.h"
+#include "t_arg.h"
+#include "ft_file.h"
 
 // Files include
 #include "f_mime.h"
-#include "f_name.h"
-#include "f_size.h"
-#include "f_date.h"
-#include "f_grep.h"
-#include "f_dir.h"
 #include "f_perm.h"
 
 void ft_exec_parser(parser_t *p, token_list *l, const char *path);

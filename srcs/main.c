@@ -15,7 +15,6 @@
 #include <string.h>
 
 #include "../includes/exec.h"
-#include "../includes/f_dir.h"
 #include "../includes/options.h"
 #include "../includes/validation.h"
 #include "../includes/errors.h"
