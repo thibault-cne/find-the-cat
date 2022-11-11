@@ -104,38 +104,31 @@ char *get_options_flag(Options opt)
 // Size functions
 off_t get_size(char *size)
 {
-    int i;
-    int offset;
     char *new_size;
+	char *beg;
+	char *end;
+	char *temp;
     off_t res;
 
-    res = 0;
+    new_size = malloc(sizeof(char) * strlen(size) + 1);
+	strcpy(new_size, size);
 
-    if (size[0] == '-' || size[0] == '+')
-    {
-        i = 0;
-        offset = 1;
-    }
-    else
-    {
-        i = -1;
-        offset = 0;
-    }
+	beg = new_size;
+	end = new_size;
 
-    new_size = malloc(sizeof(char) * OPTS_MAX_SIZE);
+	beg += strspn(beg, "-+");
+	end = beg + strcspn(beg, "ckMG");
 
-    while (size[++i] != '\0' && (int)size[i] < 58 && (int)size[i] > 47)
-    {
-        new_size[i - offset] = size[i];
-    }
-    new_size[i] = '\0';
+	temp = (char *)malloc(sizeof(char) * ((int)(end - beg) + 1));
+	strncpy(temp, beg, (int)(end - beg));
 
-    res = atoi(new_size) * get_multiplier(size[i]);
+	res = atoi(temp);
 
     // Free memory
+	free(temp);
     free(new_size);
 
-    return res;
+    return res * get_multiplier(size[strlen(size) - 1]);
 }
 
 int get_multiplier(char s)
