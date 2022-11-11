@@ -9,7 +9,7 @@ then
 fi
 
 function test_unique_name_and_size () {
-	if [ ! "$(./ftc "$1" -name "$2" -size "$3")" == "$4" ];
+	if [ ! "$(./ftc "$1" -name "$2" -size "$3")" == "$(find "$1" -type f -name "$2" -size "$3")" ];
 	then
         echo "🔴 Test of unique file of name \"$2\" and size \"$3\" failed."
 		echo "$(./ftc "$1" -name "$2" -size "$3")"
@@ -19,4 +19,4 @@ function test_unique_name_and_size () {
 	fi
 }
 
-test_unique_name_and_size "arbre" "ball.wav" "-75c" "arbre/tree/character/kind/ball.wav" 
+test_unique_name_and_size "arbre" "ball.wav" "-75c"
