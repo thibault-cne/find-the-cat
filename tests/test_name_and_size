@@ -1,0 +1,22 @@
+#!/bin/bash
+
+REQUIRED_FILE="./ftc"
+
+if [ ! -f ${REQUIRE_FILE} ];
+then
+	echo "⚠️  Executable ${REQUIRED_FILE} not found."
+	exit 1
+fi
+
+function test_unique_name_and_size () {
+	if [ ! "$(./ftc "$1" -name "$2" -size "$3")" == "$4" ];
+	then
+        echo "🔴 Test of unique file of name \"$2\" and size \"$3\" failed."
+		echo "$(./ftc "$1" -name "$2" -size "$3")"
+		exit 1
+	else
+        echo "✅ Test of unique filename and size succeeded (name: \"$2\", size: \"$3\")."
+	fi
+}
+
+test_unique_name_and_size "arbre" "ball.wav" "-75c" "arbre/tree/character/kind/ball.wav" 

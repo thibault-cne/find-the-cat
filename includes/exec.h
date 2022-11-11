@@ -21,7 +21,7 @@
 void ft_exec_parser(parser_t *p, token_list *l, const char *path);
 void ft_fetch_path(const char *path, parser_t *p, token_list *tl);
 void ft_fetch_path_1(const char *path, parser_t *p, token_list *tl);
-int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int nm);
+int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int beg, int nm);
 int ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, int beg, int nm);
 int ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, int beg, int nm);
 void ft_fprintp(entry_t *e, int color_mode, pthread_mutex_t *mutex);

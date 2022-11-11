@@ -3,146 +3,170 @@ name: projet_sys22/tests
 on: [push]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: yewolf/projet_sys22
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	build:
+		runs-on: ubuntu-latest
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
 
-      - name: Check test build
-        run: ./tests/file_exist ./ftc
+			- name: Check test build
+			  run: ./tests/file_exist ./ftc
 
-  test-args:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-args:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
 
-      - name: Check test args
-        run: ./tests/test_args
+			- name: Check test args
+			  run: ./tests/test_args
 
-  test-parkour:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-parkour:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
 
-      - name: Check test parkour
-        run: ./tests/test_parkour
+			- name: Check test parkour
+			  run: ./tests/test_parkour
   
-  test-name:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-name:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
       
-      - name: Check test name
-        run: ./tests/test_name
+			- name: Check test name
+			  run: ./tests/test_name
   
-  test-size:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-size:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
       
-      - name: Check test size
-        run: ./tests/test_size
+			- name: Check test size
+			  run: ./tests/test_size
   
-  test-date:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-date:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
 
-      - name: Check test date
-        run: ./tests/test_date
+			- name: Check test date
+			  run: ./tests/test_date
   
-  test-regex:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-regex:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
 
-      - name: Check test regex
-        run: ./tests/test_regex
+			- name: Check test regex
+			  run: ./tests/test_regex
 
-  test-mime:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-mime:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
 
-      - name: Check test mime
-        run: ./tests/test_mime
+			- name: Check test mime
+			  run: ./tests/test_mime
   
-  test-grep:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-grep:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
       
-      - name: Check test grep
-        run: ./tests/test_grep
+			- name: Check test grep
+			  run: ./tests/test_grep
 
-  test-dir:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-dir:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
       
-      - name: Check test dir
-        run: ./tests/test_dir
+			- name: Check test dir
+			  run: ./tests/test_dir
 
-  test-perm:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Check repository
-        uses: actions/checkout@v3
+	test-perm:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
 
-      - name: Build executable
-        run: make
+			- name: Build executable
+			  run: make
       
-      - name: Check test perm
-        run: ./tests/test_perm
+			- name: Check test perm
+			  run: ./tests/test_perm
+
+	test-name-and-size:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
+
+			- name: Build executable
+			  run: make
+
+			- name: Check test name and size 
+			  run: ./test/test_name_and_size
+
+	test-mime-and-size:
+		runs-on: ubuntu-latest
+		needs: build
+		steps:
+			- name: Check repository
+			  uses: actions/checkout@v3
+
+			- name: Build executable
+			  run: make
+
+			- name: Check test mime and size 
+			  run: ./test/test_mime_and_size

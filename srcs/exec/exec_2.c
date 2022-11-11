@@ -6,17 +6,17 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:05:45 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/10 21:21:12 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/11 10:48:41 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int name_mode) {
+int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int beg, int name_mode) {
 	int i;
 	token *t;
 	
-	i = -1;
+	i = beg - 1;
 
 	while(++i < tl->ptr) {
 		t = get_token_list_index(tl, i);
