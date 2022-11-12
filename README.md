@@ -60,7 +60,7 @@ Files date
 | h | hours |
 | j | days |
 
-In addition to those parameters, you should give a valid path to analyse has the first parameter.
+In addition to those parameters, you should give a valid path to analyse as the first parameter.
 For exemple :
 
 ```bash
