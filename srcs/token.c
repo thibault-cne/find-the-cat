@@ -49,9 +49,7 @@ void add_token_list(token_list *l, token tok)
 token *get_token_list_index(token_list *l, int i)
 {
     if (i >= l->ptr)
-    {
         return NULL;
-    }
 
     return &l->data[i];
 }
@@ -65,9 +63,7 @@ token *get_token_list_opt(token_list *l, Options opt)
     while (++i < l->ptr)
     {
         if (l->data[i].TokenType == opt)
-        {
             return &l->data[i];
-        }
     }
 
     return NULL;
@@ -80,9 +76,7 @@ void destroy_token_list(token_list *l)
     i = -1;
 
     while (++i < l->ptr)
-    {
         destroy_token(&l->data[i]);
-    }
 
     free(l->data);
 }
