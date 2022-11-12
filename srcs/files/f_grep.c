@@ -1,29 +1,25 @@
-/* ************************************************************************************************************ */
-/*                                                                                                              */
-/*                                                                                                              */
-// f_grep.c
-/*                                                                                                              */
-// by Thibault Cheneviere : thibault.cheneviere@telecomnancy.eu
-/*                                                                                                              */
-// Created : 2022/10/28 12/26/39
-/*                                                                                                              */
-/*                                                                                                              */
-/* ************************************************************************************************************ */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                                            */
+/*   f_grep.c                                                                 */
+/*                                                                            */
+/*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
+/*                                                                            */
+/*   Created: 2022/11/13 00:37:13 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:37:21 by Thibault Cheneviere                      */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/ft_file.h"
 
-int verify_files_by_content_pattern(const char *path, const char *pattern)
-{
+int verify_files_by_content_pattern(const char *path, const char *pattern) {
     if (path != NULL)
-    {
         return file_contains_pattern(path, pattern);
-    }
 
     return 0;
 }
 
-char *read_ascii_file(const char *path)
-{
+char *read_ascii_file(const char *path) {
     FILE *f;
     int size;
 

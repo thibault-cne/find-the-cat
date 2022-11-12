@@ -6,15 +6,14 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:33 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/11 21:46:45 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:36:34 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_file.h"
 
 // Verify if files in the path list correspond to the given size
-int verify_files_by_size(const char *path, char *size)
-{
+int verify_files_by_size(const char *path, char *size) {
     off_t real_size;
 
     real_size = get_size(size);
@@ -25,21 +24,15 @@ int verify_files_by_size(const char *path, char *size)
         {
         case '+':
             if (get_file_size(path) > real_size)
-            {
                 return 1;
-            }
             break;
         case '-':
             if (get_file_size(path) < real_size)
-            {
                 return 1;
-            }
             break;
         default:
             if (get_file_size(path) == real_size)
-            {
                 return 1;
-            }
             break;
         }
     }
@@ -47,16 +40,11 @@ int verify_files_by_size(const char *path, char *size)
     return 0;
 }
 
-off_t get_size(char *size)
-{
-    char *new_size;
+off_t get_size(char *size) {
 	char *beg;
 	char *end;
 	char *temp;
     off_t res;
-
-    new_size = malloc(sizeof(char) * strlen(size) + 1);
-	strcpy(new_size, size);
 
 	beg = new_size;
 	end = new_size;
@@ -71,13 +59,11 @@ off_t get_size(char *size)
 
     // Free memory
 	free(temp);
-    free(new_size);
 
     return res * get_multiplier(size[strlen(size) - 1]);
 }
 
-int get_multiplier(char s)
-{
+int get_multiplier(char s) {
     switch (s)
     {
     case 'k':
@@ -91,14 +77,11 @@ int get_multiplier(char s)
     }
 }
 
-off_t get_file_size(const char *file_path)
-{
+off_t get_file_size(const char *file_path) {
     struct stat st;
 
     if (stat(file_path, &st) == 0)
-    {
         return st.st_size;
-    }
 
     return -1;
 }

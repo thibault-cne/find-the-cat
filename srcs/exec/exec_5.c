@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/08 12:15:58 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/10 19:17:41 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:38:53 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void ft_thread_fetch_path_1(entry_list_t *el, const char *path, int links_mode, 
 	if (!(dir = opendir(path)))
 		return;
 
-    while ((entry = readdir(dir)) != NULL) {
+	while ((entry = readdir(dir)) != NULL) {
 		char *new_path;
 
     	if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)

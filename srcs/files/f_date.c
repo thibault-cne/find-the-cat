@@ -6,14 +6,13 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:44 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/11 21:47:15 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:38:03 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_file.h"
 
-int verify_files_by_date(const char *path, char *date)
-{
+int verify_files_by_date(const char *path, char *date) {
     double file_time;
     double real_time;
 
@@ -27,15 +26,11 @@ int verify_files_by_date(const char *path, char *date)
         {
         case '+':
             if (file_time > real_time)
-            {
                 return 1;
-            }
             break;
         default:
             if (file_time <= real_time)
-            {
                 return 1;
-            }
             break;
         }
 
@@ -47,36 +42,25 @@ int verify_files_by_date(const char *path, char *date)
 
 double get_time(char *time)
 {
-    int i;
-    int offset;
-    char *new_time;
+    char *beg;
+	char *end;
+	char *temp;
     int res;
 
     res = 0;
 
-    if (time[0] == '-' || time[0] == '+')
-    {
-        i = 0;
-        offset = 1;
-    }
-    else
-    {
-        i = -1;
-        offset = 0;
-    }
+	beg = time;
+	beg += strspn(beg, "-");
+	end = beg + strcspn(beg, "mhj");
 
-    new_time = malloc(sizeof(char) * OPTS_MAX_SIZE);
 
-    while (time[++i] < 57 && time[i] > 48)
-    {
-        new_time[i - offset] = time[i];
-    }
-    new_time[i] = '\0';
+	temp = (char *)malloc(sizeof(char) * (int)(end - beg) + 1);
+	strncpy(temp, beg, (int)(end - beg));
 
-    res = atoi(new_time) * get_time_multiplier(time[i]);
+    res = atoi(temp) * get_time_multiplier(time[strlen(time) - 1]);
 
     // Free memory
-    free(new_time);
+    free(temp);
 
     return (double)res;
 }
@@ -99,24 +83,14 @@ int get_time_multiplier(char s)
 double get_seconds_from_last_modification(const char *file_path)
 {
     struct stat st;
-    char *cp_path;
 
-    cp_path = (char *)malloc(sizeof(char) * (strlen(file_path) + 1));
-    strcpy(cp_path, file_path);
-
-    if (stat(cp_path, &st) == 0)
+    if (stat(path, &st) == 0)
     {
         time_t t = st.st_mtime;
         time_t now = time(NULL);
 
-        // Free memory
-        free(cp_path);
-
         return difftime(now, t);
     }
-
-    // Free memory
-    free(cp_path);
 
     return -1;
 }

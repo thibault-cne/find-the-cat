@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:04:12 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/11 10:49:24 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:39:33 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void ft_fetch_path_1(const char *path, parser_t *p, token_list *tl) {
 	if (!(dir = opendir(path)))
 		return;
 
-    while ((entry = readdir(dir)) != NULL) {
+	while ((entry = readdir(dir)) != NULL) {
 		char *new_path;
 
     	if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
