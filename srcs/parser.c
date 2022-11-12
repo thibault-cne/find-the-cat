@@ -14,46 +14,43 @@
 
 void start_parser(parser_t *p, token_list *l, int argc, char **argv)
 {
-    int i;
-    int incr;
+	int i;
+	int incr;
 
-    i = 1;
-    incr = 0;
+	i = 1;
+	incr = 0;
 
 	p->dir_mode = 0;
-    p->name_mode = -1;
-    p->thread_mode = 1;
-    p->or_mode = 0;
-    p->link_mode = 0;
-    p->color_mode = 0;
-    p->test_mode = 0;
-    p->status = PARSER_SUCCESS;
+	p->name_mode = -1;
+	p->thread_mode = 1;
+	p->or_mode = 0;
+	p->link_mode = 0;
+	p->color_mode = 0;
+	p->test_mode = 0;
+	p->status = PARSER_SUCCESS;
 
-    while (++i < argc)
-    {
-        if (!argv[i])
-        {
-            p->status = PARSER_ERROR;
-            p->error_ptr = i;
-            return;
-        }
+	while (++i < argc) {
+		if (!argv[i]) {
+			p->status = PARSER_ERROR;
+			p->error_ptr = i;
+			return;
+		}
 
-        if (argv[i][0] == '-')
-        {
-            // Add the flag and its value inside the token list
-            // Remembre to check for test flag which has no value
-            Options opt = get_flag_options(argv[i]);
+		if (argv[i][0] == '-') {
+			// Add the flag and its value inside the token list
+			// Remembre to check for test flag which has no value
+			Options opt = get_flag_options(argv[i]);
 
-            incr = set_opt_parser(p, l, opt, argc, argv, i);
+			incr = set_opt_parser(p, l, opt, argc, argv, i);
 
-            i += incr;
-        }
-    }
+			i += incr;
+		}
+	}
 
 	if (p->name_mode == -1)
 		p->name_mode = 1;
 
-    return;
+	return;
 }
 
 int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **argv, int pos)
