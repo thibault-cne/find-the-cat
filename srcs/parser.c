@@ -19,7 +19,7 @@ void start_parser(parser_t *p, token_list *l, int argc, char **argv)
 
     i = 1;
     incr = 0;
-	
+
 	p->dir_mode = 0;
     p->name_mode = -1;
     p->thread_mode = 1;

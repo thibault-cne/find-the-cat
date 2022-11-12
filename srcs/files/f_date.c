@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:44 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:38:03 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:43:36 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int get_time_multiplier(char s)
     }
 }
 
-double get_seconds_from_last_modification(const char *file_path)
+double get_seconds_from_last_modification(const char *path)
 {
     struct stat st;
 
