@@ -6,5 +6,4 @@
 #define DT_REG 8
 #define DT_LNK 12
 
-
 #endif // FTC_WINDOWS_H
