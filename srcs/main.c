@@ -36,7 +36,7 @@ int main(int argc, char **argv)
         parser_t p;
 
         // Initialize the token list
-        create_token_list(&l, 1);
+        create_token_list(&l, 12);
 
         // Initialize the parser
         start_parser(&p, &l, argc, argv);
