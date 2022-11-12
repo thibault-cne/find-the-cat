@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:33 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:36:34 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:45:23 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ off_t get_size(char *size) {
 	char *temp;
     off_t res;
 
-	beg = new_size;
-	end = new_size;
+	beg = size;
+	end = size;
 
 	beg += strspn(beg, "-+");
 	end = beg + strcspn(beg, "ckMG");
