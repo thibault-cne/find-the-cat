@@ -6,11 +6,11 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:33 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:45:23 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:53:26 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_file.h"
+#include "../../includes/ft_files.h"
 
 // Verify if files in the path list correspond to the given size
 int verify_files_by_size(const char *path, char *size) {

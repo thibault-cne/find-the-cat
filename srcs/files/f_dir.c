@@ -6,11 +6,11 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/13 00:37:28 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:37:39 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:52:54 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_file.h"
+#include "../../includes/ft_files.h"
 
 int verify_directories_by_name(const char *path, const char *name) {
     char *last_dir;

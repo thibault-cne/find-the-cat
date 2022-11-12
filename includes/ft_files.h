@@ -1,6 +1,14 @@
 #ifndef FTC_FT_FILES_H
 #define FTC_FT_FILES_H
 
+#define P_READ 0x4
+#define P_WRITE 0x2
+#define P_EXEC 0x1
+
+#define PERM_USR 0x64
+#define PERM_GRP 0xA
+#define PERM_OTH 0x1
+
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -96,5 +104,26 @@ char *read_ascii_file(const char *path);
 // @param pattern the string to search
 // @return 1 if the file contains the given string, 0 otherwise
 int file_contains_pattern(const char *path, const char *pattern);
+
+/* Mime functions */
+
+// Verify if the file mime type is valid regarding the given mime type.
+// We verify mime type by extension
+// @param path the path to the file
+// @param mime the mime type to compare
+// @return 1 if the file mime type is valid, 0 otherwise
+int verify_files_by_mime(const char *path, char *mime);
+
+/* Perm functions */
+
+// Get the file permission
+// @param path the path to the file
+int get_file_perm(const char *path);
+
+// Verify if the file permission is valid
+// @param path the path to the file
+// @param perm the permission to compare
+// @return 1 if the file permission is valid, 0 otherwise
+int verify_file_perm(const char *path, int perm);
 
 #endif // FTC_FT_FILES_H

@@ -6,11 +6,11 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/13 00:37:13 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:37:21 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:53:02 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_file.h"
+#include "../../includes/ft_files.h"
 
 int verify_files_by_content_pattern(const char *path, const char *pattern) {
     if (path != NULL)

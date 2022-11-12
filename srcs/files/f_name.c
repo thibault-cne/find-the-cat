@@ -6,11 +6,11 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:32:08 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:36:45 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:53:10 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_file.h"
+#include "../../includes/ft_files.h"
 
 int verify_files_by_name(const char *f_name, char *name) {
     int res;

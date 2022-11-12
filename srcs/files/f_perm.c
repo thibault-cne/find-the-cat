@@ -6,11 +6,11 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/13 00:35:38 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:35:40 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:55:36 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/f_perm.h"
+#include "../../includes/ft_files.h"
 
 int get_file_perm(const char *path) {
     struct stat st;

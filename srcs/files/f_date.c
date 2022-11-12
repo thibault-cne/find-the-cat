@@ -6,11 +6,11 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:44 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:43:36 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 00:52:47 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_file.h"
+#include "../../includes/ft_files.h"
 
 int verify_files_by_date(const char *path, char *date) {
     double file_time;
