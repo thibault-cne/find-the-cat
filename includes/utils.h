@@ -7,11 +7,10 @@
 
 #include <math.h>
 #include <dirent.h>
-#include <regex.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
-#include <time.h>
-
-#include "mime.h"
 
 // Get the last directory of a path
 // @param path the path to the file
