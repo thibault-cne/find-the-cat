@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:32:08 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:53:10 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 21:46:33 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ int regex_match(const char *str, const char *pattern) {
     int res;
 
     reti = regcomp(&regex, pattern, 0);
-    if (reti)
-    {
-        fprintf(stderr, "Could not compile regex %s\n", pattern);
-        exit(1);
+    if (reti) {
+		fprintf(stderr, "Could not compile regex %s\n", pattern);
+		return 0;
     }
 
     res = regexec(&regex, str, 0, NULL, 0);

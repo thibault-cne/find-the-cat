@@ -39,9 +39,7 @@ int is_dir(const char *path)
     struct stat st;
 
     if (stat(path, &st) == 0)
-    {
         return S_ISDIR(st.st_mode);
-    }
 
     return 0;
 }
@@ -50,28 +48,15 @@ char *format_entry_path(char *path)
 {
     // Remove trailing slash if any
     if (path[strlen(path) - 1] == '/')
-    {
-        char *new_path = malloc(sizeof(char) * (strlen(path) + 1));
-        strcpy(new_path, path);
-        new_path[strlen(path) - 1] = '\0';
-
-        strcpy((char *)path, new_path);
-        free(new_path);
-    }
+        path[strlen(path) - 1] = '\0';
 
     return path;
 }
 
 int get_entry_type(const char *path) {
 	struct stat st;
-	char *temp;
 	
-	temp = (char *)malloc(sizeof(char) * strlen(path) + 1);
-	strcpy(temp, path);
-
-	stat(temp, &st);
-
-	free(temp);
+	stat(path, &st);
 
 	if (S_ISDIR(st.st_mode))
 		return DT_DIR;
@@ -86,3 +71,19 @@ int get_entry_type(const char *path) {
 	printf("Unknown\n");
 	return DT_UNKNOWN;
 }
+
+int ft_superatoi(char *beg, char *end) {
+	int size;
+	int i;
+	int res;
+
+	size = (int)(end - beg);
+	i = -1;
+	res = 0;
+
+	while(beg[++i] > 47 && beg[i] < 58) {
+		res += (beg[i] - 48) * (int)pow(10, size - 1 - i);
+	}
+
+	return res;
+} 

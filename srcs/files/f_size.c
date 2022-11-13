@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:33 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:53:26 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 22:08:15 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int verify_files_by_size(const char *path, char *size) {
 off_t get_size(char *size) {
 	char *beg;
 	char *end;
-	char *temp;
     off_t res;
 
 	beg = size;
@@ -52,13 +51,7 @@ off_t get_size(char *size) {
 	beg += strspn(beg, "-+");
 	end = beg + strcspn(beg, "ckMG");
 
-	temp = (char *)malloc(sizeof(char) * ((int)(end - beg) + 1));
-	strncpy(temp, beg, (int)(end - beg));
-
-	res = atoi(temp);
-
-    // Free memory
-	free(temp);
+	res = ft_superatoi(beg, end);
 
     return res * get_multiplier(size[strlen(size) - 1]);
 }

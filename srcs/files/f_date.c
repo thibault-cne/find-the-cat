@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 10:31:44 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/13 00:52:47 by Thibault Cheneviere                      */
+/*   Updated: 2022/11/13 22:08:48 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ double get_time(char *time)
 {
     char *beg;
 	char *end;
-	char *temp;
     int res;
 
     res = 0;
@@ -53,14 +52,7 @@ double get_time(char *time)
 	beg += strspn(beg, "-");
 	end = beg + strcspn(beg, "mhj");
 
-
-	temp = (char *)malloc(sizeof(char) * (int)(end - beg) + 1);
-	strncpy(temp, beg, (int)(end - beg));
-
-    res = atoi(temp) * get_time_multiplier(time[strlen(time) - 1]);
-
-    // Free memory
-    free(temp);
+    res = ft_superatoi(beg, end) * get_time_multiplier(time[strlen(time) - 1]);
 
     return (double)res;
 }

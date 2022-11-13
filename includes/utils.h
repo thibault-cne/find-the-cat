@@ -5,15 +5,12 @@
 	#include "windows.h"
 #endif // _WIN32
 
-#include <regex.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <math.h>
 #include <dirent.h>
+#include <regex.h>
 #include <sys/stat.h>
 #include <time.h>
-#include <libgen.h>
 
-// Include mime utils
 #include "mime.h"
 
 // Get the last directory of a path
@@ -32,5 +29,7 @@ int is_dir(const char *path);
 char *format_entry_path(char *path);
 
 int get_entry_type(const char *path);
+
+int ft_superatoi(char *beg, char *end);
 
 #endif // FTC_UTILS_H

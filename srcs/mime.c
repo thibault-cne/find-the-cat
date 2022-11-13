@@ -12,6 +12,36 @@
 
 #include "../includes/mime.h"
 
+char *get_mime_type(char *filename)
+{
+    char *ext;
+    char *f_name;
+    char *res;
+    int i;
+
+    f_name = filename;
+
+    ext = strrchr(f_name, '.');
+    if (!ext)
+        return NULL;
+
+    i = 0;
+
+    while (Mime_types[i][0] != NULL)
+    {
+        if (!strcmp(Mime_types[i][0], ext))
+        {
+            // Get mime type
+            res = (char *)malloc(sizeof(char) * (strlen(Mime_types[i][1]) + 1));
+            strcpy(res, Mime_types[i][1]);
+            return res;
+        }
+        i++;
+    }
+
+    return NULL;
+}
+
 char *Mime_types[][ARRAY_SIZE] = {
     {".1", "text/troff"},
     {".3ds", "image/x-3ds"},
@@ -754,43 +784,3 @@ char *Mime_types[][ARRAY_SIZE] = {
     {".zip", "application/zip"},
     {NULL, NULL}};
 
-// Get mime type from file extension
-char *get_mime_type(char *filename)
-{
-    char *ext;
-    char *f_name;
-    char *res;
-    int i;
-
-    f_name = (char *)malloc(sizeof(char) * (strlen(filename) + 1));
-    strcpy(f_name, filename);
-
-    ext = strrchr(f_name, '.');
-    if (!ext)
-    {
-        // Free memory
-        free(f_name);
-        return NULL;
-    }
-
-    i = 0;
-
-    while (Mime_types[i][0] != NULL)
-    {
-        if (!strcmp(Mime_types[i][0], ext))
-        {
-            // Free memory
-            free(f_name);
-
-            // Get mime type
-            res = (char *)malloc(sizeof(char) * (strlen(Mime_types[i][1]) + 1));
-            strcpy(res, Mime_types[i][1]);
-            return res;
-        }
-        i++;
-    }
-
-    // Free memory
-    free(f_name);
-    return NULL;
-}
