@@ -59,7 +59,7 @@ function test_not_wellformed_entry_path () {
 	fi
 }
 
-test_not_wellformed_entry_path "fnaivbia"
-test_not_wellformed_entry_path "abfabca"
-test_not_wellformed_entry_path "cajbcaca"
+test_not_wellformed_entry_path "OXCAFEBABE"
+test_not_wellformed_entry_path "0xB16B00B5"
+test_not_wellformed_entry_path "0xDEADBEEF"
 
