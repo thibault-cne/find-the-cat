@@ -16,7 +16,6 @@
 
 #include "../includes/exec.h"
 #include "../includes/options.h"
-#include "../includes/validation.h"
 #include "../includes/errors.h"
 
 int main(int argc, char **argv)
@@ -24,7 +23,7 @@ int main(int argc, char **argv)
     if (argc > 1)
     {
         // Run validation on the entry path
-        if (validate_entry_path(argv[1]))
+        if (!is_dir(argv[1]))
         {
             printf("Error: please make sure to enter a valid path as first argument.\n");
             exit(1);

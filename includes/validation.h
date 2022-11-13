@@ -18,11 +18,6 @@ enum _ValidationStatus
 };
 typedef enum _ValidationStatus ValidationStatus;
 
-// Verify if the entry path is valid
-// @param entry the path to the entry
-// @return 0 if the entry path is valid, 1 otherwise
-int validate_entry_path(const char *entry);
-
 // Verify if an entry is an option
 // @param entry the string to verify
 // @return 1 if the entry is an option, 0 otherwise
