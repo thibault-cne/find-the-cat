@@ -49,3 +49,17 @@ function test_optional_param () {
 
 test_optional_param "." "-perm" "mimou"
 test_optional_param "." "-link" "so"
+
+function test_not_wellformed_entry_path () {
+	if [ ! "$(./ftc "$1" 2>&1)" == "Error: please make sure to enter a valid path as first argument." ];
+	then
+        echo "🔴 Test of not wellformed entry path failed with path: \"$1\""
+	else
+        echo "✅ Test of not wellformed entry path succeded (path: \"$1\")."
+	fi
+}
+
+test_not_wellformed_entry_path "fnaivbia"
+test_not_wellformed_entry_path "abfabca"
+test_not_wellformed_entry_path "cajbcaca"
+
