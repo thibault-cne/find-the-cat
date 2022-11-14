@@ -16,12 +16,14 @@ make
 ```
 
 If you want to install it on windows (yes it works on too). You can dowload [msys2](https://www.msys2.org) to use linux like commands such as make and gcc. On `msys2` you will need a couple of things :
+- make
 - gcc
 - regex.h
 
 You can dowload all those things with the following commands :
 
 ``` bash
+pacman -S make
 pacman -S mingw-w64-ucrt-x86_64-gcc
 pacman -S $MINGW_PACKAGE_PREFIX-libsystre
 ```
