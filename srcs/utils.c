@@ -72,6 +72,17 @@ int get_entry_type(const char *path) {
 	return DT_UNKNOWN;
 }
 
+double ft_pow(double x, int n) {
+	if (n < 0)
+		return ft_pow(1/x, -n);
+	if (!n)
+		return 1;
+	if (!(n%2))
+		return ft_pow(x*x, n/2);
+	else
+		return x * ft_pow(x*x, (n - 1)/2);
+}
+
 int ft_superatoi(char *beg, char *end) {
 	int size;
 	int i;
@@ -82,7 +93,7 @@ int ft_superatoi(char *beg, char *end) {
 	res = 0;
 
 	while(beg[++i] > 47 && beg[i] < 58) {
-		res += (beg[i] - 48) * (int)pow(10, size - 1 - i);
+		res += (beg[i] - 48) * (int)ft_pow(10, size - 1 - i);
 	}
 
 	return res;

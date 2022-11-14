@@ -5,7 +5,6 @@
 	#include "windows.h"
 #endif // _WIN32
 
-#include <math.h>
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,6 +27,8 @@ int is_dir(const char *path);
 char *format_entry_path(char *path);
 
 int get_entry_type(const char *path);
+
+double ft_pow(double x, int n);
 
 int ft_superatoi(char *beg, char *end);
 

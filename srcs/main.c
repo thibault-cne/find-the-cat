@@ -18,13 +18,10 @@
 #include "../includes/options.h"
 #include "../includes/errors.h"
 
-int main(int argc, char **argv)
-{
-    if (argc > 1)
-    {
+int main(int argc, char **argv) {
+    if (argc > 1) {
         // Run validation on the entry path
-        if (!is_dir(argv[1]))
-        {
+        if (!is_dir(argv[1])) {
             printf("Error: please make sure to enter a valid path as first argument.\n");
             exit(1);
         }
@@ -40,8 +37,7 @@ int main(int argc, char **argv)
         // Initialize the parser
         start_parser(&p, &l, argc, argv);
 
-        if (p.status != PARSER_SUCCESS)
-        {
+        if (p.status != PARSER_SUCCESS) {
             parser_error(&l, p.color_mode, p.error_ptr);
 
             // Free allocated memory
@@ -49,23 +45,18 @@ int main(int argc, char **argv)
             return 1;
         }
 
-        if (p.test_mode)
-        {
+        if (p.test_mode) {
             int i;
 
             i = -1;
 
-            while (++i < l.ptr)
-            {
+            while (++i < l.ptr) {
                 token *t = get_token_list_index(&l, i);
                 if (t->TokenType != TEST)
-                {
                     printf("La valeur du flag %s est %s\n", get_options_flag(t->TokenType), t->value);
-                }
             }
         }
-        else
-        {
+        else {
 			if (argc == 2)
 				p.dir_mode = 1;
 
