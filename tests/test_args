@@ -18,6 +18,7 @@ function test_wellformed_param () {
     fi
 }
 
+test_wellformed_param "~/Doc" "-name" "mimou"
 test_wellformed_param "." "-name" "mimou"
 test_wellformed_param ".." "-size" "mimou"
 test_wellformed_param "." "-date" "mimou"

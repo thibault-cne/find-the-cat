@@ -18,16 +18,13 @@
 #include "../includes/options.h"
 #include "../includes/errors.h"
 
+void safe_exit(token_list *tl, int status) {
+	destroy_token_list(tl);
+	exit(status);
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
-        // Run validation on the entry path
-        if (!is_dir(argv[1])) {
-            printf("Error: please make sure to enter a valid path as first argument.\n");
-            exit(1);
-        }
-        // Remove trailing slash if any
-        format_entry_path(argv[1]);
-
         token_list l;
         parser_t p;
 
@@ -40,9 +37,7 @@ int main(int argc, char **argv) {
         if (p.status != PARSER_SUCCESS) {
             parser_error(&l, p.color_mode, p.error_ptr);
 
-            // Free allocated memory
-            destroy_token_list(&l);
-            return 1;
+			safe_exit(&l, 1);
         }
 
         if (p.test_mode) {
@@ -57,6 +52,14 @@ int main(int argc, char **argv) {
             }
         }
         else {
+        	// Run validation on the entry path
+        	if (!is_dir(argv[1])) {
+            	printf("Error: please make sure to enter a valid path as first argument.\n");
+				safe_exit(&l, 1);
+        	}
+        	// Remove trailing slash if any
+        	format_entry_path(argv[1]);
+			
 			if (argc == 2)
 				p.dir_mode = 1;
 
@@ -64,11 +67,9 @@ int main(int argc, char **argv) {
             ft_exec_parser(&p, &l, argv[1]);
         }
 
-        // Free allocated memory
-        destroy_token_list(&l);
-
-        return 0;
+		safe_exit(&l, 0);
     }
 
     return 0;
 }
+

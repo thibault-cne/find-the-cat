@@ -280,13 +280,7 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
             p->thread_mode = atoi(argv[pos + 1]);
             // Verify if thread number is greater than one
             if (p->thread_mode < 1)
-            {
-                p->status = PARSER_INVALID_PARAMETER;
-                p->error_ptr = pos;
-
-                create_token(&t, pos, opt, "");
-                return 0;
-            }
+				p->thread_mode = 1;
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
