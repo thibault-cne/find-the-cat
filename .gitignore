@@ -1,7 +1,10 @@
-# Ingore object folder
+# Ignore object folder
 objs/
 *.o
 
 # Ignore build folder and exec file
 build/
 ftc
+
+# Ignore Dockerfile
+Dockerfile
