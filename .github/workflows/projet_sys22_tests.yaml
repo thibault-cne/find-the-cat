@@ -13,7 +13,7 @@ jobs:
 
       - name: Build executable
         run: make
-
+	  
 	  - name: Build tests files
 		run: |
 			mkdir arbre
