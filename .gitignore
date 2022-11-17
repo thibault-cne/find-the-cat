@@ -8,3 +8,7 @@ ftc
 
 # Ignore Dockerfile
 Dockerfile
+
+# Ignore arbre and tests folder
+arbre/
+tests/
