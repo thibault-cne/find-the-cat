@@ -18,8 +18,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test build
         run: ./tests/file_exist ./ftc
@@ -40,8 +40,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test args
         run: ./tests/test_args
@@ -62,8 +62,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test parkour
         run: ./tests/test_parkour
@@ -84,8 +84,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test name
         run: ./tests/test_name
@@ -106,8 +106,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test size
         run: ./tests/test_size
@@ -128,8 +128,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test date
         run: ./tests/test_date
@@ -150,8 +150,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test regex
         run: ./tests/test_regex
@@ -172,8 +172,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test mime
         run: ./tests/test_mime
@@ -194,8 +194,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test grep
         run: ./tests/test_grep
@@ -216,8 +216,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test dir
         run: ./tests/test_dir
@@ -238,8 +238,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test perm
         run: ./tests/test_perm
@@ -260,8 +260,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test name and size
         run: ./tests/test_name_and_size
@@ -282,8 +282,8 @@ jobs:
         run: |
           mkdir arbre
           mkdir tests
-          cp -r /arbre/* /arbre
-          cp -r /tests/* /tests
+          cp -r /arbre/* arbre
+          cp -r /tests/* tests
 
       - name: Check test mime and size
         run: ./tests/test_mime_and_size
