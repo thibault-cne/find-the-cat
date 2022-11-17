@@ -6,19 +6,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: yewolf/projet_sys22
+      image: thibaultcne/projet_sys22
     steps:
       - name: Check repository
         uses: actions/checkout@v3
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
 
       - name: Check test build
         run: ./tests/file_exist ./ftc
 
   test-args:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -26,12 +35,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
 
       - name: Check test args
         run: ./tests/test_args
 
   test-parkour:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -39,12 +57,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
 
       - name: Check test parkour
         run: ./tests/test_parkour
   
   test-name:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -52,12 +79,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
       
       - name: Check test name
         run: ./tests/test_name
   
   test-size:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -65,12 +101,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
       
       - name: Check test size
         run: ./tests/test_size
   
   test-date:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -78,12 +123,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
 
       - name: Check test date
         run: ./tests/test_date
   
   test-regex:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -91,12 +145,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
 
       - name: Check test regex
         run: ./tests/test_regex
 
   test-mime:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -104,12 +167,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
 
       - name: Check test mime
         run: ./tests/test_mime
   
   test-grep:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -117,12 +189,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
       
       - name: Check test grep
         run: ./tests/test_grep
 
   test-dir:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -130,12 +211,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
       
       - name: Check test dir
         run: ./tests/test_dir
 
   test-perm:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -143,12 +233,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
       
       - name: Check test perm
         run: ./tests/test_perm
 
   test-name-and-size:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -156,12 +255,21 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
       
       - name: Check test name and size
         run: ./tests/test_name_and_size
 
   test-mime-and-size:
     runs-on: ubuntu-latest
+    container:
+      image: thibaultcne/projet_sys22
     needs: build
     steps:
       - name: Check repository
@@ -169,6 +277,14 @@ jobs:
 
       - name: Build executable
         run: make
+
+	  - name: Build tests files
+        run: |
+          mkdir arbre
+		  mkdir tests
+          cp -r ./arbre/* ./arbre
+		  cp -r ./tests/* ./tests
       
       - name: Check test mime and size
         run: ./tests/test_mime_and_size
+
