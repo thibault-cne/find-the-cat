@@ -29,8 +29,10 @@ jobs:
     container:
       image: gl-registry.telecomnancy.univ-lorraine.fr/christophe.bouthier/rs2022-dockertest
     steps:
-      - name: Check
-        run: ls -al
+      - name: Build tests files
+        run: |
+          mkdir tests
+          cp -r /tests/* tests
 
       - name: Download
         uses: actions/upload-artifact@v3
