@@ -31,7 +31,9 @@ jobs:
     steps:
       - name: Build tests files
         run: |
+          mkdir arbre
           mkdir tests
+          cp -r /arbre/* arbre
           cp -r /tests/* tests
 
       - name: Download
@@ -39,6 +41,7 @@ jobs:
         with:
           path: |
             tests
+            arbre
 
   test-args:
     runs-on: ubuntu-latest
