@@ -26,15 +26,14 @@ jobs:
 
   retrive-image:
     runs-on: ubuntu-latest
-	container:
-	  image: gl-registry.telecomnancy.univ-lorraine.fr/christophe.bouthier/rs2022-dockertest
-	
-	steps:
-	  - name: Download
-		uses: actions/upload-artifact@v3
-		with:
-		  path: |
-		    test
+    container:
+      image: gl-registry.telecomnancy.univ-lorraine.fr/christophe.bouthier/rs2022-dockertest
+    steps:
+      - name: Download
+        uses: actions/upload-artifact@v3
+        with:
+          path: |
+            test
 
   test-args:
     runs-on: ubuntu-latest
