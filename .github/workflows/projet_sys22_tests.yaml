@@ -24,6 +24,18 @@ jobs:
       - name: Check test build
         run: ./tests/file_exist ./ftc
 
+  retrive-image:
+    runs-on: ubuntu-latest
+	container:
+	  image: gl-registry.telecomnancy.univ-lorraine.fr/christophe.bouthier/rs2022-dockertest
+	
+	steps:
+	  - name: Download
+		uses: actions/upload-artifact@v3
+		with:
+		  path: |
+		    test
+
   test-args:
     runs-on: ubuntu-latest
     container:
