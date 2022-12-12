@@ -12,3 +12,6 @@ Dockerfile
 # Ignore arbre and tests folder
 arbre/
 tests/
+
+# Ignore vscode settings
+.vscode/
