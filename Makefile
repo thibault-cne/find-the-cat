@@ -1,4 +1,4 @@
-FILES 	=	main.c 			\
+FILES	=	main.c 			\
 			parser.c 		\
 			token.c 		\
 			options.c 		\
@@ -56,22 +56,22 @@ ${O_PATH}%.o:	${S_PATH}%.c
 				@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${CYAN}Compiling${ESC}${S}${ESC}${S} ${ESC}${IGREY}$<${ESC}${S} ${ESC}${YELLOW}-> ${ESC}${S}${ESC}${SBLUE}$@${ESC}${S} ⚙️"
 
 
-${NAME}:			${OBJS}
-					@${CC} ${OBJS} ${CFLAGS} -o ${NAME} -I ${I_PATH}
-					@echo ""
-					@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${PURPLE}Building${ESC}${S}${ESC}${S} ${ESC}${IGREY}$@${ESC}${S} 🖥️"
-					@echo ""
-					@echo ${ECHO_FLAG} "${ESC}${ITALIC}${ESC}${SGREEN}Compilation is completed !${ESC}${S} 🎉"
+${NAME}:		${OBJS}
+				@${CC} ${OBJS} ${CFLAGS} -o ${NAME} -I ${I_PATH}
+				@echo ""
+				@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${PURPLE}Building${ESC}${S}${ESC}${S} ${ESC}${IGREY}$@${ESC}${S} 🖥️"
+				@echo ""
+				@echo ${ECHO_FLAG} "${ESC}${ITALIC}${ESC}${SGREEN}Compilation is completed !${ESC}${S} 🎉"
 
-all:		${NAME}
+all:			${NAME}
 
 clean:
-			@${RM} ${O_PATH}*
-			@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${O_PATH}${ESC}${S} 🗑️"
+				@${RM} ${O_PATH}*
+				@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${O_PATH}${ESC}${S} 🗑️"
 
-fclean:		clean
-			@${RM} ${NAME}
-			@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${NAME}${ESC}${S} 🗑️"
+fclean:			clean
+				@${RM} ${NAME}
+				@echo ${ECHO_FLAG} "${ESC}${BOLD}${ESC}${SRED}Removing${ESC}${S}${ESC}${S} ${ESC}${IGREY}${NAME}${ESC}${S} 🗑️"
 
 space:
 			@echo " "
