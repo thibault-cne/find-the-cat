@@ -12,14 +12,12 @@
 
 #include "../includes/errors.h"
 
-void parser_error(token_list *l, int isColored, int pos)
-{
+void parser_error(token_list *l, int isColored, int pos) {
     token *t;
     t = get_token_list_index(l, pos - 2);
 
-    if (t == NULL)
-    {
-        fprintf(stderr, "Error: Unknown error\n");
+    if (t == NULL) {
+        fprintf(stdin, "Error: Unknown error\n");
         return;
     }
 
@@ -32,9 +30,9 @@ void parser_error(token_list *l, int isColored, int pos)
     }
     else {
         if (t->TokenType == NONE)
-            fprintf(stdin, "Le flag %s n'est pas correct\n", t->value);
+            fprintf(stdout, "Le flag %s n'est pas correct\n", t->value);
         else
-            fprintf(stdin, "Le flag %s n'est pas correct\n", get_options_flag(t->TokenType));
+            fprintf(stdout, "Le flag %s n'est pas correct\n", get_options_flag(t->TokenType));
     }
 }
 

@@ -14,10 +14,8 @@
 
 #include "../includes/display.h"
 
-void f_printp(const char *path, int isColor)
-{
-    if (!isColor)
-    {
+void f_printp(const char *path, int isColor) {
+    if (!isColor) {
         printf("%s\n", path);
         return;
     }
@@ -35,10 +33,10 @@ void f_printp(const char *path, int isColor)
         end = beg + strcspn(beg, delimiters);
 
         if (*end == '\0') {
-            f_printf(stdin, "COLOR_BLUE|%.*s%c|S", (int)(end - beg), beg, *end);
+            f_printf(stdout, "COLOR_BLUE|%.*s%c|S", (int)(end - beg), beg, *end);
             break;
         }
-        f_printf(stdin, "S|%.*s%c", (int)(end - beg), beg, *end);
+        f_printf(stdout, "S|%.*s%c", (int)(end - beg), beg, *end);
 
         beg = end + 1;
     }
@@ -46,16 +44,14 @@ void f_printp(const char *path, int isColor)
     putchar('\n');
 }
 
-void display_help(int isColored)
-{
+void display_help(int isColored) {
     if (isColored)
-        f_printf(stdin, "COLOR_GREEN|STYLE_BOLD|%s|S: ./FindTheCat [PATH] [-OPTION [PARAMETER]]\n", "Usage");
+        f_printf(stdout, "COLOR_GREEN|STYLE_BOLD|%s|S: ./FindTheCat [PATH] [-OPTION [PARAMETER]]\n", "Usage");
     else
-        printf("%s: ./FindTheCat [PATH] [-OPTION [PARAMETER]]\n", "Usage");
+        fprintf(stdout, "%s: ./FindTheCat [PATH] [-OPTION [PARAMETER]]\n", "Usage");
 }
 
-char *f_sprintf(const char *format, va_list args)
-{
+char *f_sprintf(const char *format, va_list args) {
     va_list args2;
     size_t len;
 
@@ -74,8 +70,7 @@ char *f_sprintf(const char *format, va_list args)
 
 // Format is a string like COLOR|STYLE|text|COLOR|STYLE|text|...
 // Example: "COLOR_GREEN|STYLE_BOLD|Hello World|" will return "Hello World" in green and bold
-void f_printf(FILE *f, const char *format, ...)
-{
+void f_printf(FILE *f, const char *format, ...) {
     va_list args;
     char *str;
     char *beg;
@@ -93,8 +88,7 @@ void f_printf(FILE *f, const char *format, ...)
     whitespace = " \t";
     delimiters = "|";
 
-    while (*end != '\0')
-    {
+    while (*end != '\0') {
         beg += strspn(beg, whitespace);
         end = beg + strcspn(beg, delimiters);
         f_cprintf(f, &beg, &end);
@@ -105,8 +99,7 @@ void f_printf(FILE *f, const char *format, ...)
     free(str);
 }
 
-void f_cprintf(FILE *f, char **beg, char **end)
-{
+void f_cprintf(FILE *f, char **beg, char **end) {
     char *format;
     int i;
 
@@ -116,10 +109,8 @@ void f_cprintf(FILE *f, char **beg, char **end)
 
     i = -1;
 
-    while (styles[++i])
-    {
-        if (strcmp(format, styles[i]) == 0)
-        {
+    while (styles[++i]) {
+        if (strcmp(format, styles[i]) == 0) {
             fprintf(f, "%s", converted_styles[i]);
             free(format);
             return;
