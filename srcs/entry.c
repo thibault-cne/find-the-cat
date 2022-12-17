@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/06 22:53:59 by Thibault Cheneviere                      */
-/*   Updated: 2022/12/17 18:01:37 by Thibault Cheneviere                      */
+/*   Updated: 2022/12/17 18:33:37 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "../includes/entry.h"
 
 void create_entry(entry_t *e, char *path, unsigned char d_type, char *d_name) {
-	e->status = STATUS_NULL;
-	
 	e->path = (char *)malloc(sizeof(char) * strlen(path) + 1);
 	strcpy(e->path, path);
 

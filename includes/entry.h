@@ -10,10 +10,6 @@ struct _entry_t {
 	char *path;
 	unsigned char d_type;
 	char *d_name;
-	enum _status_t {
-		STATUS_OK,
-		STATUS_NULL,
-	}  status;
 	struct _entry_t *next;
 };
 typedef struct _entry_t entry_t;
