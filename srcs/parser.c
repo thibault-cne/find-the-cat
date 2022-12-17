@@ -60,23 +60,14 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
 
     incr = 0;
 
-    switch (opt)
-    {
+    switch (opt) {
     case TEST:
         p->test_mode = 1;
         create_token(&t, pos, opt, "test");
         break;
     case COLOR:
         p->color_mode = 1;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
-            create_token(&t, pos, opt, argv[pos + 1]);
-            incr = 1;
-        }
-        else
-        {
-            create_token(&t, pos, opt, "color");
-        }
+		create_token(&t, pos, opt, "color");
         break;
     case OR:
         p->or_mode = 1;

@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
         else {
         	// Run validation on the entry path
         	if (!is_dir(argv[1])) {
-            	printf("Error: please make sure to enter a valid path as first argument.\n");
+            	fprintf(stderr, "Error: please make sure to enter a valid path as first argument.\n");
 				safe_exit(&l, 1);
         	}
         	// Remove trailing slash if any

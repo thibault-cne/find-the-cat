@@ -117,6 +117,6 @@ void f_cprintf(FILE *f, char **beg, char **end) {
         }
     }
 
-    printf("%s", format);
+    fprintf(f, "%s", format);
     free(format);
 }

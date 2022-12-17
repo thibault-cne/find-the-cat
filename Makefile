@@ -41,7 +41,7 @@ CFLAGS		:=
 ifeq (${OS}, Windows_NT)
 	CFLAGS	= 	-O0 -g3 -pthread -lregex
 else
-	CFLAGS	=	-Werror -Wall -O0 -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls -pthread
+	CFLAGS	=	-fsanitize=address -Werror -Wall -O0 -g3 -fno-omit-frame-pointer -fno-optimize-sibling-calls -pthread
 endif
 
 ECHO_FLAG	:=

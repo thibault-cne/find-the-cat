@@ -29,6 +29,7 @@ int ft_verify_entry_1(entry_t *e, token_list *tl, int or_mode, int beg, int nm);
 
 int ft_verify_entry_2(entry_t *e, token_list *tl, int or_mode, int beg, int nm);
 int ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, int beg, int nm);
+int ft_verify_entry_4(entry_t *e, token_list *tl, int or_mode, int beg, int name_mode);
 
 /* exec_4.c */
 

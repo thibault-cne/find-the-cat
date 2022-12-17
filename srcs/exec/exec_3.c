@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/07 19:07:57 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/11 10:48:15 by Thibault Cheneviere                      */
+/*   Updated: 2022/12/17 16:39:41 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,40 @@ int ft_verify_entry_3(entry_t *e, token_list *tl, int or_mode, int beg, int name
 				}
 				break;
 			default:
-				return ft_verify_entry_1(e, tl, or_mode, i, name_mode);
+				return ft_verify_entry_4(e, tl, or_mode, i, name_mode);
 		}
 	}
 
 	return or_mode ^ 1;
 }
 
+
+int ft_verify_entry_4(entry_t *e, token_list *tl, int or_mode, int beg, int name_mode) {
+	int i;
+	token *t;
+
+	i = beg - 1;
+
+	while (++i < tl->ptr) {
+		t = get_token_list_index(tl, i);
+
+		switch(t->TokenType) {
+			case COLOR:
+				break;
+			case OR:
+				break;
+			case LINK:
+				break;
+			case THREADS:
+				break;
+			case TEST:
+				break;
+			case NONE:
+				break;
+			default:
+				return ft_verify_entry_1(e, tl, or_mode, i, name_mode);
+		}
+	}
+
+	return or_mode ^ 1;
+}
