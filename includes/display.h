@@ -61,11 +61,11 @@ char *f_sprintf(const char *format, va_list args);
 // Implementation of printf function with color and style
 // @param format the format of the string
 // @param ... the arguments
-void f_printf(const char *format, ...);
+void f_printf(FILE *f, const char *format, ...);
 
 // Display a string or a color or a style
 // @param beg the beginning of the string
 // @param end the end of the string
-void f_cprintf(char **beg, char **end);
+void f_cprintf(FILE *f, char **beg, char **end);
 
 #endif // FTC_DISPLAY_H

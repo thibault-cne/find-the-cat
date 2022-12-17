@@ -19,32 +19,22 @@ void parser_error(token_list *l, int isColored, int pos)
 
     if (t == NULL)
     {
-        printf("Error: Unknown error\n");
+        fprintf(stderr, "Error: Unknown error\n");
         return;
     }
 
-    if (isColored)
-    {
+    if (isColored) {
         // Display the error in red
         if (t->TokenType == NONE)
-        {
-            f_printf("Le flag |COLOR_RED|STYLE_BOLD%s|S| n'est pas correct\n", t->value);
-        }
+            f_printf(stderr, "Le flag |COLOR_RED|STYLE_BOLD%s|S| n'est pas correct\n", t->value);
         else
-        {
-            f_printf("Le flag |COLOR_RED|STYLE_BOLD%s|S| n'est pas correct\n", get_options_flag(t->TokenType));
-        }
+            f_printf(stderr, "Le flag |COLOR_RED|STYLE_BOLD%s|S| n'est pas correct\n", get_options_flag(t->TokenType));
     }
-    else
-    {
+    else {
         if (t->TokenType == NONE)
-        {
-            printf("Le flag %s n'est pas correct\n", t->value);
-        }
+            fprintf(stdin, "Le flag %s n'est pas correct\n", t->value);
         else
-        {
-            printf("Le flag %s n'est pas correct\n", get_options_flag(t->TokenType));
-        }
+            fprintf(stdin, "Le flag %s n'est pas correct\n", get_options_flag(t->TokenType));
     }
 }
 
