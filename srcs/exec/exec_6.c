@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/08 12:23:20 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/11 10:49:57 by Thibault Cheneviere                      */
+/*   Updated: 2022/12/17 18:00:28 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void *ft_th_verify_entry(void *arg) {
 	while(1) {
 		entry_t *entry;
 
-		if (a->el->status == STATUS_END && a->el->ptr == a->el->size)
+		if (a->el->status == STATUS_END && a->el->data == NULL)
 			break;
 
 		pthread_mutex_lock(&a->mutex[0]);
@@ -32,6 +32,8 @@ void *ft_th_verify_entry(void *arg) {
 		
 		if (ft_verify_entry_1(entry, a->tl, a->or_mode, 0, a->name_mode))
 			ft_fprintp(entry, a->color_mode, &a->mutex[1]);
+
+		destroy_entry(entry);
 	}
 
 	return NULL;

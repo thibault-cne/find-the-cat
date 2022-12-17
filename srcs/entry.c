@@ -6,7 +6,7 @@
 /*   By: Thibault Cheneviere <thibault.cheneviere@telecomnancy.eu>            */
 /*                                                                            */
 /*   Created: 2022/11/06 22:53:59 by Thibault Cheneviere                      */
-/*   Updated: 2022/11/08 14:57:44 by Thibault Cheneviere                      */
+/*   Updated: 2022/12/17 18:01:37 by Thibault Cheneviere                      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void destroy_entry(entry_t *e) {
 }
 
 void create_entry_list(entry_list_t *el) {
-	el->size = 0;
-	el->ptr = 0;
 	el->data = NULL;
 	el->status = STATUS_GOING;
 }
@@ -43,7 +41,6 @@ void add_entry_list_t(entry_list_t *el, entry_t e) {
 	
 	ne = (entry_t *)malloc(sizeof(entry_t));
 	create_entry(ne, e.path, e.d_type, e.d_name);
-	el->size++;
 
 	if (el->data == NULL) {
 		el->data = ne;
@@ -60,27 +57,12 @@ void add_entry_list_t(entry_list_t *el, entry_t e) {
 	ce->next = ne;
 }
 
-entry_t *get_entry_list(entry_list_t *el, int index) {
-	entry_t *ce;
-	int i;
-
-	ce = el->data;
-	i = -1;
-
-	while(++i < index && ce->next != NULL) {
-		ce = ce->next;
-	}
-
-	if (i == index)
-		return ce;
-
-	return NULL;
-}
-
 entry_t *get_entry_list_th(entry_list_t *el) {
-	if (el->ptr < el->size)
-		return get_entry_list(el, el->ptr++);
-	
+	if (el->data != NULL) {
+		entry_t *r = el->data;
+		el->data = r->next;
+		return r;
+	}
 
 	return NULL;
 }
