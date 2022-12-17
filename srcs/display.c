@@ -69,7 +69,7 @@ char *f_sprintf(const char *format, va_list args) {
 }
 
 // Format is a string like COLOR|STYLE|text|COLOR|STYLE|text|...
-// Example: "COLOR_GREEN|STYLE_BOLD|Hello World|" will return "Hello World" in green and bold
+// Example: "COLOR_GREEN|STYLE_BOLD|Hello World" will return "Hello World" in green and bold
 void f_printf(FILE *f, const char *format, ...) {
     va_list args;
     char *str;
@@ -85,7 +85,7 @@ void f_printf(FILE *f, const char *format, ...) {
     beg = str;
     end = str;
 
-    whitespace = " \t";
+    whitespace = "\t";
     delimiters = "|";
 
     while (*end != '\0') {

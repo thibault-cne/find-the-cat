@@ -17,16 +17,16 @@ void parser_error(token_list *l, int isColored, int pos) {
     t = get_token_list_index(l, pos - 2);
 
     if (t == NULL) {
-        fprintf(stdin, "Error: Unknown error\n");
+        fprintf(stderr, "Error: Unknown error\n");
         return;
     }
 
     if (isColored) {
         // Display the error in red
         if (t->TokenType == NONE)
-            f_printf(stderr, "Le flag |COLOR_RED|STYLE_BOLD%s|S| n'est pas correct\n", t->value);
+            f_printf(stdout, "Le flag |COLOR_RED|STYLE_BOLD|%s|S| n'est pas correct\n", t->value);
         else
-            f_printf(stderr, "Le flag |COLOR_RED|STYLE_BOLD%s|S| n'est pas correct\n", get_options_flag(t->TokenType));
+            f_printf(stdout, "Le flag |COLOR_RED|STYLE_BOLD|%s|S| n'est pas correct\n", get_options_flag(t->TokenType));
     }
     else {
         if (t->TokenType == NONE)
