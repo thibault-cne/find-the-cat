@@ -10,7 +10,7 @@
 // @param l the token list
 // @param isColored if the color is enable
 // @param pos the position of the error
-void parser_error(token_list *l, int isColored, int pos);
+void parser_error(token_list *l, int isColored, int pos, parser_status status);
 
 // Get the error message from a parser_t status
 // @param err the parser_t status

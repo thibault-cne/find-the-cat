@@ -71,33 +71,28 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         break;
     case OR:
         p->or_mode = 1;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             create_token(&t, pos, opt, "or");
         }
         break;
     case LINK:
         p->link_mode = 1;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             create_token(&t, pos, opt, "link");
         }
         break;
     case DIRECTORY:
-        if (p->name_mode == 1)
-        {
+        if (p->name_mode == 1) {
             p->status = PARSER_ERROR;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -107,8 +102,7 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
             return 0;
         }
         p->name_mode = 0;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
@@ -119,10 +113,9 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         }
         break;
     case NAME:
-        if (p->name_mode == 0)
-        {
+        if (p->name_mode == 0) {
             p->status = PARSER_ERROR;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -132,15 +125,13 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
             return 0;
         }
         p->name_mode = 1;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             p->status = PARSER_PARAM_MISSING;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -151,10 +142,9 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         }
         break;
     case SIZE:
-        if (p->name_mode == 0)
-        {
+        if (p->name_mode == 0) {
             p->status = PARSER_ERROR;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -164,15 +154,13 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
             return 0;
         }
         p->name_mode = 1;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             p->status = PARSER_PARAM_MISSING;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -183,15 +171,13 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         }
         break;
     case DATE:
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             p->status = PARSER_PARAM_MISSING;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -202,10 +188,9 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         }
         break;
     case MIME:
-        if (p->name_mode == 0)
-        {
+        if (p->name_mode == 0) {
             p->status = PARSER_ERROR;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -215,15 +200,13 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
             return 0;
         }
         p->name_mode = 1;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             p->status = PARSER_PARAM_MISSING;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -234,10 +217,9 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         }
         break;
     case CTC:
-        if (p->name_mode == 0)
-        {
+        if (p->name_mode == 0) {
             p->status = PARSER_ERROR;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -247,15 +229,13 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
             return 0;
         }
         p->name_mode = 1;
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             p->status = PARSER_PARAM_MISSING;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -266,8 +246,7 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         }
         break;
     case THREADS:
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             p->thread_mode = atoi(argv[pos + 1]);
             // Verify if thread number is greater than one
             if (p->thread_mode < 1)
@@ -275,10 +254,9 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             p->status = PARSER_PARAM_MISSING;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -289,15 +267,13 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         }
         break;
     case PERM:
-        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1]))
-        {
+        if (pos + 1 < argc && !validate_entry_is_not_opt(argv[pos + 1])) {
             create_token(&t, pos, opt, argv[pos + 1]);
             incr = 1;
         }
-        else
-        {
+        else {
             p->status = PARSER_PARAM_MISSING;
-            p->error_ptr = pos;
+            p->error_ptr = l->ptr;
 
             create_token(&t, pos, opt, "");
             add_token_list(l, t);
@@ -309,7 +285,7 @@ int set_opt_parser(parser_t *p, token_list *l, Options opt, int argc, char **arg
         break;
     default:
         p->status = PARSER_INVALID_OPTION;
-        p->error_ptr = pos;
+        p->error_ptr = l->ptr;
 
         create_token(&t, pos, NONE, argv[pos]);
         add_token_list(l, t);

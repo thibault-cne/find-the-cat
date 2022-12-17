@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
         start_parser(&p, &l, argc, argv);
 
         if (p.status != PARSER_SUCCESS) {
-            parser_error(&l, p.color_mode, p.error_ptr);
+            parser_error(&l, p.color_mode, p.error_ptr, p.status);
 
 			safe_exit(&l, 1);
         }

@@ -12,12 +12,12 @@
 
 #include "../includes/errors.h"
 
-void parser_error(token_list *l, int isColored, int pos) {
+void parser_error(token_list *l, int isColored, int pos, parser_status status) {
     token *t;
-    t = get_token_list_index(l, pos - 2);
+    t = get_token_list_index(l, pos);
 
     if (t == NULL) {
-        fprintf(stderr, "Error: Unknown error\n");
+        fprintf(stderr, "Error : %s\n", get_error_message(status));
         return;
     }
 
